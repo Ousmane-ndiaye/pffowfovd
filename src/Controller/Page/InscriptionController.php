@@ -32,7 +32,7 @@ class InscriptionController extends BaseController
 
             $params = $inscription->getProfilChoisi($form->getData());
 
-            return $this->redirectToRoute($params[0], [1]);
+            return $this->redirectToRoute($params[0], $params[1]);
         }
         return $this->render('pages/front/inscription/choisir-profil.html.twig', [
             self::FORM => $form->createView(),

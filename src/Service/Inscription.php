@@ -4,9 +4,11 @@ namespace App\Service;
 
 class Inscription
 {
+
     public function getProfilChoisi($data)
     {
-        switch ($data[self::PROFIL]) {
+        $profil = $data['profil'];
+        switch ($profil) {
             case 'entreprise':
                 $path = 'choisir_plan';
                 $params = [];
@@ -14,16 +16,15 @@ class Inscription
 
             case 'professionnel':
                 $path = 'creation_compte';
-                $params = [self::PROFIL => $data[self::PROFIL]];
+                $params = ['profil' => $profil];
                 break;
 
             default:
                 $path = 'choisir_profil';
                 $params = [];
-                $this->addFlash(self::DANGER, 'Veillez choisir un profil.');
+                $this->addFlash('danger', 'Veillez choisir un profil.');
                 break;
         }
-
         return [$path, $params];
     }
 }
