@@ -1,0 +1,128 @@
+{% extends 'pages/front/base.html.twig' %}
+
+{% block title %}Dashboard !{% endblock %}
+
+{% block main %}
+	<div id="content-sidebar-pro">
+		
+		<div id="content-sidebar-info">
+			<img src="{{asset('assets/front/images/demo/profile-image-sidebar.jpg')}}" alt="Suzie">
+			<div id="profile-sidebar-name">
+				<h5>Suzie Smith</h5>
+				<h6>Manila, Philippines</h6>
+			</div>
+			<div id="profile-sidebar-gradient"></div>
+			<a href="{{path('use_parametres')}}" class="edit-profile-sidebar"><i class="fas fa-pencil-alt"></i></a>
+		</div>
+		
+		<div class="content-sidebar-section">
+			<h3 class="content-sidebar-sub-header">Watched</h3>
+			<ul id="profile-watched-stats">
+				<li><span>43</span> Movies</li>
+				<li><span>28</span> Series</li>
+				<li><span>07</span> Docs</li>
+			</ul>
+		</div><!-- close .content-sidebar-section -->
+		
+		<div class="content-sidebar-section">
+			<h3 class="content-sidebar-sub-header">Favorite Genres</h3>
+			<ul id="profile-favorite-genres">
+				<li>
+					<img src="{{asset('assets/front/images/genres/comedy.png')}}" alt="Comedy">
+				</li>
+				<li>
+					<img src="{{asset('assets/front/images/genres/action.png')}}" alt="Action">
+				</li>
+				<li>
+					<img src="{{asset('assets/front/images/genres/romance.png')}}" alt="Romance">
+				</li>
+				<li>
+					<img src="{{asset('assets/front/images/genres/fantasy.png')}}" alt="Fantasy">
+				</li>
+			</ul>
+			<div class="clearfix"></div>
+		</div><!-- close .content-sidebar-section -->
+		
+		<div class="content-sidebar-section">
+			<h3 class="content-sidebar-sub-header">Friends: 87</h3>
+			<ul id="friends-activity-profiles">
+				<li><a href="javascript:void(0);"><img src="{{asset('assets/front/images/demo/user-8.jpg')}}" alt="Friend"></a></li>
+				<li><a href="javascript:void(0);"><img src="{{asset('assets/front/images/demo/user-9.jpg')}}" alt="Friend"></a></li>
+				<li><a href="javascript:void(0);"><img src="{{asset('assets/front/images/demo/user-10.jpg')}}" alt="Friend"></a></li>
+				<li><a href="javascript:void(0);"><img src="{{asset('assets/front/images/demo/user-11.jpg')}}" alt="Friend"></a></li>
+				<li class="friends-activity-profiles-more"><a href="javascript:void(0);">+83</a></li>
+			</ul>
+			<div class="clearfix"></div>
+		</div><!-- close .content-sidebar-section -->
+		
+		<div class="content-sidebar-section">
+			<h3 class="content-sidebar-sub-header">Friends Activity</h3>
+			<ul id="friends-activity-feed">
+				<li><img src="{{asset('assets/front/images/demo/user-15.jpg')}}" alt="Friend">Added <a href="javascript:void(0);">Interstellar</a> to her Favorite Playlist</li>
+				<li><img src="{{asset('assets/front/images/demo/user-8.jpg')}}" alt="Friend">Wants to Watch <a href="javascript:void(0);">The Imitation Game</a></li>
+				<li><img src="{{asset('assets/front/images/demo/user-9.jpg')}}" alt="Friend">Added <a href="javascript:void(0);">Moonlight</a> to his <a href="javascript:void(0);">Playlist Best Dramas</a></li>
+				<li><img src="{{asset('assets/front/images/demo/user-4.jpg')}}" alt="Friend">Watched <a href="javascript:void(0);">Transformers: The Last Knight</a></li>
+			</ul>
+			<div class="clearfix"></div>
+		</div><!-- close .content-sidebar-section -->
+		
+		
+	</div><!-- close #content-sidebar-pro -->
+
+	<main id="col-main-with-sidebar">
+		<div class="dashboard-container">
+			
+			<ul class="dashboard-sub-menu">
+				<li class="current"><a href="javascript:void(0);">Recommended</a></li>
+				<li><a href="javascript:void(0);">Favorites</a></li>
+				<li><a href="javascript:void(0);">Playlists</a></li>
+				<li><a href="javascript:void(0);">Reviews</a></li>
+				<li><a href="javascript:void(0);">Friends</a></li>
+			</ul><!-- close .dashboard-sub-menu -->
+			
+			
+			<div class="row">
+				<div class="col-12 col-md-6 col-lg-6 col-xl-4">
+					<div class="item-listing-container-skrn">
+						<a href="javascript:void(0);"><img src="{{asset('assets/front/images/demo/listing-1.jpg')}}" alt="Listing"></a>
+						<div class="item-listing-text-skrn">
+							<div class="item-listing-text-skrn-vertical-align"><h6><a href="javascript:void(0);">The Wild Things Are</a></h6>
+								<div class="circle-rating-pro" data-value="0.86" data-animation-start-value="0.86" data-size="32" data-thickness="3" data-fill="{&quot;color&quot;: &quot;#42b740&quot;}" data-empty-fill="#def6de" data-reverse="true"><span style="color:#42b740;">8.6</span></div>
+							</div><!-- close .item-listing-text-skrn-vertical-align -->
+						</div><!-- close .item-listing-text-skrn -->
+					</div><!-- close .item-listing-container-skrn -->
+				</div><!-- close .col -->
+				
+				<div class="col-12 col-md-6 col-lg-6 col-xl-4">
+					<div class="item-listing-container-skrn">
+						<a href="javascript:void(0);"><img src="{{asset('assets/front/images/demo/listing-2.jpg')}}" alt="Listing"></a>
+						<div class="item-listing-text-skrn">
+							<div class="item-listing-text-skrn-vertical-align"><h6><a href="javascript:void(0);">Central Intelligence</a></h6>
+								<div class="circle-rating-pro" data-value="0.6" data-animation-start-value="0.6" data-size="32" data-thickness="3" data-fill="{&quot;color&quot;: &quot;#ff4141&quot;}" data-empty-fill="#ffe1e1" data-reverse="true"><span style="color:#ff4141;">6.0</span></div>
+							</div><!-- close .item-listing-text-skrn-vertical-align -->
+						</div><!-- close .item-listing-text-skrn -->
+					</div><!-- close .item-listing-container-skrn -->
+				</div><!-- close .col -->
+				
+				
+				<div class="col-12 col-md-6 col-lg-6 col-xl-4">
+					<div class="item-listing-container-skrn">
+						<a href="javascript:void(0);"><img src="{{asset('assets/front/images/demo/listing-3.jpg')}}" alt="Listing"></a>
+						<div class="item-listing-text-skrn">
+							<div class="item-listing-text-skrn-vertical-align"><h6><a href="javascript:void(0);">Zoolander No. 2</a></h6>
+								<div class="circle-rating-pro" data-value="0.86" data-animation-start-value="0.86" data-size="32" data-thickness="3" data-fill="{&quot;color&quot;: &quot;#42b740&quot;}" data-empty-fill="#def6de" data-reverse="true"><span style="color:#42b740;">8.6</span></div>
+							</div><!-- close .item-listing-text-skrn-vertical-align -->
+						</div><!-- close .item-listing-text-skrn -->
+					</div><!-- close .item-listing-container-skrn -->
+				</div><!-- close .col -->									
+			</div><!-- close .row -->
+		</div><!-- close .dashboard-container -->
+	</main>
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{asset('assets/front/js/jquery-asRange.min.js')}}" defer></script><!-- Range Slider JS Plugin -->
+    <script src="{{asset('assets/front/js/circle-progress.min.js')}}" defer></script><!-- Circle Progress JS Plugin -->
+    <script src="{{asset('assets/front/js/script-dashboard.js')}}" defer></script><!-- Custom Document Ready for Dashboard Only JS -->
+{% endblock %}

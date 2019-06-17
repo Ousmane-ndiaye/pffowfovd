@@ -1,0 +1,121 @@
+{% extends 'pages/default/index.html.twig' %}
+
+{% block title %}Choisir votre type de compte{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+    <style>
+        #page-title-pro {
+            padding: 40px 0;
+        }
+        #form_save,
+        #form_save:hover {
+            color: #fff;
+            border-color: #3db13d;
+            background: #3db13d;
+            cursor: pointer;
+        }
+        #form_save:disabled,
+        #form_save:disabled:hover {
+            background: #dddddd;
+            border-color: #dddddd;
+            color: #666;
+            cursor: not-allowed;
+        }
+        .jumbotron-pro.active {
+            border-color: #3db13d;
+        }
+        .jumbotron-pro.active:before {
+            color: #3db13d;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div id="page-title-pro">
+        <div class="container">
+            <div class="row">
+                <h1>Choisir votre type de compte</h1>
+            </div><!-- close .row -->
+        </div><!-- close .container -->
+    </div><!-- close #page-title-pro -->
+
+    <div id="content-pro">
+        
+        <div class="container">
+            
+            <div class="row">
+                <div class="col-md">
+                    <div class="jumbotron jumbotron-fluid jumbotron-pro cursor-pointer" data-val="entreprise">
+                        <div class="container">
+                            <span class="icon-User"></span>
+                            <h3 class="light-weight-heading">Entreprise</h3>
+                        </div>
+                    </div><!-- close .jumbotron -->
+                    
+                </div><!-- close .col-md -->
+                <div class="col-md">
+                    
+                    <div class="jumbotron jumbotron-fluid jumbotron-pro cursor-pointer" data-val="professionnel">
+                        <div class="container">
+                            <span class="icon-TV"></span>
+                            <h3 class="light-weight-heading">Professionnel</h3>
+                        </div>
+                    </div><!-- close .jumbotron -->
+                    
+                </div><!-- close .col-md -->
+            </div><!-- close .row -->
+
+            <div class="row">
+                <div class="col-md">
+                    <h6 class="light-weight-heading">Compte entreprise c'est quoi?</h6>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur molestie lectus at erat venenatis scelerisque. Integer viverra at tortor nec interdum integer vulputate venen neque vel gravida. Maecenas posuere magna lorem, non ultrices tortor  bibendum non. Curabitur ut ante ante.</p>
+                </div><!-- close .col-md -->
+                
+                
+                <div class="col-md">
+                    <h6 class="light-weight-heading">Compte professionnel c'est quoi?</h6>
+                    <p>Maecenas posuere magna lorem, non ultrices tortor bibendum non. Curabitur ut ante ante. Phasellus vitae dolor condimentum, accumsan urna at</p>
+                </div><!-- close .col-md -->
+            </div><!-- close .row -->
+
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    {{ form_start(form, {'attr': {'id': 'form-choisir-profil'}}) }}
+                        {{ form_widget(form.save, {'attr': {'class': 'btn btn-block btn-lg', 'disabled': 'disabled'}}) }}
+                    {{ form_end(form) }}
+                </div><!-- close .col-md -->
+            </div><!-- close .row -->
+
+            <div class="clearfix"></div>
+        </div><!-- close .container -->
+        
+        
+    </div><!-- close #content-pro -->
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script>
+        $(function(){
+            $('#form_save').attr('disabled', 'disabled');
+            
+            $('.jumbotron-pro').click(function(){
+                $('.jumbotron-pro').removeClass('active');
+                $('.jumbotron-pro').find('.fa-check-circle').remove();
+                $(this).addClass('active');
+                $(this).append('<i class="fas fa-check-circle"></i>');
+                $('#form_profil').val($(this).data('val'));
+                $('#form_save').removeAttr('disabled');
+            });
+            
+            $('#form_save').click(function(){
+                if ($('#form_profil').val() != '') {
+                    $(this).removeAttr('disabled');
+                } else {
+                    $(this).attr('disabled', 'disabled');
+                }
+            });
+        });
+    </script>
+{% endblock %}

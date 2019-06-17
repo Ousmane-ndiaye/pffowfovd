@@ -1,0 +1,55 @@
+{% extends 'pages/front/base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<div class="modal-dialog modal-dialog-centered modal-md" role="document">
+    <div class="modal-content">
+        <div class="modal-header-pro">
+            <h2>Welcome Back</h2>
+            <h6>Sign in to your account to continue using SKRN</h6>
+        </div>
+        <div class="modal-body-pro social-login-modal-body-pro">
+            <div class="registration-social-login-container">
+                <form method="post">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                    <div class="form-group">
+                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required>
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-green-pro btn-display-block">Se connecter</button>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row no-gutters">
+                            <div class="col checkbox-remember-pro"><input type="checkbox" name="_remember_me" id="checkbox-remember"><label for="checkbox-remember" class="col-form-label">Remember me</label></div>
+                            <div class="col forgot-your-password"><a href="">Mot de passe oublié?</a></div>
+                        </div>
+                    </div><!-- close .container-fluid -->
+        
+                </form>
+
+                <div class="registration-social-login-or">or</div>
+
+            </div><!-- close .registration-social-login-container -->
+
+            <div class="registration-social-login-options">
+                <h6>Sign in with your social account</h6>
+                <div class="social-icon-login facebook-color"><em class="fab fa-facebook-f"></em> Facebook</div>
+                <div class="social-icon-login twitter-color"><em class="fab fa-twitter"></em> Twitter</div>
+                <div class="social-icon-login google-color"><em class="fab fa-google-plus-g"></em> Google</div>
+            </div><!-- close .registration-social-login-options -->
+
+            <div class="clearfix"></div>
+
+        </div><!-- close .modal-body -->
+
+        <a class="not-a-member-pro" href="{{path('choisir_profil')}}">Vous n'êtes pas membre? <span>Rejoignez nous aujourd'hui!</span></a>
+    </div><!-- close .modal-content -->
+</div><!-- close .modal-dialog -->
+{% endblock %}
