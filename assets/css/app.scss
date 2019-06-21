@@ -1,0 +1,33 @@
+@import "~bootstrap/scss/bootstrap";
+@import "../../public/assets/front/style.css";
+@import "../../public/assets/front/icons/fontawesome/css/fontawesome-all.min.css";
+@import "../../public/assets/front/icons/Iconsmind__Ultimate_Pack/Line_icons/styles.min.css";
+a:hover {
+	text-decoration: none;
+}
+.btn {
+	font-weight: 400;
+	padding: 12px 20px;
+	font-size: 13px;
+	border: 1px solid #e7e7e7;
+	background: #f9f9f9;
+	color: #666;
+}
+#pro-scroll-top:hover,
+.btn-green-pro,
+.btn-header-pro:hover,
+.btn:hover,
+.flex-control-paging li a.flex-active,
+.sf-menu a:before,
+a.not-a-member-pro:hover,
+body .short-border-bottom:after,
+ul.page-numbers li span.page-numbers.current {
+	color: #fff;
+	border-color: #3db13d;
+	background: #3db13d;
+}
+@media (min-width: 992px) {
+	.modal-md {
+		max-width: 600px;
+	}
+}

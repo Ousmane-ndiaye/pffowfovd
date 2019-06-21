@@ -4,31 +4,7 @@
 
 {% block stylesheets %}
     {{parent()}}
-    <style>
-        #page-title-pro {
-            padding: 40px 0;
-        }
-        #form_save,
-        #form_save:hover {
-            color: #fff;
-            border-color: #3db13d;
-            background: #3db13d;
-            cursor: pointer;
-        }
-        #form_save:disabled,
-        #form_save:disabled:hover {
-            background: #dddddd;
-            border-color: #dddddd;
-            color: #666;
-            cursor: not-allowed;
-        }
-        .jumbotron-pro.active {
-            border-color: #3db13d;
-        }
-        .jumbotron-pro.active:before {
-            color: #3db13d;
-        }
-    </style>
+    {{ encore_entry_link_tags('choix-profil') }}
 {% endblock %}
 
 {% block main %}
@@ -96,26 +72,5 @@
 
 {% block javascripts %}
     {{parent()}}
-    <script>
-        $(function(){
-            $('#form_save').attr('disabled', 'disabled');
-            
-            $('.jumbotron-pro').click(function(){
-                $('.jumbotron-pro').removeClass('active');
-                $('.jumbotron-pro').find('.fa-check-circle').remove();
-                $(this).addClass('active');
-                $(this).append('<i class="fas fa-check-circle"></i>');
-                $('#form_profil').val($(this).data('val'));
-                $('#form_save').removeAttr('disabled');
-            });
-            
-            $('#form_save').click(function(){
-                if ($('#form_profil').val() != '') {
-                    $(this).removeAttr('disabled');
-                } else {
-                    $(this).attr('disabled', 'disabled');
-                }
-            });
-        });
-    </script>
+    {{ encore_entry_script_tags('choix-profil') }}
 {% endblock %}

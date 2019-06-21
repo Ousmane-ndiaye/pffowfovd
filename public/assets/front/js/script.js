@@ -40,9 +40,9 @@ jQuery(document).ready(function($) {
 		.resize();
 
 	/* Sitcky Video Sidebar */
-	$('nav#sidebar-nav.sticky-sidebar-js').hcSticky({
+	/* $('nav#sidebar-nav.sticky-sidebar-js').hcSticky({
 		top: 0
-	});
+	}); */
 
 	/*
 =============================================== 02. MOBILE NAVIGATION ACTIVATION  ===============================================

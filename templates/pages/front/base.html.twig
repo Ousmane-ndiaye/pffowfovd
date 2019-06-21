@@ -5,12 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>{% block title %}Bienvenue!{% endblock %}</title>
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{asset('assets/front/css/bootstrap.min.css')}}">
-            <link rel="stylesheet" href="{{asset('assets/front/style.css')}}">
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMontserrat:300,400,600,700">
-            
-            <link rel="stylesheet" href="{{asset('assets/front/icons/fontawesome/css/fontawesome-all.min.css')}}"><!-- FontAwesome Icons -->
-            <link rel="stylesheet" href="{{asset('assets/front/icons/Iconsmind__Ultimate_Pack/Line_icons/styles.min.css')}}"><!-- iconsmind.com Icons -->
+            {{ encore_entry_link_tags('app') }}
         {% endblock %}
     </head>
     <body>
@@ -270,16 +266,7 @@
             </div>
         {% endblock %}
         {% block javascripts %}
-            <!-- Required Framework JavaScript -->
-            <script src="{{asset('assets/front/js/libs/jquery-3.4.1.min.js')}}"></script><!-- jQuery -->
-            <script src="{{asset('assets/front/js/libs/popper.min.js')}}" defer></script><!-- Bootstrap Popper/Extras JS -->
-            <script src="{{asset('assets/front/js/libs/bootstrap.min.js')}}" defer></script><!-- Bootstrap Main JS -->
-            <!-- All JavaScript in Footer -->
-            
-            <!-- Additional Plugins and JavaScript -->
-            <script src="{{asset('assets/front/js/navigation.js')}}" defer></script><!-- Header Navigation JS Plugin -->
-            <script src="{{asset('assets/front/js/jquery.flexslider-min.js')}}" defer></script><!-- FlexSlider JS Plugin -->		
-            <script src="{{asset('assets/front/js/script.js')}}" defer></script><!-- Custom Document Ready JS -->
+            {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </body>
 </html>
