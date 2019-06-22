@@ -28,10 +28,9 @@ abstract class BaseUser
     protected $roles = [];
 
     /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="datetime")
      */
-    protected $password;
+    private $created_at;
 
     public function __construct()
     {
@@ -62,7 +61,7 @@ abstract class BaseUser
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -84,19 +83,29 @@ abstract class BaseUser
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getPassword(): string
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return (string) $this->password;
+        return $this->created_at;
     }
 
-    public function setPassword(string $password): self
+    public function setCreatedAt(\DateTimeInterface $created_at): self
     {
-        $this->password = $password;
+        $this->created_at = $created_at;
 
         return $this;
+    }
+
+    /**
+     * Returns the password used to authenticate the user.
+     *
+     * This should be the encoded password. On authentication, a plain-text
+     * password will be salted, encoded, and then compared to this value.
+     *
+     * @return string The password
+     */
+    public function getPassword()
+    {
+        return null;
     }
 
     /**
@@ -118,6 +127,6 @@ abstract class BaseUser
 
     public function __toString(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 }

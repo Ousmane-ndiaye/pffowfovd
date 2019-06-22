@@ -27,14 +27,10 @@
                 </nav>
 
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    {% set url = path('app_logout') %}
-                    {% set label = 'Se deconnecter' %}
+                    <a href="{{ path('app_logout') }}" class="btn btn-header-pro btn-green-pro noselect">Se deconnecter</a>
                 {% else %}
-                    {% set url = path('app_login') %}
-                    {% set label = 'Se connecter' %}
-                    <a href="{{ path('choisir_profil') }}" class="btn btn-header-pro btn-green-pro noselect">Devenez membre !</a>
+                    <a href="{{ path('connect_google') }}" class="btn btn-header-pro btn-green-pro noselect">Se connecter / Devenez membre !</a>
                 {% endif %}
-                <a href="{{url}}" class="btn btn-header-pro noselect">{{label}}</a>
                 <div id="mobile-bars-icon-pro" class="noselect"><em class="fas fa-bars"></em></div>
                 
                 <div class="clearfix"></div>
@@ -58,10 +54,11 @@
                 </ul>
                 <div class="clearfix"></div>
                 
-                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <a href="{{ path('choisir_profil') }}" class="btn btn-header-pro btn-green-pro noselect">Devenez membre !</a>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <a href="{{ path('app_logout') }}" class="btn btn-header-pro btn-green-pro noselect">Se deconnecter</a>
+                {% else %}
+                    <a href="{{ path('connect_google') }}" class="btn btn-header-pro btn-green-pro noselect">Se connecter / Devenez membre !</a>
                 {% endif %}
-                <a href="{{url}}" class="btn btn-header-pro noselect">{{label}}</a>
             
             </nav>
         </header>
