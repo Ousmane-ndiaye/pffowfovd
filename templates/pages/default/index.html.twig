@@ -30,7 +30,7 @@
                     {% set url = path('app_logout') %}
                     {% set label = 'Se deconnecter' %}
                 {% else %}
-                    {% set url = path('app_login') %}
+                    {% set url = path('connect_google') %}
                     {% set label = 'Se connecter' %}
                     <a href="{{ path('choisir_profil') }}" class="btn btn-header-pro btn-green-pro noselect">Devenez membre !</a>
                 {% endif %}
