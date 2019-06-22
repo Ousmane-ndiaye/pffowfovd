@@ -12,6 +12,6 @@ class DefaultController extends BaseController
      */
     public function index()
     {
-        return $this->render('pages/default/index.html.twig', []);
+        return $this->addToCache($this->render('pages/default/index.html.twig', []));
     }
 }

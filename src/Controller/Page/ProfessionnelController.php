@@ -16,7 +16,7 @@ class ProfessionnelController extends BaseController
      */
     public function dashboard(Request $request)
     {
-        return $this->render('pages/front/dashboard/professionnel.html.twig', []);
+        return $this->addToCache($this->render('pages/front/dashboard/professionnel.html.twig', []));
     }
 
     /**
@@ -24,6 +24,6 @@ class ProfessionnelController extends BaseController
      */
     public function detail($slug, Request $request)
     {
-        return $this->render('pages/front/professionnel/detail.html.twig', []);
+        return $this->addToCache($this->render('pages/front/professionnel/detail.html.twig', []));
     }
 }

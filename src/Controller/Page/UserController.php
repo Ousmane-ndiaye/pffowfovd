@@ -16,7 +16,7 @@ class UserController extends BaseController
      */
     public function parametres(Request $request)
     {
-        return $this->render('pages/front/user/parametres.html.twig', []);
+        return $this->addToCache($this->render('pages/front/user/parametres.html.twig', []));
     }
 
     /**
@@ -24,6 +24,6 @@ class UserController extends BaseController
      */
     public function infoPaiement(Request $request)
     {
-        return $this->render('pages/front/user/info-paiement.html.twig', []);
+        return $this->addToCache($this->render('pages/front/user/info-paiement.html.twig', []));
     }
 }

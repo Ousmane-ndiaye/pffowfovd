@@ -15,6 +15,6 @@ class FaqsController extends BaseController
      */
     public function index()
     {
-        return $this->render('pages/front/faqs/index.html.twig', []);
+        return $this->addToCache($this->render('pages/front/faqs/index.html.twig', []));
     }
 }

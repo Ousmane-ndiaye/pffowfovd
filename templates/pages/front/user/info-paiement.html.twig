@@ -2,6 +2,11 @@
 
 {% block title %}Dashboard !{% endblock %}
 
+{% block stylesheets %}
+    {{parent()}}
+    {{ encore_entry_link_tags('info-paiement') }}
+{% endblock %}
+
 {% block main %}
     <main id="col-main">
 			
@@ -70,7 +75,5 @@
 
 {% block javascripts %}
     {{parent()}}
-    <script src="{{asset('assets/front/js/jquery-asRange.min.js')}}" defer></script><!-- Range Slider JS Plugin -->
-    <script src="{{asset('assets/front/js/circle-progress.min.js')}}" defer></script><!-- Circle Progress JS Plugin -->
-    <script src="{{asset('assets/front/js/script-dashboard.js')}}" defer></script><!-- Custom Document Ready for Dashboard Only JS -->
+	{{ encore_entry_script_tags('info-paiement') }}
 {% endblock %}

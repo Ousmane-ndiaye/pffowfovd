@@ -44,4 +44,15 @@ class BaseController extends AbstractController
     {
         return preg_replace('/\s+/', '-', mb_strtolower(trim(strip_tags($string)), 'UTF-8'));
     }
+
+    public function addToCache($response)
+    {
+        // cache for 3600 seconds
+        $response->setSharedMaxAge(3600);
+
+        // (optional) set a custom Cache-Control directive
+        $response->headers->addCacheControlDirective('must-revalidate', true);
+
+        return $response;
+    }
 }

@@ -34,9 +34,9 @@ class InscriptionController extends BaseController
 
             return $this->redirectToRoute($params[0], $params[1]);
         }
-        return $this->render('pages/front/inscription/choisir-profil.html.twig', [
+        return $this->addToCache($this->render('pages/front/inscription/choisir-profil.html.twig', [
             self::FORM => $form->createView(),
-        ]);
+        ]));
     }
 
     /**
@@ -44,10 +44,10 @@ class InscriptionController extends BaseController
      */
     public function choisirPlan(Request $request)
     {
-        return $this->render('pages/front/inscription/choisir-plan.html.twig', [
+        return $this->addToCache($this->render('pages/front/inscription/choisir-plan.html.twig', [
             self::PROFIL => 'entreprise',
             self::ACTIVE_ROUTE => 'plan'
-        ]);
+        ]));
     }
 
     /**
@@ -55,10 +55,10 @@ class InscriptionController extends BaseController
      */
     public function creationCompte($profil, Request $request)
     {
-        return $this->render('pages/front/inscription/creation-compte.html.twig', [
+        return $this->addToCache($this->render('pages/front/inscription/creation-compte.html.twig', [
             self::PROFIL => $profil,
             self::ACTIVE_ROUTE => 'compte'
-        ]);
+        ]));
     }
 
     /**
@@ -66,9 +66,9 @@ class InscriptionController extends BaseController
      */
     public function paiementPlan($profil, Request $request)
     {
-        return $this->render('pages/front/inscription/paiement-plan.html.twig', [
+        return $this->addToCache($this->render('pages/front/inscription/paiement-plan.html.twig', [
             self::PROFIL => $profil,
             self::ACTIVE_ROUTE => 'paiement'
-        ]);
+        ]));
     }
 }

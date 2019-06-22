@@ -16,6 +16,6 @@ class EntrepriseController extends BaseController
      */
     public function dashboard(Request $request)
     {
-        return $this->render('pages/front/dashboard/entreprise.html.twig', []);
+        return $this->addToCache($this->render('pages/front/dashboard/entreprise.html.twig', []));
     }
 }
