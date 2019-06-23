@@ -4,11 +4,18 @@
 
 {% block main %}
     <div id="content-pro">
-			
         <div class="container">
             <div class="centered-headings-pro pricing-plans-headings">
                 <h6>For one low monthly price</h6>
                 <h1>Instantly watch TV shows &amp; Movies</h1>
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }} alert-dismissible fade show">
+                            <button type="button" class="close" style="color: red; font-size: x-large; opacity: 0.5;" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
             </div>
         </div><!-- close .container -->
 			

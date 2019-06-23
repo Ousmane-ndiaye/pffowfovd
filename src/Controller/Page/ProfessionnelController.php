@@ -5,6 +5,7 @@ namespace App\Controller\Page;
 use App\Controller\BaseController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/professionnel")
@@ -13,6 +14,7 @@ class ProfessionnelController extends BaseController
 {
     /**
      * @Route("/dashboard", name="professionnel_dashboard")
+     * @Security("is_granted('ROLE_PROFESSIONNEL')")
      */
     public function dashboard(Request $request)
     {
@@ -21,6 +23,7 @@ class ProfessionnelController extends BaseController
 
     /**
      * @Route("/{slug}/detail", name="professionnel_detail")
+     * @Security("is_granted('ROLE_PROFESSIONNEL')")
      */
     public function detail($slug, Request $request)
     {

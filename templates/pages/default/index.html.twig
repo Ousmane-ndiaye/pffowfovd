@@ -29,7 +29,8 @@
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <a href="{{ path('app_logout') }}" class="btn btn-header-pro btn-green-pro noselect">Se deconnecter</a>
                 {% else %}
-                    <a href="{{ path('connect_google') }}" class="btn btn-header-pro btn-green-pro noselect">Se connecter / Devenez membre !</a>
+                    <a href="{{ path('app_login') }}" class="btn btn-header-pro noselect">Se connecter</a>
+                    <a href="{{ path('choisir_profil') }}" class="btn btn-header-pro btn-green-pro noselect mr-md-1 mr-lg-1">Devenez membre !</a>
                 {% endif %}
                 <div id="mobile-bars-icon-pro" class="noselect"><em class="fas fa-bars"></em></div>
                 
@@ -57,7 +58,8 @@
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <a href="{{ path('app_logout') }}" class="btn btn-header-pro btn-green-pro noselect">Se deconnecter</a>
                 {% else %}
-                    <a href="{{ path('connect_google') }}" class="btn btn-header-pro btn-green-pro noselect">Se connecter / Devenez membre !</a>
+                    <a href="{{ path('app_login') }}" class="btn btn-header-pro noselect">Se connecter</a>
+                    <a href="{{ path('choisir_profil') }}" class="btn btn-header-pro btn-green-pro noselect">Devenez membre !</a>
                 {% endif %}
             
             </nav>

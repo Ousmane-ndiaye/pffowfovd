@@ -5,6 +5,7 @@ namespace App\Controller\Page;
 use App\Controller\BaseController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/user")
@@ -13,6 +14,7 @@ class UserController extends BaseController
 {
     /**
      * @Route("/parametres", name="use_parametres")
+     * @Security("is_granted('ROLE_PROFESSIONNEL') or is_granted('ROLE_ENTREPRISE')")
      */
     public function parametres(Request $request)
     {
@@ -21,6 +23,7 @@ class UserController extends BaseController
 
     /**
      * @Route("/info-paiement", name="info_paiement")
+     * @Security("is_granted('ROLE_PROFESSIONNEL') or is_granted('ROLE_ENTREPRISE')")
      */
     public function infoPaiement(Request $request)
     {

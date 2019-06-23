@@ -4,12 +4,15 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\MappedSuperclass
  */
 abstract class BaseUser
 {
+    const ROLE_USER = 'ROLE_USER';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -19,8 +22,15 @@ abstract class BaseUser
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     protected $email;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    protected $password;
 
     /**
      * @ORM\Column(type="json")
@@ -30,11 +40,17 @@ abstract class BaseUser
     /**
      * @ORM\Column(type="datetime")
      */
-    private $created_at;
+    protected $created_at;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive;
 
     public function __construct()
     {
-        $this->roles = ['ROLE_USER'];
+        $this->roles = [self::ROLE_USER];
+        $this->isActive = true;
     }
 
     public function getId(): ?int
@@ -54,31 +70,53 @@ abstract class BaseUser
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
     public function getUsername(): string
     {
         return (string)$this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function getRoles(): array
     {
         $UserRoles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $UserRoles[] = 'ROLE_USER';
+        $UserRoles[] = self::ROLE_USER;
 
         return array_unique($UserRoles);
     }
 
-    public function setRoles(array $roles): self
+    public function setRoles($profil): self
     {
-        $this->roles = $roles;
+        switch ($profil) {
+            case 'professionnel':
+                $this->roles = ['ROLE_PROFESSIONNEL'];
+                break;
+
+            case 'entreprise':
+                $this->roles = ['ROLE_ENTREPRISE'];
+                break;
+
+            case 'admin':
+                $this->roles = ['ROLE_ADMIN'];
+                break;
+
+            case 'super admin':
+                $this->roles = ['ROLE_SUPER_ADMIN'];
+                break;
+
+            default:
+                $this->roles = [self::ROLE_USER];
+                break;
+        }
 
         return $this;
     }
@@ -93,19 +131,6 @@ abstract class BaseUser
         $this->created_at = $created_at;
 
         return $this;
-    }
-
-    /**
-     * Returns the password used to authenticate the user.
-     *
-     * This should be the encoded password. On authentication, a plain-text
-     * password will be salted, encoded, and then compared to this value.
-     *
-     * @return string The password
-     */
-    public function getPassword()
-    {
-        return null;
     }
 
     /**
@@ -128,5 +153,22 @@ abstract class BaseUser
     public function __toString(): string
     {
         return (string)$this->email;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function encodePassword()
+    {
+        # code...
     }
 }

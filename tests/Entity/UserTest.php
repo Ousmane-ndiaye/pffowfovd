@@ -3,7 +3,6 @@
 namespace App\Tests\Entity;
 
 use App\Entity\User;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 
@@ -11,7 +10,8 @@ class UserTest extends WebTestCase
 {
     protected $user;
 
-    protected function setUp(){
+    protected function setUp()
+    {
         $this->user = new User();
     }
 
@@ -63,7 +63,7 @@ class UserTest extends WebTestCase
      */
     public function testUsersetRoles()
     {
-        $this->user->setRoles(['ROLE_ADMIN']);
+        $this->user->setRoles('admin');
 
         $roles = $this->user->getRoles();
 
@@ -79,5 +79,4 @@ class UserTest extends WebTestCase
         $this->user->setEmail('email@test.com');
         $this->assertEquals('email@test.com', $this->user);
     }
-
 }

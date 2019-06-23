@@ -18,6 +18,7 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Symfony\Component\Routing\RouterInterface;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
@@ -30,13 +31,17 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
+    private $fullTargetPath;
+    private $router;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder, RouterInterface $router)
     {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->router = $router;
+        $this->fullTargetPath = $this->router->generate('app_home');
     }
 
     public function supports(Request $request)
@@ -73,7 +78,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Email ou mot de passe incorrecte.');
         }
-
+        $this->setRouteToRedirectUser($user);
         return $user;
     }
 
@@ -88,11 +93,30 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse('/');
+        return new RedirectResponse($this->fullTargetPath);
     }
 
     protected function getLoginUrl()
     {
         return $this->urlGenerator->generate('app_login');
+    }
+
+    public function setRouteToRedirectUser($user)
+    {
+        $roles = $user->getRoles();
+        switch (true) {
+            case in_array('ROLE_SUPER_ADMIN', $roles, true):
+                $this->fullTargetPath = $this->router->generate('super_admin_dashboard');
+                break;
+            case in_array('ROLE_PROFESSIONNEL', $roles, true):
+                $this->fullTargetPath = $this->router->generate('professionnel_dashboard');
+                break;
+            case in_array('ROLE_ENTREPRISE', $roles, true):
+                $this->fullTargetPath = $this->router->generate('entreprise_dashboard');
+                break;
+            default:
+                $this->fullTargetPath = $this->router->generate('app_home');
+                break;
+        }
     }
 }

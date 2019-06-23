@@ -2,9 +2,11 @@
 
 namespace App\Service;
 
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
+
 class Inscription
 {
-
     public function getProfilChoisi($data)
     {
         $profil = $data['profil'];
@@ -26,5 +28,10 @@ class Inscription
                 break;
         }
         return [$path, $params];
+    }
+
+    public function setNewUser(&$user, $profil, $encoder)
+    {
+        $user->setRoles($profil)->setCreatedAt(new \DateTime(date('Y-m-d H:i:s')))->setPassword($encoder->encodePassword($user, $user->getPassword()));
     }
 }

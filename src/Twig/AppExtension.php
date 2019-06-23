@@ -5,14 +5,21 @@ namespace App\Twig;
 use Twig\TwigFilter;
 use Twig\Extension\AbstractExtension;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Intl\Locales;
+use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension
 {
     private $entityManager;
+    private $localeCodes;
+    private $locales;
 
-    public function __construct(EntityManagerInterface $entManager)
+    public function __construct(EntityManagerInterface $entManager, string $locales)
     {
         $this->entityManager = $entManager;
+        $localeCodes = explode('|', $locales);
+        sort($localeCodes);
+        $this->localeCodes = $localeCodes;
     }
 
     public function getFilters()
@@ -20,6 +27,16 @@ class AppExtension extends AbstractExtension
         return [
             new TwigFilter('format_string', [$this, 'formatString']),
             new TwigFilter('string_month', [$this, 'stringMonth']),
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFunctions(): array
+    {
+        return [
+            new TwigFunction('locales', [$this, 'getLocales']),
         ];
     }
 
@@ -42,5 +59,24 @@ class AppExtension extends AbstractExtension
         }
 
         return $stringMonth;
+    }
+
+    /**
+     * Takes the list of codes of the locales (languages) enabled in the
+     * application and returns an array with the name of each locale written
+     * in its own language (e.g. English, Français, Español, etc.).
+     */
+    public function getLocales(): array
+    {
+        if (null !== $this->locales) {
+            return $this->locales;
+        }
+
+        $this->locales = [];
+        foreach ($this->localeCodes as $localeCode) {
+            $this->locales[] = ['code' => $localeCode, 'name' => Locales::getName($localeCode, $localeCode)];
+        }
+
+        return $this->locales;
     }
 }

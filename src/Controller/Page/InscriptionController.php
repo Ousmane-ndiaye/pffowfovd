@@ -8,6 +8,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use App\Entity\User;
+use App\Form\UserRegisterType;
 
 /**
  * @Route("/inscription")
@@ -15,6 +17,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class InscriptionController extends BaseController
 {
     const ACTIVE_ROUTE = 'activeRoute';
+    const PAGE_FRONT = 'pages/front/inscription';
+    const VALIDE_PROFILS = ['professionnel', 'entreprise'];
 
     /**
      * @Route("/choisir-profil", name="choisir_profil")
@@ -34,7 +38,7 @@ class InscriptionController extends BaseController
 
             return $this->redirectToRoute($params[0], $params[1]);
         }
-        return $this->render('pages/front/inscription/choisir-profil.html.twig', [
+        return $this->render(self::PAGE_FRONT . '/choisir-profil.html.twig', [
             self::FORM => $form->createView(),
         ]);
     }
@@ -44,7 +48,7 @@ class InscriptionController extends BaseController
      */
     public function choisirPlan(Request $request)
     {
-        return $this->render('pages/front/inscription/choisir-plan.html.twig', [
+        return $this->render(self::PAGE_FRONT . '/choisir-plan.html.twig', [
             self::PROFIL => 'entreprise',
             self::ACTIVE_ROUTE => 'plan'
         ]);
@@ -53,11 +57,27 @@ class InscriptionController extends BaseController
     /**
      * @Route("/creation-compte/{profil}", name="creation_compte")
      */
-    public function creationCompte($profil, Request $request)
+    public function creationCompte($profil, Request $request, Inscription $inscription)
     {
-        return $this->render('pages/front/inscription/creation-compte.html.twig', [
+        $user = new User();
+        $form = $this->createForm(UserRegisterType::class, $user);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid() && in_array($profil, self::VALIDE_PROFILS)) {
+            if (!$this->userRepository->findOneBy([self::EMAIL => $user->getEmail()])) {
+                $inscription->setNewUser($user, $profil, $this->passwordEncoder);
+                $this->entityManager->persist($user);
+                $this->entityManager->flush();
+                $this->addFlash(self::SUCCESS, 'Votre inscription a été pris en compte, un email de confirmation vous a été envoyer!');
+                return $this->redirectToRoute('paiement_plan', [self::PROFIL => $profil]);
+            }
+            $this->addFlash(self::DANGER, 'Un compte avec cette adresse email existe déjà.');
+        }
+
+        return $this->render(self::PAGE_FRONT . '/creation-compte.html.twig', [
             self::PROFIL => $profil,
-            self::ACTIVE_ROUTE => 'compte'
+            self::ACTIVE_ROUTE => 'compte',
+            self::FORM => $form->createView()
         ]);
     }
 
@@ -66,7 +86,7 @@ class InscriptionController extends BaseController
      */
     public function paiementPlan($profil, Request $request)
     {
-        return $this->render('pages/front/inscription/paiement-plan.html.twig', [
+        return $this->render(self::PAGE_FRONT . '/paiement-plan.html.twig', [
             self::PROFIL => $profil,
             self::ACTIVE_ROUTE => 'paiement'
         ]);

@@ -3,29 +3,33 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User extends BaseUser
+class User extends BaseUser implements UserInterface
 {
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank()
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank()
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $adresse;
 
     /**
-     * @ORM\Column(type="string", length=25)
+     * @ORM\Column(type="string", length=25, nullable=true)
      */
     private $tel;
 

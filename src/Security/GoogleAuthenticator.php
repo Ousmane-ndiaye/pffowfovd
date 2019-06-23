@@ -54,8 +54,11 @@ class GoogleAuthenticator extends SocialAuthenticator
             ->findOneBy(['email' => $email]);
         if (!$user) {
             $user = new User();
+            $nom = end(explode(" ", $googleUser->getName()));
+            $prenom = trim(str_replace($nom, "", $googleUser->getName()));
             $user->setEmail($googleUser->getEmail());
-            $user->setFullname($googleUser->getName());
+            $user->setPrenom($prenom);
+            $user->setNom($nom);
             $user->setCreatedAt(new \DateTime(date('Y-m-d H:i:s')));
             $this->em->persist($user);
             $this->em->flush();

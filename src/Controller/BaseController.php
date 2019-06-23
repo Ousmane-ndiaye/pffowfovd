@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\GestionDeslogs;
 use App\Entity\User;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class BaseController extends AbstractController
 {
@@ -16,7 +17,9 @@ class BaseController extends AbstractController
     const PROFIL = 'profil';
     const FORM = 'form';
     const DANGER = 'danger';
+    const INFO = 'info';
     const SUCCESS = 'success';
+    const EMAIL = 'email';
 
 
     //Les variables globales
@@ -26,12 +29,18 @@ class BaseController extends AbstractController
 
     protected $userRepository;
 
+    protected $passwordEncoder;
 
-    public function __construct(GestionDeslogs $logger, EntityManagerInterface $entityMngr)
+    protected $swiftMailer;
+
+
+    public function __construct(GestionDeslogs $logger, EntityManagerInterface $entityMngr, \Swift_Mailer $mailer, UserPasswordEncoderInterface $pwdEncoder)
     {
         $this->userLogger = $logger;
         $this->entityManager = $entityMngr;
         $this->userRepository = $this->entityManager->getRepository(User::class);
+        $this->passwordEncoder = $pwdEncoder;
+        $this->swiftMailer = $mailer;
     }
 
     //Les fonctions globlales

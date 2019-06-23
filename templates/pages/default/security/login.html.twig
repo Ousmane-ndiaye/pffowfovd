@@ -39,10 +39,11 @@
             </div><!-- close .registration-social-login-container -->
 
             <div class="registration-social-login-options">
+                {% set url_google = path('connect_google') %}
                 <h6>Sign in with your social account</h6>
                 <div class="social-icon-login facebook-color"><em class="fab fa-facebook-f"></em> Facebook</div>
                 <div class="social-icon-login twitter-color"><em class="fab fa-twitter"></em> Twitter</div>
-                <div class="social-icon-login google-color"><em class="fab fa-google-plus-g"></em> Google</div>
+                <div class="social-icon-login google-color" onclick="window.location.href = '{{url_google}}'"><em class="fab fa-google-plus-g"></em> Google</div>
             </div><!-- close .registration-social-login-options -->
 
             <div class="clearfix"></div>
