@@ -22,6 +22,15 @@ class ProfessionnelController extends BaseController
     }
 
     /**
+     * @Route("/profil", name="professionnel_profil")
+     * @Security("is_granted('ROLE_PROFESSIONNEL')")
+     */
+    public function profil(Request $request)
+    {
+        return $this->render('pages/front/professionnel/profil.html.twig', []);
+    }
+
+    /**
      * @Route("/{slug}/detail", name="professionnel_detail")
      * @Security("is_granted('ROLE_PROFESSIONNEL')")
      */
