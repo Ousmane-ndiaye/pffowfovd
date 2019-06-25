@@ -136,4 +136,8 @@ jQuery(document).ready(function($) {
 	if ($('#mobile-navigation-pro').length > 0) {
 		activedUrl('mobile-navigation-pro');
 	}
+
+	if ($('#sidebar-nav').length > 0) {
+		activedUrl('sidebar-nav');
+	}
 });

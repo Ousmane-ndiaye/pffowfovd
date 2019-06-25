@@ -8,19 +8,20 @@
         <div class="dashboard-container">
 
             <ul class="dashboard-sub-menu">
-                <li class="current"><a href="{{path('use_parametres')}}">Account Settings</a></li>
+                <li class="current"><a href="{{path('user_parametres')}}">Account Settings</a></li>
                 <li><a href="{{path('info_paiement')}}">Payment Info</a></li>
             </ul><!-- close .dashboard-sub-menu -->
 
             <div class="container-fluid">
                 <div class="row">
-
+                    {% set fullName = app.user.prenom ~ " " ~ app.user.nom %}
+                    {% set imagePorfil = app.user.image ? app.user.image : 'default.png' %}
                     <div class="col-12  col-lg-3">
                         <div id="account-edit-photo">
-                            <div><img src="{{asset('assets/front/images/demo/account-profile.jpg')}}" alt="Account Image"></div>
-                            <p><a href="{{path('use_parametres')}}" class="btn btn-green-pro">Change Profile
+                            <div><img src="{{asset('assets/front/images/users/' ~ imagePorfil)}}" alt="{{ fullName |capitalize }}"></div>
+                            <p><a href="{{path('user_parametres')}}" class="btn btn-green-pro">Change Profile
                                     Picture</a></p>
-                            <p><a href="{{path('use_parametres')}}" class="btn">Delete Photo</a></p>
+                            <p><a href="{{path('user_parametres')}}" class="btn">Delete Photo</a></p>
                         </div>
                     </div><!-- close .col -->
                     <div class="col">
@@ -96,7 +97,7 @@
                                     <div class="form-group">
                                         <div><label for="button-change" class="col-form-label">&nbsp; &nbsp;</label>
                                         </div>
-                                        <a href="{{path('use_parametres')}}" class="btn btn-form">Change E-mail</a>
+                                        <a href="{{path('user_parametres')}}" class="btn btn-form">Change E-mail</a>
                                     </div>
                                 </div><!-- close .col -->
 
@@ -202,7 +203,7 @@
                             </div><!-- close .registration-genres-step -->
                             <div class="clearfix"></div>
                             <hr>
-                            <p><a href="{{path('use_parametres')}}" class="btn btn-green-pro">Save Changes</a></p>
+                            <p><a href="{{path('user_parametres')}}" class="btn btn-green-pro">Save Changes</a></p>
                             <br>
                         </form>
 

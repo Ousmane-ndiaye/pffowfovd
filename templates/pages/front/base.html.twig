@@ -11,6 +11,7 @@
             
             <link rel="stylesheet" href="{{asset('assets/front/icons/fontawesome/css/fontawesome-all.min.css')}}"><!-- FontAwesome Icons -->
             <link rel="stylesheet" href="{{asset('assets/front/icons/Iconsmind__Ultimate_Pack/Line_icons/styles.min.css')}}"><!-- iconsmind.com Icons -->
+            <!-- Orange: #F18521, Bleu: #3A54A5 -->
         {% endblock %}
     </head>
     <body>
@@ -18,7 +19,7 @@
             <div id="sidebar-bg">
                 {% block header %}
                     <header id="videohead-pro" class="sticky-header">
-                        <div id="video-logo-background"><a href="javascript:void(0);"><img src="{{asset('assets/front/images/logo-video-layout.png')}}" alt="Logo"></a></div>
+                        <div id="video-logo-background"><a href="javascript:void(0);"><img src="{{asset('assets/front/images/logo-cvideo.png')}}" alt="Logo"></a></div>
 
                         <div id="video-search-header">
                             <div id="search-icon-more"></div>
@@ -128,18 +129,17 @@
 
 
                         <div id="header-user-profile">
+                            {% set fullName = app.user.prenom ~ " " ~ app.user.nom %}
+                            {% set imagePorfil = app.user.image ? app.user.image : 'default.png' %}
                             <div id="header-user-profile-click" class="noselect">
-                                <img src="{{asset('assets/front/images/demo/user-profile.jpg')}}" alt="Suzie">
-                                <div id="header-username">Suzie Smith</div><i class="fas fa-angle-down"></i>
+                                <img src="{{asset('assets/front/images/users/' ~ imagePorfil)}}" alt="{{ fullName |capitalize }}">
+                                <div id="header-username">{{ fullName |capitalize }}</div><i class="fas fa-angle-down"></i>
                             </div><!-- close #header-user-profile-click -->
                             <div id="header-user-profile-menu">
                                 <ul>
-                                    <li><a href="javascript:void(0);"><span class="icon-User"></span>My Profile</a></li>
-                                    <li><a href="javascript:void(0);"><span class="icon-Favorite-Window"></span>My
-                                            Favorites</a></li>
-                                    <li><a href="{{path('use_parametres')}}"><span class="icon-Gears"></span>Account Details</a></li>
+                                    <li><a href="{{path('user_parametres')}}"><span class="icon-Gears"></span>Paramètres</a></li>
                                     <li><a href="javascript:void(0);"><span class="icon-Life-Safer"></span>Help/Support</a></li>
-                                    <li><a href="{{path('app_logout')}}"><span class="icon-Power-3"></span>Log Out</a></li>
+                                    <li><a href="{{path('app_logout')}}"><span class="icon-Power-3"></span>Déconnexion</a></li>
                                 </ul>
                             </div><!-- close #header-user-profile-menu -->
                         </div><!-- close #header-user-profile -->
@@ -172,54 +172,12 @@
 
                         <div class="clearfix"></div>
 
-                        <nav id="mobile-navigation-pro">
-
-                            <ul id="mobile-menu-pro">
-                                <li class="current-menu-item">
-                                    <a href="dashboard-home.html">
-                                        <span class="icon-Old-TV"></span>
-                                        TV Series
-                                    </a>
-                                <li>
-                                <li>
-                                    <a href="dashboard-movies.html">
-                                        <span class="icon-Reel"></span>
-                                        Movies
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="dashboard-playlists.html">
-                                        <span class="icon-Movie"></span>
-                                        Playlists
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="dashboard-new-arrivals.html">
-                                        <span class="icon-Movie-Ticket"></span>
-                                        New Arrivals
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="dashboard-coming-soon.html">
-                                        <span class="icon-Clock"></span>
-                                        Coming Soon
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <i class="far fa-bell"></i>
-                                        <span class="user-notification-count">3</span>
-                                        Notifications
-                                    </a>
-                                </li>
-                            </ul>
-                            <div class="clearfix"></div>
-
-                            <div id="search-mobile-nav-pro">
-                                <input type="text" placeholder="Search for Movies or TV Series" aria-label="Search">
-                            </div>
-
-                        </nav>
+                        {% if is_granted('ROLE_PROFESSIONNEL') %}
+                            {{ include('pages/front/dashboard/_mobile-menu-professionnel.html.twig') }}
+                        {% endif %}
+                        {% if is_granted('ROLE_ENTREPRISE') %}
+                            {{ include('pages/front/dashboard/_mobile-menu-entreprise.html.twig') }}
+                        {% endif %}
 
                     </header>
                 {% endblock %}
@@ -229,7 +187,7 @@
                         {{ include('pages/front/dashboard/_menu-professionnel.html.twig') }}
                     {% endif %}
                     {% if is_granted('ROLE_ENTREPRISE') %}
-                        {{ include('pages/front/dashboard/_menu-professionnel.html.twig') }}
+                        {{ include('pages/front/dashboard/_menu-entreprise.html.twig') }}
                     {% endif %}
                 {% endblock %}
 

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -55,6 +57,16 @@ class Infoprofil
      * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="infoprofil", cascade={"persist", "remove"})
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Vue", mappedBy="infoProfil")
+     */
+    private $vues;
+
+    public function __construct()
+    {
+        $this->vues = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -153,6 +165,37 @@ class Infoprofil
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Vue[]
+     */
+    public function getVues(): Collection
+    {
+        return $this->vues;
+    }
+
+    public function addVue(Vue $vue): self
+    {
+        if (!$this->vues->contains($vue)) {
+            $this->vues[] = $vue;
+            $vue->setInfoProfil($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVue(Vue $vue): self
+    {
+        if ($this->vues->contains($vue)) {
+            $this->vues->removeElement($vue);
+            // set the owning side to null (unless already changed)
+            if ($vue->getInfoProfil() === $this) {
+                $vue->setInfoProfil(null);
+            }
+        }
 
         return $this;
     }

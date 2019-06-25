@@ -78,6 +78,16 @@ class User extends BaseUser implements UserInterface
      */
     private $langues;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Userdomaine", mappedBy="user")
+     */
+    private $userDomaines;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $image;
+
     public function __construct()
     {
         parent::__construct();
@@ -85,6 +95,7 @@ class User extends BaseUser implements UserInterface
         $this->formations = new ArrayCollection();
         $this->experiences = new ArrayCollection();
         $this->langues = new ArrayCollection();
+        $this->userDomaines = new ArrayCollection();
     }
 
     public function getAdresse(): ?string
@@ -321,6 +332,49 @@ class User extends BaseUser implements UserInterface
                 $langue->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Userdomaine[]
+     */
+    public function getUserDomaines(): Collection
+    {
+        return $this->userDomaines;
+    }
+
+    public function addUserDomaine(Userdomaine $userDomaine): self
+    {
+        if (!$this->userDomaines->contains($userDomaine)) {
+            $this->userDomaines[] = $userDomaine;
+            $userDomaine->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserDomaine(Userdomaine $userDomaine): self
+    {
+        if ($this->userDomaines->contains($userDomaine)) {
+            $this->userDomaines->removeElement($userDomaine);
+            // set the owning side to null (unless already changed)
+            if ($userDomaine->getUser() === $this) {
+                $userDomaine->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

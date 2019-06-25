@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class UserController extends BaseController
 {
     /**
-     * @Route("/parametres", name="use_parametres")
+     * @Route("/parametres", name="user_parametres")
      * @Security("is_granted('ROLE_PROFESSIONNEL') or is_granted('ROLE_ENTREPRISE')")
      */
     public function parametres(Request $request)

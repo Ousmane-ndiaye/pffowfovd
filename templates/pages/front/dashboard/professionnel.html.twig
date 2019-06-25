@@ -4,28 +4,29 @@
 
 {% block main %}
 	<div id="content-sidebar-pro">
-		
+		{% set fullName = app.user.prenom ~ " " ~ app.user.nom %}
+        {% set imagePorfil = app.user.image ? app.user.image : 'default.png' %}
 		<div id="content-sidebar-info">
 			<img src="{{asset('assets/front/images/demo/profile-image-sidebar.jpg')}}" alt="Suzie">
 			<div id="profile-sidebar-name">
-				<h5>Suzie Smith</h5>
+				<h5>{{ fullName }}</h5>
 				<h6>Manila, Philippines</h6>
 			</div>
 			<div id="profile-sidebar-gradient"></div>
-			<a href="{{path('use_parametres')}}" class="edit-profile-sidebar"><i class="fas fa-pencil-alt"></i></a>
+			<a href="{{path('user_parametres')}}" class="edit-profile-sidebar"><i class="fas fa-pencil-alt"></i></a>
 		</div>
 		
 		<div class="content-sidebar-section">
-			<h3 class="content-sidebar-sub-header">Watched</h3>
+			<h3 class="content-sidebar-sub-header">Vues</h3>
 			<ul id="profile-watched-stats">
-				<li><span>43</span> Movies</li>
-				<li><span>28</span> Series</li>
-				<li><span>07</span> Docs</li>
+				<li><span>0</span> Recruteurs</li>
+				<li><span>28</span> Entreprises</li>
+				<li><span>07</span> Autres</li>
 			</ul>
 		</div><!-- close .content-sidebar-section -->
 		
 		<div class="content-sidebar-section">
-			<h3 class="content-sidebar-sub-header">Favorite Genres</h3>
+			<h3 class="content-sidebar-sub-header">Domaines</h3>
 			<ul id="profile-favorite-genres">
 				<li>
 					<img src="{{asset('assets/front/images/genres/comedy.png')}}" alt="Comedy">
