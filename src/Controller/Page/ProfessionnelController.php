@@ -6,6 +6,11 @@ use App\Controller\BaseController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use App\Form\InformationProfilType;
+use App\Entity\Infoprofil;
+use Symfony\Component\Security\Core\User\User;
+use App\Form\ExperienceType;
+use App\Entity\Experience;
 
 /**
  * @Route("/professionnel")
@@ -27,7 +32,20 @@ class ProfessionnelController extends BaseController
      */
     public function profil(Request $request)
     {
-        return $this->render('pages/front/professionnel/profil.html.twig', []);
+        $user = $this->getUser();
+        $infoProfil = $user->getInfoProfil();
+        $experience = new Experience();
+        if (!$infoProfil) {
+            $infoProfil = new Infoprofil();
+            $infoProfil->setUser($user);
+            $this->entityManager->persist($infoProfil);
+        }
+        $formInfoProfil = $this->createForm(InformationProfilType::class, $infoProfil);
+        $formExperience = $this->createForm(ExperienceType::class, $experience);
+        return $this->render('pages/front/professionnel/profil.html.twig', [
+            'formInfoProfil' => $formInfoProfil->createView(),
+            'formExperience' => $formExperience->createView()
+        ]);
     }
 
     /**

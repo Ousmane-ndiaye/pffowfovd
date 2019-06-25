@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,28 +19,32 @@ class Experience
 
     /**
      * @ORM\Column(type="string", length=200)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 200,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $entreprise;
 
     /**
      * @ORM\Column(type="string", length=200)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 200,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $intitulePoste;
 
     /**
-     * @ORM\Column(type="string", length=200)
+     * @ORM\Column(type="string", length=200, nullable=true)
      */
-    private $lieux;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $dateDebut;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $dateFin;
+    private $lieu;
 
     /**
      * @ORM\Column(type="boolean")
@@ -60,6 +65,26 @@ class Experience
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="experiences")
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $moisDeDebut;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $anneeDeDebut;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $moisDeFin;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $anneeDeFin;
 
     public function getId(): ?int
     {
@@ -90,38 +115,14 @@ class Experience
         return $this;
     }
 
-    public function getLieux(): ?string
+    public function getLieu(): ?string
     {
-        return $this->lieux;
+        return $this->lieu;
     }
 
-    public function setLieux(string $lieux): self
+    public function setLieu(string $lieu): self
     {
-        $this->lieux = $lieux;
-
-        return $this;
-    }
-
-    public function getDateDebut(): ?\DateTimeInterface
-    {
-        return $this->dateDebut;
-    }
-
-    public function setDateDebut(\DateTimeInterface $dateDebut): self
-    {
-        $this->dateDebut = $dateDebut;
-
-        return $this;
-    }
-
-    public function getDateFin(): ?\DateTimeInterface
-    {
-        return $this->dateFin;
-    }
-
-    public function setDateFin(?\DateTimeInterface $dateFin): self
-    {
-        $this->dateFin = $dateFin;
+        $this->lieu = $lieu;
 
         return $this;
     }
@@ -170,6 +171,54 @@ class Experience
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getMoisDeDebut(): ?int
+    {
+        return $this->moisDeDebut;
+    }
+
+    public function setMoisDeDebut(int $moisDeDebut): self
+    {
+        $this->moisDeDebut = $moisDeDebut;
+
+        return $this;
+    }
+
+    public function getAnneeDeDebut(): ?int
+    {
+        return $this->anneeDeDebut;
+    }
+
+    public function setAnneeDeDebut(int $anneeDeDebut): self
+    {
+        $this->anneeDeDebut = $anneeDeDebut;
+
+        return $this;
+    }
+
+    public function getMoisDeFin(): ?int
+    {
+        return $this->moisDeFin;
+    }
+
+    public function setMoisDeFin(?int $moisDeFin): self
+    {
+        $this->moisDeFin = $moisDeFin;
+
+        return $this;
+    }
+
+    public function getAnneeDeFin(): ?int
+    {
+        return $this->anneeDeFin;
+    }
+
+    public function setAnneeDeFin(?int $anneeDeFin): self
+    {
+        $this->anneeDeFin = $anneeDeFin;
 
         return $this;
     }

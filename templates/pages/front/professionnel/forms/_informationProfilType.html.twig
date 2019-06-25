@@ -1,0 +1,86 @@
+{{ form_start(formInfoProfil, {'attr': {'class': 'account-settings-form'}}) }}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="titreProfil" class="col-form-label required">Titre</label>
+                {{ form_widget(formInfoProfil.titreProfil, {'attr': {'class': 'form-control required'}}) }}
+                <div class="form-field-errors">
+                    {{ form_errors(formInfoProfil.titreProfil) }}
+                </div>
+            </div>
+        </div><!-- close .col -->
+    </div><!-- close .row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="situation" class="col-form-label required">Situation actuel</label>
+                {{ form_widget(formInfoProfil.situation, {'attr': {'class': 'form-control required'}}) }}
+                <div class="form-field-errors">
+                    {{ form_errors(formInfoProfil.situation) }}
+                </div>
+            </div>
+        </div><!-- close .col -->
+    </div><!-- close .row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="comptences" class="col-form-label required">Vos compétences</label>
+                <p class="form-text text-muted">Définissez un premier vos compétences clés.</p>
+                {{ form_widget(formInfoProfil.comptences, {'attr': {'class': 'form-control required'}}) }}
+                <div class="form-field-errors">
+                    {{ form_errors(formInfoProfil.comptences) }}
+                </div>
+                <small class="text-muted">Insérez une point virgule ou appuyez sur ENTRÉE pour séparer vos mots-clés.</small>
+            </div>
+        </div><!-- close .col -->
+    </div><!-- close .row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="description" class="col-form-label">Résumé</label>
+                {{ form_widget(formInfoProfil.description, {'attr': {'class': 'form-control'}}) }}
+                <div class="form-field-errors">
+                    {{ form_errors(formInfoProfil.description) }}
+                </div>
+            </div>
+        </div><!-- close .col -->
+    </div><!-- close .row -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="website" class="col-form-label">Site Web</label>
+                {{ form_widget(formInfoProfil.website, {'attr': {'class': 'form-control'}}) }}
+                <div class="form-field-errors">
+                    {{ form_errors(formInfoProfil.website) }}
+                </div>
+                <small class="text-muted">Insérez un lien pour accéder à votre <b>site web</b>.</small>
+            </div>
+        </div><!-- close .col -->
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="twitter" class="col-form-label">Twitter</label>
+                {{ form_widget(formInfoProfil.twitter, {'attr': {'class': 'form-control'}}) }}
+                <div class="form-field-errors">
+                    {{ form_errors(formInfoProfil.twitter) }}
+                </div>
+                <small class="text-muted">Insérez un lien pour accéder à page <b>twitter</b>.</small>
+            </div>
+        </div><!-- close .col -->
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="linkedin" class="col-form-label">LinkedIn</label>
+                {{ form_widget(formInfoProfil.linkedin, {'attr': {'class': 'form-control'}}) }}
+                <div class="form-field-errors">
+                    {{ form_errors(formInfoProfil.linkedin) }}
+                </div>
+                <small class="text-muted">Insérez un lien pour accéder à page <b>LinkedIn</b>.</small>
+            </div>
+        </div><!-- close .col -->
+    </div><!-- close .row -->
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button type="submit" class="btn btn-green-pro btn-sm">Enregistrer</button>
+        </div><!-- close .col -->
+    </div><!-- close .row -->
+{{ form_end(formInfoProfil) }}

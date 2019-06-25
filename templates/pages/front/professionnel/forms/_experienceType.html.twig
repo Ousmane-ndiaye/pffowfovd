@@ -1,0 +1,121 @@
+{{ form_start(formExperience, {'attr': {'class': 'account-settings-form'}}) }}
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Ajouter une experience</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="intitulePoste" class="col-form-label required">Intitulé du poste </label>
+                    {{ form_widget(formExperience.intitulePoste, {'attr': {'class': 'form-control required', 'placeholder': 'Ex: Directeur'}}) }}
+                    <div class="form-field-errors">
+                        {{ form_errors(formExperience.intitulePoste) }}
+                    </div>
+                </div>
+            </div><!-- close .col -->
+        </div><!-- close .row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="entreprise" class="col-form-label required">Entreprise </label>
+                    {{ form_widget(formExperience.entreprise, {'attr': {'class': 'form-control required', 'placeholder': 'Ex: Sonatel'}}) }}
+                    <div class="form-field-errors">
+                        {{ form_errors(formExperience.entreprise) }}
+                    </div>
+                </div>
+            </div><!-- close .col -->
+        </div><!-- close .row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="lieu" class="col-form-label required">Lieu </label>
+                    {{ form_widget(formExperience.lieu, {'attr': {'class': 'form-control required', 'placeholder': 'Ex: Dakar, Sénégal'}}) }}
+                    <div class="form-field-errors">
+                        {{ form_errors(formExperience.lieu) }}
+                    </div>
+                </div>
+            </div><!-- close .col -->
+        </div><!-- close .row -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="custom-control overflow-checkbox">
+                        {{ form_widget(formExperience.isCurrent, {'attr': {'class': 'overflow-control-input'}}) }}
+                        <span class="overflow-control-indicator"></span>
+                        <span class="overflow-control-description">J’occupe actuellement ce poste</span>
+                    </label>
+                </div>
+            </div><!-- close .col -->
+        </div><!-- close .row -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="dateDeDebut" class="col-form-label required">Date de début </label>
+                    <div class="row">
+                        <div class="col-md-12 mb-1">
+                            {{ form_widget(formExperience.moisDeDebut, {'attr': {'class': 'form-control required'}}) }}
+                            <div class="form-field-errors">
+                                {{ form_errors(formExperience.moisDeDebut) }}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            {{ form_widget(formExperience.anneeDeDebut, {'attr': {'class': 'form-control required'}}) }}
+                            <div class="form-field-errors">
+                                {{ form_errors(formExperience.anneeDeDebut) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- close .col -->
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="dateDeFin" class="col-form-label required">Date de fin </label>
+                    <div class="row">
+                        <div class="col-md-12 mb-1">
+                            {{ form_widget(formExperience.moisDeFin, {'attr': {'class': 'form-control required'}}) }}
+                            <div class="form-field-errors">
+                                {{ form_errors(formExperience.moisDeFin) }}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            {{ form_widget(formExperience.anneeDeFin, {'attr': {'class': 'form-control required'}}) }}
+                            <div class="form-field-errors">
+                                {{ form_errors(formExperience.anneeDeFin) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- close .col -->
+        </div><!-- close .row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="description" class="col-form-label">Description </label>
+                    {{ form_widget(formExperience.description, {'attr': {'class': 'form-control'}}) }}
+                    <div class="form-field-errors">
+                        {{ form_errors(formExperience.description) }}
+                    </div>
+                </div>
+            </div><!-- close .col -->
+        </div><!-- close .row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="competences" class="col-form-label">Compétences </label>
+                    {{ form_widget(formExperience.competences, {'attr': {'class': 'form-control'}}) }}
+                    <div class="form-field-errors">
+                        {{ form_errors(formExperience.competences) }}
+                    </div>
+                </div>
+            </div><!-- close .col -->
+        </div><!-- close .row -->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        <button type="submit" class="btn btn-green-pro">Enregistrer</button>
+    </div>
+{{ form_end(formExperience) }}

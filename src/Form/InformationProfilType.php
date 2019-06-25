@@ -6,6 +6,7 @@ use App\Entity\Infoprofil;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class InformationProfilType extends AbstractType
 {
@@ -13,14 +14,18 @@ class InformationProfilType extends AbstractType
     {
         $builder
             ->add('titreProfil')
-            ->add('situation')
+            ->add('situation', ChoiceType::class, [
+                'choices' => [
+                    'En recherche d\'emploi' => 'En recherche d\'emploi',
+                    'À l’écoute d’opportunités' => 'À l’écoute d’opportunités',
+                    'En poste' => 'En poste',
+                ],
+            ])
             ->add('comptences')
             ->add('description')
             ->add('website')
             ->add('twitter')
-            ->add('linkedin')
-            ->add('user')
-        ;
+            ->add('linkedin');
     }
 
     public function configureOptions(OptionsResolver $resolver)

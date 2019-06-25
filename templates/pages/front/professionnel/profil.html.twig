@@ -3,6 +3,15 @@
 {% set imagePorfil = app.user.image ? app.user.image : 'default.png' %}
 {% block title %}Dashboard !{% endblock %}
 
+{% block stylesheets %}
+    {{parent()}}
+    <link href="{{asset('assets/plugins/Tags-Input/dist/jquery.tagsinput-revisited.min.css')}}" rel="stylesheet" type="text/css">
+
+    <!--DateTime Picker-->
+    <link href="{{asset('assets/plugins/datetimepicker/jquery.datetimepicker.css')}}"  rel="stylesheet" type="text/css"/>
+    <link href="{{asset('assets/front/pages/profil/style.css')}}" rel="stylesheet" type="text/css">
+{% endblock %}
+
 {% block main %}
 	<div id="content-sidebar-pro">
         
@@ -107,16 +116,7 @@
 						<div class="card bg-bordered">
 							<div class="card-body">
 								<h2>INFORMATION PROFESSIONNELLES</h2>
-								<form class="account-settings-form">
-									<div class="row">
-										<div class="col-md-12">
-											<div class="form-group">
-												<label for="e-mail" class="col-form-label">E-mail</label>
-												<input type="text" class="form-control no-bt" id="e-mail" value="suzie@outlook.com">
-											</div>
-										</div><!-- close .col -->
-									</div><!-- close .row -->
-								</form>
+								{% include "pages/front/professionnel/forms/_informationProfilType.html.twig" %}
 							</div>
 						</div>
                     </div><!-- close .col -->
@@ -131,7 +131,7 @@
 								<h2>EXPERIENCES</h2>
 								<div class="row">
 									<div class="col-12 col-md-12 col-lg-12 col-xl-12 text-right">
-										<button type="button" class="link-edit mb-2" data-toggle="tooltip" data-placement="top" title="Ajouter une experience"><i class="fa fa-plus" aria-hidden="true"></i> </button>
+										<button type="button" class="link-edit btn" data-toggle="modal" data-target="#modalAjoutExperience" title="Ajouter une experience"><i class="fa fa-plus" aria-hidden="true"></i> </button>
 									</div>
 								</div>
 								<div class="row">
@@ -169,216 +169,28 @@
 
         </div><!-- close .dashboard-container -->
     </main>
-	
-	{# <main id="col-main">
 
-        <div class="dashboard-container">
-			<ul class="dashboard-sub-menu bg-bordered">
-				<li><a href="#!">Faire un vidéo</a></li>
-                <li class="current"><a href="#!">INFORMATION PROFESSIONNELLES</a></li>
-                <li><a href="#!">EXPERIENCES</a></li>
-				<li><a href="#!">FORMATIONS ET CERTIFICATIONS</a></li>
-				<li><a href="#!">LANGUES</a></li>
-				<li><a href="#!">Domaine</a></li>
-            </ul><!-- close .dashboard-sub-menu -->
-            <div class="container-fluid bg-bordered">
-                <div class="row">
-                    {% set fullName = app.user.prenom ~ " " ~ app.user.nom %}
-                    {% set imagePorfil = app.user.image ? app.user.image : 'default.png' %}
-                    <div class="col-md-12">
-
-                        <form class="account-settings-form">
-
-                            <p class="small-paragraph-spacing">By letting us know your name, we can make our support
-                                experience much more personal.</p>
-                            <div class="row">
-                                <div class="col-sm">
-                                    <div class="form-group">
-                                        <label for="first-name" class="col-form-label">First Name:</label>
-                                        <input type="text" class="form-control" id="first-name" value="Suzie">
-                                    </div>
-                                </div><!-- close .col -->
-                                <div class="col-sm">
-                                    <div class="form-group">
-                                        <label for="last-name" class="col-form-label">Last Name:</label>
-                                        <input type="text" class="form-control" id="last-name" value="Smith">
-                                    </div>
-                                </div><!-- close .col -->
-                                <div class="col-sm">
-                                    <div class="form-group">
-                                        <label for="last-name" class="col-form-label">Country:</label>
-                                        <select class="custom-select">
-                                            <option value="0">All Countries</option>
-                                            <option value="1">Argentina</option>
-                                            <option value="2">Australia</option>
-                                            <option value="3">Bahamas</option>
-                                            <option value="4">Belgium</option>
-                                            <option value="5">Brazil</option>
-                                            <option value="6">Canada</option>
-                                            <option value="7">Chile</option>
-                                            <option value="8">China</option>
-                                            <option value="9">Denmark</option>
-                                            <option value="10">Ecuador</option>
-                                            <option value="11">France</option>
-                                            <option value="12">Germany</option>
-                                            <option value="13">Greece</option>
-                                            <option value="14">Guatemala</option>
-                                            <option value="15">Italy</option>
-                                            <option value="16">Japan</option>
-                                            <option value="17">asdfasdf</option>
-                                            <option value="18">Korea</option>
-                                            <option value="19">Malaysia</option>
-                                            <option value="20">Monaco</option>
-                                            <option value="21">Morocco</option>
-                                            <option value="22">New Zealand</option>
-                                            <option value="23">Panama</option>
-                                            <option value="24">Portugal</option>
-                                            <option value="25">Russia</option>
-                                            <option value="26">United Kingdom</option>
-                                            <option selected>United States</option>
-                                        </select>
-                                    </div>
-                                </div><!-- close .col -->
-                            </div><!-- close .row -->
-                            <hr>
-
-                            <h5>Account Information</h5>
-                            <p class="small-paragraph-spacing">You can change the email address you use here.</p>
-
-                            <div class="row">
-                                <div class="col-sm">
-                                    <div class="form-group">
-                                        <label for="e-mail" class="col-form-label">E-mail</label>
-                                        <input type="text" class="form-control" id="e-mail"
-                                            value="suzie@outlook.com">
-                                    </div>
-                                </div><!-- close .col -->
-                                <div class="col-sm">
-                                    <div class="form-group">
-                                        <div><label for="button-change" class="col-form-label">&nbsp; &nbsp;</label>
-                                        </div>
-                                        <a href="{{path('user_parametres')}}" class="btn btn-form">Change E-mail</a>
-                                    </div>
-                                </div><!-- close .col -->
-
-                            </div><!-- close .row -->
-
-                            <hr>
-                            <h5>Change Password</h5>
-                            <p class="small-paragraph-spacing">You can change the password you use for your account
-                                here.</p>
-                            <div class="row">
-                                <div class="col-sm">
-                                    <div class="form-group">
-                                        <label for="password" class="col-form-label">Current Password:</label>
-                                        <input type="text" class="form-control" id="password"
-                                            value="&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;">
-                                    </div>
-                                </div><!-- close .col -->
-                                <div class="col-sm">
-                                    <div class="form-group">
-                                        <label for="new-password" class="col-form-label">New Password:</label>
-                                        <input type="text" class="form-control" id="new-password"
-                                            placeholder="Minimum of 6 characters">
-                                    </div>
-                                </div><!-- close .col -->
-                                <div class="col-sm">
-                                    <div class="form-group">
-                                        <div><label for="confirm-password" class="col-form-label">&nbsp;
-                                                &nbsp;</label></div>
-                                        <input type="text" class="form-control" id="confirm-password"
-                                            placeholder="Confirm New Password">
-                                    </div>
-                                </div><!-- close .col -->
-                            </div><!-- close .row -->
-
-                            <hr>
-                            <h5>Preferred Genres</h5>
-                            <p class="small-paragraph-spacing">Pick your favorite genres for content.</p>
-
-                            <div class="registration-genres-step">
-                                <ul class="registration-genres-choice">
-                                    <li class="active">
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/drama.png')}}" alt="Drama">
-                                        <h6>Drama</h6>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/comedy.png')}}" alt="Comedy">
-                                        <h6>Comedy</h6>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/action.png')}}" alt="Action">
-                                        <h6>Action</h6>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/romance.png')}}" alt="Romance">
-                                        <h6>Romance</h6>
-                                    </li>
-                                    <li class="active">
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/horror.png')}}" alt="Horror">
-                                        <h6>Horror</h6>
-                                    </li>
-                                    <li class="active">
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/fantasy.png')}}" alt="Fantasy">
-                                        <h6>Fantasy</h6>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/sci-fi.png')}}" alt="Sci-Fi">
-                                        <h6>Sci-Fi</h6>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/thriller.png')}}" alt="Thriller">
-                                        <h6>Thriller</h6>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/western.png')}}" alt="Western">
-                                        <h6>Western</h6>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/adventure.png')}}" alt="Adventure">
-                                        <h6>Adventure</h6>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/animation.png')}}" alt="Animation">
-                                        <h6>Animation</h6>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/documentary.png')}}" alt="Documentary">
-                                        <h6>Documentary</h6>
-                                    </li>
-                                </ul>
-                                <div class="clearfix"></div>
-                            </div><!-- close .registration-genres-step -->
-                            <div class="clearfix"></div>
-                            <hr>
-                            <p><a href="{{path('user_parametres')}}" class="btn btn-green-pro">Save Changes</a></p>
-                            <br>
-                        </form>
-
-                    </div><!-- close .col -->
-
-                </div><!-- close .row -->
-            </div><!-- close .container-fluid -->
-
-        </div><!-- close .dashboard-container -->
-    </main> #}
+    <!-- Modal -->
+    <div class="modal fade" id="modalAjoutExperience" tabindex="-1" role="dialog" aria-labelledby="modalAjoutExperienceTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                {% include "pages/front/professionnel/forms/_experienceType.html.twig" %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
     {{parent()}}
+    <script src="{{asset('assets/plugins/Tags-Input/dist/jquery.tagsinput-revisited.min.js')}}"></script>
     <script src="{{asset('assets/front/js/jquery-asRange.min.js')}}" defer></script><!-- Range Slider JS Plugin -->
     <script src="{{asset('assets/front/js/circle-progress.min.js')}}" defer></script><!-- Circle Progress JS Plugin -->
     <script src="{{asset('assets/front/js/script-dashboard.js')}}" defer></script><!-- Custom Document Ready for Dashboard Only JS -->
+
+    <!--DateTime Picker-->
+    <script src="{{asset('assets/plugins/datetimepicker/php-date-formatter/js/php-date-formatter.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/datetimepicker/jquery-mousewheel/jquery.mousewheel.js')}}"></script>
+    <script src="{{asset('assets/plugins/datetimepicker/jquery.datetimepicker.js')}}"></script>
+
+    <script src="{{asset('assets/front/pages/profil/script.js')}}" defer></script>
 {% endblock %}
