@@ -140,4 +140,10 @@ jQuery(document).ready(function($) {
 	if ($('#sidebar-nav').length > 0) {
 		activedUrl('sidebar-nav');
 	}
+
+	/* 
+====================================================== 0.6 Authers actions         			===================================================
+*/
+
+	$('[data-toggle="popover"]').popover();
 });

@@ -20,7 +20,7 @@
         </div>
         
         <div class="content-sidebar-section">
-            <h2 class="content-sidebar-sub-header">{{fullName |capitalize }} <a href="{{path('user_parametres')}}" class="link-edit" title="Modifier votre profil"><i class="fas fa-pencil-alt"></i></a></h2>
+            <h2 class="content-sidebar-sub-header">{{fullName |capitalize }} <a href="{{path('user_parametres')}}" class="link-edit float-right" title="Modifier votre profil"><em class="fas fa-pencil-alt"></em></a></h2>
             <ul class="progression-studios-slider-rating">
                 <li>PG-13</li><li>HD</li>
             </ul>
@@ -38,55 +38,25 @@
         </div><!-- close .content-sidebar-section -->
         
         <div class="content-sidebar-section">
+            <h4 class="content-sidebar-sub-header">E-mail</h4>
+            <div class="content-sidebar-short-description">{{app.user.email ? app.user.email : '? ? ?'}}</div>
+        </div><!-- close .content-sidebar-section -->
+        
+        <div class="content-sidebar-section">
+            <h4 class="content-sidebar-sub-header">Téléphone</h4>
+            <div class="content-sidebar-short-description">{{app.user.tel ? app.user.tel : '? ? ?'}}</div>
+        </div><!-- close .content-sidebar-section -->
+
+        <div class="content-sidebar-section">
             <h4 class="content-sidebar-sub-header">Date de naissance</h4>
             <div class="content-sidebar-short-description">{{ app.user.birthday ? app.user.birthday |date('d') ~ app.user.birthday |date('m') |string_month ~ app.user.birthday |date('Y') : '? ? ?' }}</div>
         </div><!-- close .content-sidebar-section -->
-        
+
         <div class="content-sidebar-section">
-            <h4 class="content-sidebar-sub-header">Length</h4>
-            <div class="content-sidebar-short-description">2 hr 43 min</div>
+            <h4 class="content-sidebar-sub-header">Adresse</h4>
+            <div class="content-sidebar-short-description">{{ app.user.adresse ? app.user.adresse : '? ? ?' }}</div>
         </div><!-- close .content-sidebar-section -->
-        
-        <div class="content-sidebar-section">
-            <h4 class="content-sidebar-sub-header">Director</h4>
-            <div class="content-sidebar-short-description">James Wan</div>
-        </div><!-- close .content-sidebar-section -->
-        
-        <div class="content-sidebar-section">
-            <h2 class="content-sidebar-sub-header adjusted-recent-reviews">Recent Reviews</h2>
-            <ul id="sidebar-reviews-pro">
-                <li>
-                    <div class="circle-rating-pro" data-value="0.86" data-animation-start-value="0.86" data-size="32" data-thickness="3" data-fill="{&quot;color&quot;: &quot;#42b740&quot;}" data-empty-fill="#def6de" data-reverse="true"><span style="color:#42b740;">8.6</span></div>
-                    <h6>Dan Cederholm</h6>
-                    <div class="sidebar-review-time">October 22, 2017</div>
-                    <div class="spoiler-review">Contains Spoiler</div>
-                    <p>They don't make many Sci-Fi films these days. This was a pleasant surprise all throughout the film. I really like this film.</p>
-                </li>
-                <li>
-                    <div class="circle-rating-pro" data-value="0.53" data-animation-start-value="0.53" data-size="32" data-thickness="3" data-fill="{&quot;color&quot;: &quot;#ff4141&quot;}" data-empty-fill="#ffe1e1" data-reverse="true"
-                    ><span style="color:#ff4141;">5.3</span></div>
-                    <h6>Jeff Seid</h6>
-                    <div class="sidebar-review-time">October 18, 2017</div>
-                    <p>Coming out of the theatres following my viewing of this film, I was confused. I couldn't decide whether I liked it or not.</p>
-                </li>
-                <li>
-                    <div class="circle-rating-pro" data-value="0.72" data-animation-start-value="0.72" data-size="32" data-thickness="3" data-fill="{&quot;color&quot;: &quot;#42b740&quot;}" data-empty-fill="#def6de"  data-reverse="true"><span style="color:#42b740;">7.2</span></div>
-                    <h6>Christian De Guzman</h6>
-                    <div class="sidebar-review-time">August 26, 2017</div>
-                    <div class="spoiler-review">Contains Spoiler</div>
-                    <p>I have been a cinema lover for years, read a lot of reviews on SKRN and everywhere, and never found the right movie to write my first review. I always thought I would wait for the movie.</p>
-                    <p>And this is it!</p>
-                </li>
-                <li>
-                    <div class="circle-rating-pro" data-value="0.9" data-animation-start-value="0.9" data-size="32" data-thickness="3" data-fill="{&quot;color&quot;: &quot;#42b740&quot;}" data-empty-fill="#def6de" data-reverse="true"><span style="color:#42b740;">9.0</span></div>
-                    <h6>Jennifer Thomas</h6>
-                    <div class="sidebar-review-time">August 15, 2017</div>
-                    <p>'Oblivion’ was incredible. The visuals, the score, the acting, were all amazing. The plot is definitely one of the most original I've seen in a while</p>
-                </li>
-            </ul>
-            <a href="javascript:void(0);" class="btn btn-green-pro btn-sm">See All Reviews</a>
-        </div><!-- close .content-sidebar-section -->
-        
+
     </div><!-- close #content-sidebar-pro -->
 	
 	<main id="col-main-with-sidebar">
@@ -115,7 +85,7 @@
                     <div class="col-12 col-md-12 col-lg-12 col-xl-12">
 						<div class="card bg-bordered">
 							<div class="card-body">
-								<h2>INFORMATION PROFESSIONNELLES</h2>
+								<h2 class="titre-rubrique">Information professionnelles</h2>
 								{% include "pages/front/professionnel/forms/_informationProfilType.html.twig" %}
 							</div>
 						</div>
@@ -128,21 +98,41 @@
                     <div class="col-12 col-md-12 col-lg-12 col-xl-12">
 						<div class="card bg-bordered">
 							<div class="card-body">
-								<h2>EXPERIENCES</h2>
 								<div class="row">
-									<div class="col-12 col-md-12 col-lg-12 col-xl-12 text-right">
-										<button type="button" class="link-edit btn" data-toggle="modal" data-target="#modalAjoutExperience" title="Ajouter une experience"><i class="fa fa-plus" aria-hidden="true"></i> </button>
-									</div>
+                                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+										<h2 class="titre-rubrique">Expérience</h2>
+                                    </div>
+									<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-2">
+										<button type="button" class="link-edit btn btn-modal-popover float-sm-left float-md-right" data-target="#modalAjoutExperience" data-content="<em class='fas fa-info-circle'></em> Cliquez ici pour ajouter une experience.">
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
 								</div>
 								<div class="row">
-									<div class="col-12 col-md-12 col-lg-12 col-xl-12">
-										<ul class="list-group">
-											<li class="list-group-item">Active item</li>
-											<li class="list-group-item">Item</li>
-											<li class="list-group-item">Disabled item</li>
-										</ul>
-									</div>
-								</div>
+                                    <div class="col-md-12 pr-5">
+                                        <ul class="timeline">
+                                            <li>
+                                                <span class="float-right"><i class="fas fa-pencil-alt"></i></span>
+                                                <h4 class="intitule-exp">Web Design, <span class="entreprise-exp">Sonatel</span></h4>
+                                                <h4 class="date-exp">Janvier 2014 - Mars 2019</h4>
+                                                <h4 class="lieu-exp">Dakar, Sénégal</h4>
+                                                <p class="description-exp">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula....</p>
+                                            </li>
+                                            <li>
+                                                <h4 class="intitule-exp">Technical Consulting, <span class="entreprise-exp">KOCC DIGITAL</span></h4>
+                                                <h4 class="date-exp">Janvier 2014 - Mars 2019</h4>
+                                                <h4 class="lieu-exp">Dakar, Sénégal</h4>
+                                                <p class="description-exp">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula....</p>
+                                            </li>
+                                            <li>
+                                                <h4 class="intitule-exp">Web Design à la <span class="entreprise-exp">Sonatel</span></h4>
+                                                <h4 class="date-exp">Janvier 2014 - Mars 2019</h4>
+                                                <h4 class="lieu-exp">Dakar, Sénégal</h4>
+                                                <p class="description-exp">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula....</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
 							</div>
 						</div>
                     </div><!-- close .col -->
@@ -150,7 +140,7 @@
             </div><!-- close .movie-details-section -->
 
 			<div class="movie-details-section">
-                <h2>FORMATIONS ET CERTIFICATIONS</h2>
+                <h2 class="titre-rubrique">Formations et certifications</h2>
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12 col-xl-12">
                         
@@ -159,7 +149,7 @@
             </div><!-- close .movie-details-section -->
 
 			<div class="movie-details-section">
-                <h2>LANGUES</h2>
+                <h2 class="titre-rubrique">Langues</h2>
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12 col-xl-12">
                         
