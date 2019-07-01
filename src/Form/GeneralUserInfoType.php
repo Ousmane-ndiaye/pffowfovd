@@ -6,6 +6,8 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class GeneralUserInfoType extends AbstractType
 {
@@ -14,21 +16,23 @@ class GeneralUserInfoType extends AbstractType
         $builder
             ->add('adresse')
             ->add('tel')
-            ->add('isVisible')
-            ->add('birthday')
-            ->add('sexe')
+            ->add('birthday', TextType::class)
+            ->add('sexe', ChoiceType::class, [
+                'choices' => [
+                    'Sexe' => '',
+                    'Homme' => 'Homme',
+                    'Femme' => 'Femme'
+                ],
+            ])
             ->add('ville')
             ->add('codePostal')
-            ->add('pays')
             ->add('email')
-            ->add('password')
-            ->add('roles')
-            ->add('created_at')
-            ->add('isActive')
+            //->add('password')
             ->add('prenom')
             ->add('nom')
-            ->add('infoprofil')
-        ;
+            ->add('userSecteurs', UsersecteurType::class, [
+                'data_class' => NULL
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

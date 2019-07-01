@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User extends BaseUser implements UserInterface
 {
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $adresse;
 
@@ -78,9 +78,9 @@ class User extends BaseUser implements UserInterface
     private $langues;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Userdomaine", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Usersecteur", mappedBy="user", cascade={"persist"})
      */
-    private $userDomaines;
+    private $userSecteurs;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -94,7 +94,7 @@ class User extends BaseUser implements UserInterface
         $this->formations = new ArrayCollection();
         $this->experiences = new ArrayCollection();
         $this->langues = new ArrayCollection();
-        $this->userDomaines = new ArrayCollection();
+        $this->userSecteurs = new ArrayCollection();
     }
 
     public function getAdresse(): ?string
@@ -133,12 +133,15 @@ class User extends BaseUser implements UserInterface
         return $this;
     }
 
-    public function getBirthday(): ?\DateTimeInterface
+    public function getBirthday()
     {
+        if ($this->birthday != '') {
+            return $this->birthday->format('d/m/Y');
+        }
         return $this->birthday;
     }
 
-    public function setBirthday(?\DateTimeInterface $birthday): self
+    public function setBirthday($birthday): self
     {
         $this->birthday = $birthday;
 
@@ -336,30 +339,30 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
-     * @return Collection|Userdomaine[]
+     * @return Collection|Usersecteur[]
      */
-    public function getUserDomaines(): Collection
+    public function getUserSecteurs(): Collection
     {
-        return $this->userDomaines;
+        return $this->userSecteurs;
     }
 
-    public function addUserDomaine(Userdomaine $userDomaine): self
+    public function addUserSecteur(Usersecteur $userSecteur): self
     {
-        if (!$this->userDomaines->contains($userDomaine)) {
-            $this->userDomaines[] = $userDomaine;
-            $userDomaine->setUser($this);
+        if (!$this->userSecteurs->contains($userSecteur)) {
+            $this->userSecteurs[] = $userSecteur;
+            $userSecteur->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeUserDomaine(Userdomaine $userDomaine): self
+    public function removeUserSecteur(Usersecteur $userSecteur): self
     {
-        if ($this->userDomaines->contains($userDomaine)) {
-            $this->userDomaines->removeElement($userDomaine);
+        if ($this->userSecteurs->contains($userSecteur)) {
+            $this->userSecteurs->removeElement($userSecteur);
             // set the owning side to null (unless already changed)
-            if ($userDomaine->getUser() === $this) {
-                $userDomaine->setUser(null);
+            if ($userSecteur->getUser() === $this) {
+                $userSecteur->setUser(null);
             }
         }
 
@@ -376,5 +379,14 @@ class User extends BaseUser implements UserInterface
         $this->image = $image;
 
         return $this;
+    }
+
+    public function updateSecteurs($newSecteurs)
+    {
+        foreach ($newSecteurs as $newSecteur) {
+            $userSecteur = new Usersecteur();
+            $userSecteur->setSecteur($newSecteur);
+            $this->addUserSecteur($userSecteur);
+        }
     }
 }

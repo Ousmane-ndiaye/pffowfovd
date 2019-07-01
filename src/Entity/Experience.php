@@ -43,6 +43,12 @@ class Experience
 
     /**
      * @ORM\Column(type="string", length=200, nullable=true)
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 200,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $lieu;
 
@@ -53,13 +59,17 @@ class Experience
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\Length(
+     *      max = 300,
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $description;
 
     /**
      * @ORM\Column(type="json", nullable=true)
      */
-    private $competences = [];
+    private $competences;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="experiences")
@@ -68,21 +78,47 @@ class Experience
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 4,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $moisDeDebut;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 8,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $anneeDeDebut;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 4,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $moisDeFin;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 8,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $anneeDeFin;
 
@@ -151,14 +187,17 @@ class Experience
         return $this;
     }
 
-    public function getCompetences(): ?array
+    public function getCompetences()
     {
-        return $this->competences;
+        if ($this->competences != "") {
+            return implode(";", $this->competences);
+        }
+        return "";
     }
 
-    public function setCompetences(?array $competences): self
+    public function setCompetences($competences): self
     {
-        $this->competences = $competences;
+        $this->competences = explode(";", $competences);
 
         return $this;
     }
@@ -204,9 +243,13 @@ class Experience
         return $this->moisDeFin;
     }
 
-    public function setMoisDeFin(?int $moisDeFin): self
+    public function setMoisDeFin($moisDeFin): self
     {
-        $this->moisDeFin = $moisDeFin;
+        if ($moisDeFin == '') {
+            $this->moisDeFin = NULL;
+        } else {
+            $this->moisDeFin = (int)$moisDeFin;
+        }
 
         return $this;
     }
@@ -216,9 +259,13 @@ class Experience
         return $this->anneeDeFin;
     }
 
-    public function setAnneeDeFin(?int $anneeDeFin): self
+    public function setAnneeDeFin($anneeDeFin): self
     {
-        $this->anneeDeFin = $anneeDeFin;
+        if ($anneeDeFin == '') {
+            $this->anneeDeFin = NULL;
+        } else {
+            $this->anneeDeFin = (int)$anneeDeFin;
+        }
 
         return $this;
     }

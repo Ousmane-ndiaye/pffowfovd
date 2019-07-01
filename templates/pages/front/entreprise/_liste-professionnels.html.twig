@@ -1,0 +1,16 @@
+{% for userSecteur in userSecteurs %}
+    <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+        <div class="item-playlist-container-skrn">
+            <a href="{{path('professionnel_detail', {slug: userSecteur.user.email})}}"><img src="{{asset('assets/front/images/demo/playlist-1.jpg')}}" alt="Listing"></a>
+            <div class="item-playlist-text-skrn">
+                <img src="{{asset('assets/front/images/demo/user-6.jpg')}}" alt="User Profile">
+                <h5><a href="{{path('professionnel_detail', {slug: userSecteur.user.email})}}">{{ userSecteur.user.prenom ~ userSecteur.user.nom |raw |e |capitalize }}</a></h5>
+                <h6 style="display: {{ userSecteur.user.infoProfil ? 'block' : 'none' }};">{{ userSecteur.user.infoProfil.titreProfil |raw |e }}</h6>
+            </div><!-- close .item-listing-text-skrn -->
+        </div><!-- close .item-playlist-container-skrn -->
+    </div><!-- close .col -->
+    {% else %}
+        <div class="col-12 col-md-12 col-lg-12 col-xl-12 text-center">
+            <h5 class="text-muted text-center text-waiting spinner-waiting">Cette secteur est vide !</h5>
+        </div>
+{% endfor %}

@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 class ExperienceType extends AbstractType
 {
     const CHOICES = 'choices';
+    const REQUIRED = 'required';
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -32,10 +33,12 @@ class ExperienceType extends AbstractType
                 self::CHOICES => $annees
             ])
             ->add('moisDeFin', ChoiceType::class, [
-                self::CHOICES => $mois
+                self::CHOICES => $mois,
+                self::REQUIRED => false
             ])
             ->add('anneeDeFin', ChoiceType::class, [
-                self::CHOICES => $annees
+                self::CHOICES => $annees,
+                self::REQUIRED => false
             ])
             ->add('isCurrent', CheckboxType::class, [
                 'required' => false,

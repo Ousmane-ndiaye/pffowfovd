@@ -1,70 +1,92 @@
 {% extends 'pages/front/base.html.twig' %}
+{% set fullName = user.prenom ~ " " ~ user.nom %}
+{% set imagePorfil = user.image ? user.image : 'default.png' %}
 
 {% block title %}Détail !{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+    <link href="{{asset('assets/plugins/Tags-Input/dist/jquery.tagsinput-revisited.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('assets/plugins/swiper-4.5.0/dist/css/swiper.min.css')}}" rel="stylesheet" type="text/css">
+
+    <link href="{{asset('assets/front/pages/professionnel/profil/style.css')}}" rel="stylesheet" type="text/css">
+    <style>
+        .label-value {
+            color: #000000;
+            font-size: 1.2rem;
+        }
+    </style>
+{% endblock %}
 
 {% block main %}
     <div id="content-sidebar-pro">
         
         <div id="content-sidebar-image">
-            <img src="{{asset('assets/front/images/demo/movie-detail-poster.jpg')}}" alt="Movie Poster">
+            <img src="{{asset('assets/front/images/users/' ~ imagePorfil)}}" alt="{{ fullName |capitalize }}">
         </div>
         
         <div class="content-sidebar-section">
-            <h2 class="content-sidebar-sub-header">True Blood</h2>
+            <h2 class="content-sidebar-sub-header">{{fullName |capitalize }}</h2>
             <ul class="progression-studios-slider-rating">
-                <li>PG-13</li><li>HD</li>
+                {% for userSecteur in user.userSecteurs %}
+                    <li>{{ userSecteur.secteur.libelle |upper }}</li>
+                {% endfor %}
             </ul>
         </div><!-- close .content-sidebar-section -->
-        
+
         <div class="content-sidebar-section">
-            <h4 class="content-sidebar-sub-header">Release Date</h4>
-            <div class="content-sidebar-short-description">2 October, 2017 (USA)</div>
+            <h4 class="content-sidebar-sub-header">Note</h4>
+            <div class="content-sidebar-short-description">
+				<em class="fas fa-star golden-star" aria-hidden="true"></em>
+				<em class="fas fa-star golden-star" aria-hidden="true"></em>
+				<em class="fas fa-star golden-star" aria-hidden="true"></em>
+				<em class="fas fa-star gray-star" aria-hidden="true"></em>
+				<em class="fas fa-star gray-star" aria-hidden="true"></em>
+			</div>
         </div><!-- close .content-sidebar-section -->
         
         <div class="content-sidebar-section">
-            <h4 class="content-sidebar-sub-header">Length</h4>
-            <div class="content-sidebar-short-description">2 hr 43 min</div>
+            <h4 class="content-sidebar-sub-header"><em class="fa fa-envelope" aria-hidden="true"></em> E-mail</h4>
+            <div class="content-sidebar-short-description">{{user.email ? user.email : '? ? ?'}}</div>
         </div><!-- close .content-sidebar-section -->
         
         <div class="content-sidebar-section">
-            <h4 class="content-sidebar-sub-header">Director</h4>
-            <div class="content-sidebar-short-description">James Wan</div>
+            <h4 class="content-sidebar-sub-header"><em class="fa fa-phone" aria-hidden="true"></em> Téléphone</h4>
+            <div class="content-sidebar-short-description">{{user.tel ? user.tel : '? ? ?'}}</div>
         </div><!-- close .content-sidebar-section -->
-        
+
         <div class="content-sidebar-section">
-            <h2 class="content-sidebar-sub-header adjusted-recent-reviews">Recent Reviews</h2>
-            <ul id="sidebar-reviews-pro">
-                <li>
-                    <div class="circle-rating-pro" data-value="0.86" data-animation-start-value="0.86" data-size="32" data-thickness="3" data-fill="{&quot;color&quot;: &quot;#42b740&quot;}" data-empty-fill="#def6de" data-reverse="true"><span style="color:#42b740;">8.6</span></div>
-                    <h6>Dan Cederholm</h6>
-                    <div class="sidebar-review-time">October 22, 2017</div>
-                    <div class="spoiler-review">Contains Spoiler</div>
-                    <p>They don't make many Sci-Fi films these days. This was a pleasant surprise all throughout the film. I really like this film.</p>
-                </li>
-                <li>
-                    <div class="circle-rating-pro" data-value="0.53" data-animation-start-value="0.53" data-size="32" data-thickness="3" data-fill="{&quot;color&quot;: &quot;#ff4141&quot;}" data-empty-fill="#ffe1e1" data-reverse="true"
-                    ><span style="color:#ff4141;">5.3</span></div>
-                    <h6>Jeff Seid</h6>
-                    <div class="sidebar-review-time">October 18, 2017</div>
-                    <p>Coming out of the theatres following my viewing of this film, I was confused. I couldn't decide whether I liked it or not.</p>
-                </li>
-                <li>
-                    <div class="circle-rating-pro" data-value="0.72" data-animation-start-value="0.72" data-size="32" data-thickness="3" data-fill="{&quot;color&quot;: &quot;#42b740&quot;}" data-empty-fill="#def6de"  data-reverse="true"><span style="color:#42b740;">7.2</span></div>
-                    <h6>Christian De Guzman</h6>
-                    <div class="sidebar-review-time">August 26, 2017</div>
-                    <div class="spoiler-review">Contains Spoiler</div>
-                    <p>I have been a cinema lover for years, read a lot of reviews on SKRN and everywhere, and never found the right movie to write my first review. I always thought I would wait for the movie.</p>
-                    <p>And this is it!</p>
-                </li>
-                <li>
-                    <div class="circle-rating-pro" data-value="0.9" data-animation-start-value="0.9" data-size="32" data-thickness="3" data-fill="{&quot;color&quot;: &quot;#42b740&quot;}" data-empty-fill="#def6de" data-reverse="true"><span style="color:#42b740;">9.0</span></div>
-                    <h6>Jennifer Thomas</h6>
-                    <div class="sidebar-review-time">August 15, 2017</div>
-                    <p>'Oblivion’ was incredible. The visuals, the score, the acting, were all amazing. The plot is definitely one of the most original I've seen in a while</p>
-                </li>
-            </ul>
-            <a href="javascript:void(0);" class="btn btn-green-pro btn-sm">See All Reviews</a>
+            <h4 class="content-sidebar-sub-header"><em class="fa fa-address-card" aria-hidden="true"></em> Adresse</h4>
+            <div class="content-sidebar-short-description">{{user.adresse ? user.adresse : '? ? ?'}}</div>
         </div><!-- close .content-sidebar-section -->
+
+        <div class="content-sidebar-section">
+            <h4 class="content-sidebar-sub-header"><em class="fa fa-birthday-cake" aria-hidden="true"></em> Date de naissance</h4>
+            <div class="content-sidebar-short-description">{{ user.birthday ? user.birthday : '? ? ?' }}</div>
+        </div><!-- close .content-sidebar-section -->
+
+        <div class="content-sidebar-section">
+            <h4 class="content-sidebar-sub-header"><em class="fa fa-male" aria-hidden="true"></em> <em class="fa fa-female" aria-hidden="true"></em> Sexe</h4>
+            <div class="content-sidebar-short-description">
+                {% if user.sexe %}
+                    {{ user.sexe == 'Homme' ? 'Homme'  : 'Femme' }}
+                {% else %}
+                    ? ? ?
+                {% endif %}
+                
+            </div>
+        </div><!-- close .content-sidebar-section -->
+
+        <div class="content-sidebar-section">
+            <h4 class="content-sidebar-sub-header"><em class="fas fa-map-pin"></em> Code postal</h4>
+            <div class="content-sidebar-short-description">{{ user.codePostal ? user.codePostal : '? ? ?' }}</div>
+        </div><!-- close .content-sidebar-section -->
+
+        <div class="content-sidebar-section">
+            <h4 class="content-sidebar-sub-header"><em class="fa fa-flag"></em> Pays/Ville</h4>
+            <div class="content-sidebar-short-description">{{ user.pays ? user.pays : '? ? ?' }} / {{ user.ville ? user.ville : '? ? ?' }}</div>
+        </div><!-- close .content-sidebar-section -->
+
         
     </div><!-- close #content-sidebar-pro -->
 
@@ -88,106 +110,192 @@
             <div id="movie-detail-gradient-pro"></div>
         </div><!-- close #movie-detail-header-pro -->
         
-        
-        <div id="movie-detail-rating">
-            <div class="dashboard-container">
-                <div class="row">
-                    <div class="col-sm">
-                        <h5>Rate True Blood</h5>
-                        
-                        <div class="rating-pro">
-                            <label>
-                            <input type="radio" name="rating-pro" value="10" title="10 stars"> 10
-                            </label>
-                            <label>
-                            <input type="radio" name="rating-pro" value="9" title="9 stars"> 9
-                            </label>
-                            <label>
-                            <input type="radio" name="rating-pro" value="8" title="8 stars"> 8
-                            </label>
-                            <label>
-                            <input type="radio" name="rating-pro" value="7" title="7 stars"> 7
-                            </label>
-                            <label>
-                            <input type="radio" name="rating-pro" value="6" title="6 stars"> 6
-                            </label>
-                            <label>
-                            <input type="radio" name="rating-pro" value="5" title="5 stars"> 5
-                            </label>
-                            <label>
-                            <input type="radio" name="rating-pro" value="4" title="4 stars"> 4
-                            </label>
-                            <label>
-                            <input type="radio" name="rating-pro" value="3" title="3 stars"> 3
-                            </label>
-                            <label>
-                            <input type="radio" name="rating-pro" value="2" title="2 stars"> 2
-                            </label>
-                            <label>
-                            <input type="radio" name="rating-pro" value="1" title="1 star"> 1
-                            </label>
-                        </div>
-                        
-                    </div>
-                    <div class="col-sm">
-                        <h6>User Rating</h6>
-                        <div
-                        class="circle-rating-pro"
-                        data-value="0.86"
-                        data-animation-start-value="0.86"
-                        data-size="40"
-                        data-thickness="3"
-                        data-fill="{
-                            &quot;color&quot;: &quot;#42b740&quot;
-                        }"
-                        data-empty-fill="#def6de"
-                        data-reverse="true"
-                        ><span style="color:#42b740;">8.6</span></div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div><!-- close .row -->
-            </div><!-- close .dashboard-container -->
-        </div><!-- close #movie-detail-rating -->
-        
-        <div class="dashboard-container">
+        <div class="dashboard-container mt-5">
             <div class="movie-details-section">
-                <h2>Storyline</h2>
-                <p>Mae Holland (Emma Watson) seizes the opportunity of a lifetime when she lands a job with the world's most powerful technology and social media company. Encouraged by the company's founder (Tom Hanks), Mae joins a groundbreaking experiment that pushes the boundaries of privacy, ethics and personal freedom. Her participation in the experiment, and every decision she makes soon starts to affect the lives and futures of her friends, family and that of humanity.</p>
+				<div class="row">
+                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+						{% for label, messages in app.flashes %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ label }} alert-dismissible fade show">
+                                    <button type="button" class="close" style="color: red; font-size: x-large; opacity: 0.5;" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    </div><!-- close .col -->
+                </div><!-- close .row -->
+            </div><!-- close .movie-details-section -->
+        </div>
+        
+        <div class="dashboard-container mt-5">
+            <div class="movie-details-section">
+				<div class="row">
+                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+						<div class="card bg-bordered">
+							<div class="card-body">
+								<h2 class="titre-rubrique">Information professionnelles</h2>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="titreProfil" class="col-form-label">Titre: </label>
+                                            <p class="label-value">{{ user.infoProfil.titreProfil |raw |e }}</p>
+                                        </div>
+                                    </div><!-- close .col -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="situation" class="col-form-label">Situation actuel: </label>
+                                            <p class="label-value">{{ user.infoProfil.situation |raw |e }}</p>
+                                        </div>
+                                    </div><!-- close .col -->
+                                </div><!-- close .row -->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="competences" class="col-form-label">Compétences: </label>
+                                            <p class="label-value">
+                                                {% set cmptnces = user.infoProfil.competences | split(";") %}
+                                                {% for cmptnce in cmptnces %}
+                                                    <span class="badge-competence">{{ cmptnce |raw |e }}</span>
+                                                {% endfor %}
+                                            </p>
+                                        </div>
+                                    </div><!-- close .col -->
+                                </div><!-- close .row -->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="description" class="col-form-label">Résumé: </label>
+                                            <p class="label-value">{{ user.infoProfil.description |raw |e }}</p>
+                                        </div>
+                                    </div><!-- close .col -->
+                                </div><!-- close .row -->
+                                <div class="row">
+                                    <div style="display: {{ user.infoProfil.website ? 'block' : 'none' }}" class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="website" class="col-form-label">Site Web: </label>
+                                            <p class="label-value">{{ user.infoProfil.website |raw |e }}</p>
+                                        </div>
+                                    </div><!-- close .col -->
+                                    <div style="display: {{ user.infoProfil.twitter ? 'block' : 'none' }}" class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="twitter" class="col-form-label">Twitter: </label>
+                                            <p class="label-value">{{ user.infoProfil.twitter |raw |e }}</p>
+                                        </div>
+                                    </div><!-- close .col -->
+                                    <div style="display: {{ user.infoProfil.linkedin ? 'block' : 'none' }}" class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="linkedin" class="col-form-label">LinkedIn: </label>
+                                            <p class="label-value">{{ user.infoProfil.linkedin |raw |e }}</p>
+                                        </div>
+                                    </div><!-- close .col -->
+                                </div><!-- close .row -->
+							</div>
+						</div>
+                    </div><!-- close .col -->
+                </div><!-- close .row -->
             </div><!-- close .movie-details-section -->
 
             <div class="movie-details-section">
-                <h2>The Cast</h2>
+				<div class="row">
+                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+						<div class="card bg-bordered">
+							<div class="card-body">
+								<div class="row">
+                                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+										<h2 class="titre-rubrique">Expérience</h2>
+                                    </div>
+								</div>
+								<div class="row">
+                                    <div class="col-md-12 pr-5">
+                                        <ul class="timeline">
+                                            {% for experience in experiences %}
+                                                <li>
+                                                    <h4 class="intitule-exp">{{ experience.intitulePoste |raw |e }}, <span class="entreprise-exp">{{ experience.entreprise |raw |e }}</span></h4>
+                                                    <h4 class="date-exp">
+                                                        {{ experience.moisDeDebut|string_month |raw |e }} {{ experience.anneeDeDebut |raw |e}} - {% if experience.isCurrent %} Aujourd'hui {% else %} {{ experience.moisDeFin|string_month |raw |e }} {{ experience.anneeDeFin |raw |e}} {% endif %}
+                                                    </h4>
+                                                    <h4 style="display: {{experience.lieu ? 'block' : 'none' }}" class="lieu-exp">{{ experience.lieu |raw |e }}</h4>
+                                                    <p style="display: {{experience.description ? 'block' : 'none' }}" class="description-exp">
+                                                        {{ experience.description |raw |e }}
+                                                    </p>
+                                                    {% set cmptnces = experience.competences | split(";") %}
+                                                    {% for cmptnce in cmptnces %}
+                                                        <span class="badge-competence">{{ cmptnce |raw |e }}</span>
+                                                    {% endfor %}
+                                                </li>
+                                            {% else %}
+                                                <p class="form-text text-muted">
+                                                    <i class="fa fa-question-circle" aria-hidden="true"></i> Cette utilisateur n'a pas encore ajouter une expérience.
+                                                </p>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+							</div>
+						</div>
+                    </div><!-- close .col -->
+                </div><!-- close .row -->
+            </div><!-- close .movie-details-section -->
+
+			<div class="movie-details-section">
                 <div class="row">
-                    <div class="col-12 col-md-6 col-lg-6 col-xl-4">
-                        <div class="item-listing-container-skrn">
-                            <a href="javascript:void(0);"><img src="{{asset('assets/front/images/demo/cast-1.jpg')}}" alt="Cast"></a>
-                            <div class="item-listing-text-skrn item-listing-movie-casting">
-                                <h6><a href="javascript:void(0);">Robert Downey Jr.</a></h6>
-                                <div class="movie-casting-sub-title">Tony Stark</div>
-                            </div><!-- close .item-listing-text-skrn -->
-                        </div><!-- close .item-listing-container-skrn -->
+                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+						<div class="card bg-bordered">
+							<div class="card-body">
+								<div class="row">
+                                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+										<h2 class="titre-rubrique">Formations et certifications</h2>
+                                    </div>
+								</div>
+								<div class="row">
+                                    {% for formation in formations %}
+                                        <div class="col-md-12 pr-5">
+                                            <h4 class="intitule-exp">{{ formation.ecole |raw |e }}, <span style="display: {{formation.diplome ? 'block' : 'none' }}" class="entreprise-exp">{{ formation.diplome |raw |e }}</span></h4>
+                                            <h4 style="display: {{formation.moisDeDebut or formation.moisDeFin ? 'block' : 'none' }}" class="date-exp">{{ formation.moisDeDebut|string_month |raw |e }} {{ formation.anneeDeDebut |raw |e}} - {{ formation.moisDeFin|string_month |raw |e }} {{ formation.anneeDeFin |raw |e}}</h4>
+                                            <h4 style="display: {{formation.domaineEtude ? 'block' : 'none' }}" class="lieu-exp">{{ formation.domaineEtude |raw |e }}</h4>
+                                            <p style="display: {{formation.description ? 'block' : 'none' }}" class="description-exp">{{ formation.description |raw |e }}</p>
+                                        </div>
+                                    {% else %}
+                                        <div class="col-md-12 pr-5">
+                                            <p class="form-text text-muted">
+                                                <i class="fa fa-question-circle" aria-hidden="true"></i> Cette utilisateur n'a pas encore ajouter une formation ou certification.
+                                            </p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+							</div>
+						</div>
                     </div><!-- close .col -->
-                    
-                    <div class="col-12 col-md-6 col-lg-6 col-xl-4">
-                        <div class="item-listing-container-skrn">
-                            <a href="javascript:void(0);"><img src="{{asset('assets/front/images/demo/cast-2.jpg')}}" alt="Cast"></a>
-                            <div class="item-listing-text-skrn item-listing-movie-casting">
-                                <h6><a href="javascript:void(0);">Scarlett Johansson</a></h6>
-                                <div class="movie-casting-sub-title">Black Widow</div>
-                            </div><!-- close .item-listing-text-skrn -->
-                        </div><!-- close .item-listing-container-skrn -->
+                </div><!-- close .row -->
+            </div><!-- close .movie-details-section -->
+
+			<div class="movie-details-section">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+						<div class="card bg-bordered">
+							<div class="card-body">
+								<div class="row">
+                                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+										<h2 class="titre-rubrique">Langues</h2>
+                                    </div>
+								</div>
+								<div class="row">
+                                    {% for langue in langues %}
+                                        <div class="col-md-12 pr-5">
+                                            <h4 class="intitule-exp">{{ langue.libelle |raw |e }}</h4>
+                                            <h4 style="display: {{langue.niveau ? 'block' : 'none' }}"  class="date-exp">{{ langue.niveau |raw |e }}</h4>
+                                        </div>
+                                    {% else %}
+                                        <div class="col-md-12 pr-5">
+                                            <p class="form-text text-muted">
+                                                <i class="fa fa-question-circle" aria-hidden="true"></i> Vous n'avez pas encore ajouter une langue.
+                                            </p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+							</div>
+						</div>
                     </div><!-- close .col -->
-                    
-                    <div class="col-12 col-md-6 col-lg-6 col-xl-4">
-                        <div class="item-listing-container-skrn">
-                            <a href="javascript:void(0);"><img src="{{asset('assets/front/images/demo/cast-3.jpg')}}" alt="Cast"></a>
-                            <div class="item-listing-text-skrn item-listing-movie-casting">
-                                <h6><a href="javascript:void(0);">Chris Hemsworth Thor</a></h6>
-                                <div class="movie-casting-sub-title">Tony Stark</div>
-                            </div><!-- close .item-listing-text-skrn -->
-                        </div><!-- close .item-listing-container-skrn -->
-                    </div><!-- close .col -->
-                    
                 </div><!-- close .row -->
             </div><!-- close .movie-details-section -->
 

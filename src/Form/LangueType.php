@@ -6,6 +6,7 @@ use App\Entity\Langue;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class LangueType extends AbstractType
 {
@@ -13,9 +14,16 @@ class LangueType extends AbstractType
     {
         $builder
             ->add('libelle')
-            ->add('niveau')
-            ->add('user')
-        ;
+            ->add('niveau', ChoiceType::class, [
+                'choices' => [
+                    'Introductif' => 'Introductif',
+                    'Intermédiaire' => 'Intermédiaire',
+                    'Seuil' => 'Seuil',
+                    'Avancé' => 'Avancé',
+                    'Autonome' => 'Autonome',
+                    'Maîtrise' => 'Maîtrise'
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -47,10 +47,14 @@ class Infoprofil
      * @ORM\Column(type="json")
      * @Assert\NotBlank()
      */
-    private $comptences = [];
+    private $competences;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\Length(
+     *      max = 600,
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $description;
 
@@ -116,14 +120,17 @@ class Infoprofil
         return $this;
     }
 
-    public function getComptences(): ?array
+    public function getCompetences()
     {
-        return $this->comptences;
+        if ($this->competences != "") {
+            return implode(";", $this->competences);
+        }
+        return "";
     }
 
-    public function setComptences(array $comptences): self
+    public function setCompetences($competences): self
     {
-        $this->comptences = $comptences;
+        $this->competences = explode(";", $competences);
 
         return $this;
     }

@@ -1,4 +1,4 @@
-{{ form_start(formExperience, {'attr': {'class': 'account-settings-form'}}) }}
+{{ form_start(formExperience, {'attr': {'class': 'account-settings-form', 'action': path( edit is defined and edit == true ? "edit_profil" : "professionnel_profil")}}) }}
     <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Ajouter une experience</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -6,6 +6,12 @@
         </button>
     </div>
     <div class="modal-body">
+        {% if edit is defined and edit == true %}
+            <input type="hidden" name="id" value="{{ entity.id }}">
+            <input type="hidden" name="entity" value="experience">
+            <input type="hidden" name="nameForm" value="formExperience">
+            <input type="hidden" name="namePage" value="experienceType">
+        {% endif %}
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
@@ -31,8 +37,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="lieu" class="col-form-label required">Lieu </label>
-                    {{ form_widget(formExperience.lieu, {'attr': {'class': 'form-control required', 'placeholder': 'Ex: Dakar, Sénégal'}}) }}
+                    <label for="lieu" class="col-form-label">Lieu </label>
+                    {{ form_widget(formExperience.lieu, {'attr': {'class': 'form-control', 'placeholder': 'Ex: Dakar, Sénégal'}}) }}
                     <div class="form-field-errors">
                         {{ form_errors(formExperience.lieu) }}
                     </div>
@@ -72,23 +78,26 @@
             </div><!-- close .col -->
 
             <div class="col-md-6">
-                <div class="form-group">
-                    <label for="dateDeFin" class="col-form-label required">Date de fin </label>
+                <div class="form-group detail-date-fin" style="display: none;">
+                    <label for="dateDeFin" class="col-form-label">Date de fin </label>
                     <div class="row">
                         <div class="col-md-12 mb-1">
-                            {{ form_widget(formExperience.moisDeFin, {'attr': {'class': 'form-control required'}}) }}
+                            {{ form_widget(formExperience.moisDeFin, {'attr': {'class': 'form-control'}}) }}
                             <div class="form-field-errors">
                                 {{ form_errors(formExperience.moisDeFin) }}
                             </div>
                         </div>
                         <div class="col-md-12">
-                            {{ form_widget(formExperience.anneeDeFin, {'attr': {'class': 'form-control required'}}) }}
+                            {{ form_widget(formExperience.anneeDeFin, {'attr': {'class': 'form-control'}}) }}
                             <div class="form-field-errors">
                                 {{ form_errors(formExperience.anneeDeFin) }}
                             </div>
                         </div>
                     </div>
                 </div>
+                <p class="lead date-encours">
+                    Aujourd'hui
+                </p>
             </div><!-- close .col -->
         </div><!-- close .row -->
         <div class="row">
@@ -106,7 +115,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="competences" class="col-form-label">Compétences </label>
-                    {{ form_widget(formExperience.competences, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_widget(formExperience.competences, {'attr': {'class': 'form-control tagsInput'}}) }}
                     <div class="form-field-errors">
                         {{ form_errors(formExperience.competences) }}
                     </div>

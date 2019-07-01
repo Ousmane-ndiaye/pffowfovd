@@ -2,6 +2,15 @@
 
 {% block title %}Dashboard !{% endblock %}
 
+{% block stylesheets %}
+    <!--DateTime Picker-->
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/plugins/datetimepicker/jquery.datetimepicker.css')}}"/>
+
+    <link href="{{asset('assets/front/pages/user/parametres/style.css')}}" rel="stylesheet" type="text/css">
+
+    {{ parent() }}
+{% endblock %}
+
 {% block main %}
     <main id="col-main">
 
@@ -19,92 +28,116 @@
                     <div class="col-12  col-lg-3">
                         <div id="account-edit-photo">
                             <div><img src="{{asset('assets/front/images/users/' ~ imagePorfil)}}" alt="{{ fullName |capitalize }}"></div>
-                            <p><a href="{{path('user_parametres')}}" class="btn btn-green-pro">Change Profile
-                                    Picture</a></p>
-                            <p><a href="{{path('user_parametres')}}" class="btn">Delete Photo</a></p>
+                            <p><a href="{{path('user_parametres')}}" class="btn btn-green-pro">Changer Photo de Profil</a></p>
+                            <p><a href="{{path('user_parametres')}}" class="btn btn-default">Supprimer Photo</a></p>
                         </div>
                     </div><!-- close .col -->
                     <div class="col">
 
-                        <form class="account-settings-form">
-
-                            <h5>General Information</h5>
+                        {{ form_start(formgeneralUserInfo, {'attr': {'class': 'account-settings-form'}}) }}
+                            <h5>Information General</h5>
                             <p class="small-paragraph-spacing">By letting us know your name, we can make our support
                                 experience much more personal.</p>
                             <div class="row">
                                 <div class="col-sm">
                                     <div class="form-group">
-                                        <label for="first-name" class="col-form-label">First Name:</label>
-                                        <input type="text" class="form-control" id="first-name" value="Suzie">
+                                        <label for="prenom" class="col-form-label required">Prenom:</label>
+                                        {{ form_widget(formgeneralUserInfo.prenom, {'attr': {'class': 'form-control required'}}) }}
+                                        <div class="form-field-errors">
+                                            {{ form_errors(formgeneralUserInfo.prenom) }}
+                                        </div>
                                     </div>
                                 </div><!-- close .col -->
                                 <div class="col-sm">
                                     <div class="form-group">
-                                        <label for="last-name" class="col-form-label">Last Name:</label>
-                                        <input type="text" class="form-control" id="last-name" value="Smith">
+                                        <label for="nom" class="col-form-label required">Nom:</label>
+                                        {{ form_widget(formgeneralUserInfo.nom, {'attr': {'class': 'form-control required'}}) }}
+                                        <div class="form-field-errors">
+                                            {{ form_errors(formgeneralUserInfo.nom) }}
+                                        </div>
                                     </div>
                                 </div><!-- close .col -->
                                 <div class="col-sm">
                                     <div class="form-group">
-                                        <label for="last-name" class="col-form-label">Country:</label>
-                                        <select class="custom-select">
-                                            <option value="0">All Countries</option>
-                                            <option value="1">Argentina</option>
-                                            <option value="2">Australia</option>
-                                            <option value="3">Bahamas</option>
-                                            <option value="4">Belgium</option>
-                                            <option value="5">Brazil</option>
-                                            <option value="6">Canada</option>
-                                            <option value="7">Chile</option>
-                                            <option value="8">China</option>
-                                            <option value="9">Denmark</option>
-                                            <option value="10">Ecuador</option>
-                                            <option value="11">France</option>
-                                            <option value="12">Germany</option>
-                                            <option value="13">Greece</option>
-                                            <option value="14">Guatemala</option>
-                                            <option value="15">Italy</option>
-                                            <option value="16">Japan</option>
-                                            <option value="17">asdfasdf</option>
-                                            <option value="18">Korea</option>
-                                            <option value="19">Malaysia</option>
-                                            <option value="20">Monaco</option>
-                                            <option value="21">Morocco</option>
-                                            <option value="22">New Zealand</option>
-                                            <option value="23">Panama</option>
-                                            <option value="24">Portugal</option>
-                                            <option value="25">Russia</option>
-                                            <option value="26">United Kingdom</option>
-                                            <option selected>United States</option>
-                                        </select>
+                                        <label for="birthday" class="col-form-label">Date de naissance:</label>
+                                        {{ form_widget(formgeneralUserInfo.birthday, {'attr': {'class': 'form-control', 'placeholder': 'Ex: 25/06/1996'}}) }}
+                                        <div class="form-field-errors">
+                                            {{ form_errors(formgeneralUserInfo.birthday) }}
+                                        </div>
                                     </div>
                                 </div><!-- close .col -->
-                            </div><!-- close .row -->
-                            <hr>
-
-                            <h5>Account Information</h5>
-                            <p class="small-paragraph-spacing">You can change the email address you use here.</p>
+                            </div>
 
                             <div class="row">
                                 <div class="col-sm">
                                     <div class="form-group">
-                                        <label for="e-mail" class="col-form-label">E-mail</label>
-                                        <input type="text" class="form-control" id="e-mail"
-                                            value="suzie@outlook.com">
+                                        <label for="sexe" class="col-form-label">Genre:</label>
+                                        {{ form_widget(formgeneralUserInfo.sexe, {'attr': {'class': 'form-control'}}) }}
+                                        <div class="form-field-errors">
+                                            {{ form_errors(formgeneralUserInfo.sexe) }}
+                                        </div>
                                     </div>
                                 </div><!-- close .col -->
                                 <div class="col-sm">
                                     <div class="form-group">
-                                        <div><label for="button-change" class="col-form-label">&nbsp; &nbsp;</label>
+                                        <label for="adresse" class="col-form-label">Adresse:</label>
+                                        {{ form_widget(formgeneralUserInfo.adresse, {'attr': {'class': 'form-control', 'placeholder': 'Ex: Colobane, Park Amazout'}}) }}
+                                        <div class="form-field-errors">
+                                            {{ form_errors(formgeneralUserInfo.adresse) }}
                                         </div>
-                                        <a href="{{path('user_parametres')}}" class="btn btn-form">Change E-mail</a>
+                                    </div>
+                                </div><!-- close .col -->
+                                <div class="col-sm">
+                                    <div class="form-group">
+                                        <label for="tel" class="col-form-label">Téléphone:</label>
+                                        {{ form_widget(formgeneralUserInfo.tel, {'attr': {'class': 'form-control', 'placeholder': 'Ex: 77 800 00 00'}}) }}
+                                        <div class="form-field-errors">
+                                            {{ form_errors(formgeneralUserInfo.tel) }}
+                                        </div>
+                                    </div>
+                                </div><!-- close .col -->
+                            </div><!-- close .row -->
+
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="form-group">
+                                        <label for="ville" class="col-form-label">Ville:</label>
+                                        {{ form_widget(formgeneralUserInfo.ville, {'attr': {'class': 'form-control', 'placeholder': 'Ex: Dakar'}}) }}
+                                        <div class="form-field-errors">
+                                            {{ form_errors(formgeneralUserInfo.ville) }}
+                                        </div>
+                                    </div>
+                                </div><!-- close .col -->
+                                <div class="col-sm">
+                                    <div class="form-group">
+                                        <label for="codePostal" class="col-form-label">Code postal:</label>
+                                        {{ form_widget(formgeneralUserInfo.codePostal, {'attr': {'class': 'form-control', 'placeholder': 'Ex: 00000'}}) }}
+                                        <div class="form-field-errors">
+                                            {{ form_errors(formgeneralUserInfo.codePostal) }}
+                                        </div>
+                                    </div>
+                                </div><!-- close .col -->
+                            </div><!-- close .row -->
+                            <hr>
+
+                            <h5>Information du compte</h5>
+                            <p class="small-paragraph-spacing">You can change the email address you use here.</p>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="email" class="col-form-label required">E-mail:</label>
+                                        {{ form_widget(formgeneralUserInfo.email, {'attr': {'class': 'form-control required'}}) }}
+                                        <div class="form-field-errors">
+                                            {{ form_errors(formgeneralUserInfo.email) }}
+                                        </div>
                                     </div>
                                 </div><!-- close .col -->
 
                             </div><!-- close .row -->
 
                             <hr>
-                            <h5>Change Password</h5>
+                            <h5>Changer Mot de Passe</h5>
                             <p class="small-paragraph-spacing">You can change the password you use for your account
                                 here.</p>
                             <div class="row">
@@ -133,79 +166,28 @@
                             </div><!-- close .row -->
 
                             <hr>
-                            <h5>Preferred Genres</h5>
+                            <h5>Secteur</h5>
                             <p class="small-paragraph-spacing">Pick your favorite genres for content.</p>
 
                             <div class="registration-genres-step">
-                                <ul class="registration-genres-choice">
-                                    <li class="active">
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/drama.png')}}" alt="Drama">
-                                        <h6>Drama</h6>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/comedy.png')}}" alt="Comedy">
-                                        <h6>Comedy</h6>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/action.png')}}" alt="Action">
-                                        <h6>Action</h6>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/romance.png')}}" alt="Romance">
-                                        <h6>Romance</h6>
-                                    </li>
-                                    <li class="active">
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/horror.png')}}" alt="Horror">
-                                        <h6>Horror</h6>
-                                    </li>
-                                    <li class="active">
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/fantasy.png')}}" alt="Fantasy">
-                                        <h6>Fantasy</h6>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/sci-fi.png')}}" alt="Sci-Fi">
-                                        <h6>Sci-Fi</h6>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/thriller.png')}}" alt="Thriller">
-                                        <h6>Thriller</h6>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/western.png')}}" alt="Western">
-                                        <h6>Western</h6>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/adventure.png')}}" alt="Adventure">
-                                        <h6>Adventure</h6>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/animation.png')}}" alt="Animation">
-                                        <h6>Animation</h6>
-                                    </li>
-                                    <li>
-                                        <i class="fas fa-check-circle"></i>
-                                        <img src="{{asset('assets/front/images/genres/documentary.png')}}" alt="Documentary">
-                                        <h6>Documentary</h6>
-                                    </li>
-                                </ul>
+                                <div id="liste-secteurs" class="row user-secteur-choice">
+                                    {% for secteur in formgeneralUserInfo.userSecteurs.children.secteur.children %}
+                                        <div class="col-md-2 secteur text-center {{ secteur.vars.value |in_secteur(app.user.id) == 1 ? 'active' : '' }}">
+                                            {% set params = secteur.vars.label |split("___") %}
+                                            {{ form_widget(secteur, {'attr': {'class': 'form-secteur hidden'}}) }}
+                                            <i class="fas fa-check-circle"></i>
+                                            <img src="{{asset('assets/secteurs/' ~ params[1])}}" alt="{{ params[0] |raw |e }}">
+                                            <h6>{{ params[0] |raw |e }}</h6>
+                                        </div>
+                                    {% endfor %}
+                                </div>
                                 <div class="clearfix"></div>
                             </div><!-- close .registration-genres-step -->
                             <div class="clearfix"></div>
                             <hr>
-                            <p><a href="{{path('user_parametres')}}" class="btn btn-green-pro">Save Changes</a></p>
+                            <p><button type="submit" class="btn btn-green-pro">Enregistrer les changements</button></p>
                             <br>
-                        </form>
+                        {{ form_end(formgeneralUserInfo) }}
 
                     </div><!-- close .col -->
 
@@ -221,4 +203,15 @@
     <script src="{{asset('assets/front/js/jquery-asRange.min.js')}}" defer></script><!-- Range Slider JS Plugin -->
     <script src="{{asset('assets/front/js/circle-progress.min.js')}}" defer></script><!-- Circle Progress JS Plugin -->
     <script src="{{asset('assets/front/js/script-dashboard.js')}}" defer></script><!-- Custom Document Ready for Dashboard Only JS -->
+
+    <!--DateTime Picker-->
+    <script src="{{asset('assets/plugins/datetimepicker/php-date-formatter/js/php-date-formatter.min.js')}}" defer></script>
+    <script src="{{asset('assets/plugins/datetimepicker/jquery-mousewheel/jquery.mousewheel.js')}}" defer></script>
+    <script src="{{asset('assets/plugins/datetimepicker/jquery.datetimepicker.js')}}" defer></script>
+
+    <script src="{{asset('assets/plugins/jquery-mask/jquery.mask.min.js')}}" defer></script>
+
+    <script src="{{asset('assets/front/pages/user/parametres/script.js')}}" defer></script>
+
+
 {% endblock %}

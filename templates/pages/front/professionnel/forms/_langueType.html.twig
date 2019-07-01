@@ -1,0 +1,58 @@
+{{ form_start(formLangue, {'attr': {'class': 'account-settings-form', 'action': path( edit is defined and edit == true ? "edit_profil" : "professionnel_profil")}}) }}
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Ajouter une langue</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        {% if edit is defined and edit == true %}
+            <input type="hidden" name="id" value="{{ entity.id }}">
+            <input type="hidden" name="entity" value="langue">
+            <input type="hidden" name="nameForm" value="formLangue">
+            <input type="hidden" name="namePage" value="langueType">
+        {% endif %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="libelle" class="col-form-label required">Langue </label>
+                    {{ form_widget(formLangue.libelle, {'attr': {'class': 'form-control required', 'placeholder': 'Ex: Français'}}) }}
+                    <div class="form-field-errors">
+                        {{ form_errors(formLangue.libelle) }}
+                    </div>
+                </div>
+            </div><!-- close .col -->
+        </div><!-- close .row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="niveau" class="col-form-label required">Niveau </label>
+                    {{ form_widget(formLangue.niveau, {'attr': {'class': 'form-control required'}}) }}
+                    <div class="form-field-errors">
+                        {{ form_errors(formLangue.niveau) }}
+                    </div>
+                    <small class="text-muted">Bien indiquer son niveau de langue <em class="far fa-hand-point-right"></em> <em onclick="onHelpOverlay()" class='fas fa-question-circle help__popover__title'></em></small>
+                </div>
+            </div><!-- close .col -->
+        </div><!-- close .row -->
+        <div id="help-overlay" onclick="offHelpOverlay()">
+            <div id="help-overlay-text" class="card bg-bordered">
+				<div class="card-body">
+                    <h4 class="card-title">Les niveaux de langue</h4>
+                    <div class="card-text">
+                        <p><span class="entreprise-exp">Introductif</span> <span class=" text-muted">(Oral: phrases simples, Ecrit: je peux écrire une carte postale.)</span></p>
+                        <p><span class="entreprise-exp">Intermédiaire</span> <span class=" text-muted">(Oral: séries de phrases simples ou expressions, Ecrit: je peux écrire une lettre simple.)'</p>
+                        <p><span class="entreprise-exp">Seuil</span> <span class=" text-muted">(Oral: raconter des expéreiences, buts, Ecrit: je peux écrire un texte simple et cohérent.)</span></p>
+                        <p><span class="entreprise-exp">Avancé</span> <span class=" text-muted">(Oral: je peux développer mon point de vue sur l\' actualité, Ecrit: je peux écirire un rapport avec opinion.)</span></p>
+                        <p><span class="entreprise-exp">Autonome</span> <span class=" text-muted">(Oral: je peux m\' exprimer spontanément sans chercher mes mots, Ecrit: je peux développer mon point de vue, un essai ou rapport.)</span></p>
+                        <p><span class="entreprise-exp">Maîtrise</span> <span class=" text-muted">(Oral: expression fine avec nuances de sens, argumentation claire, Ecrit: je peux critiquer par écrit un ouvrage professionnel ou une oeuvre littéraire.)</span><p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        <button type="submit" class="btn btn-green-pro">Enregistrer</button>
+    </div>
+{{ form_end(formLangue) }}

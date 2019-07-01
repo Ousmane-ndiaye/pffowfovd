@@ -2,6 +2,12 @@
 
 {% block title %}Détail !{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{asset('assets/plugins/swiper-4.5.0/dist/css/swiper.min.css')}}"><!-- Swiper JS Plugin -->
+    <link href="{{asset('assets/front/pages/entreprise/dashboard/style.css')}}" rel="stylesheet" type="text/css">
+{% endblock %}
+
 {% block main %}
     <main id="col-main">
         <div class="flexslider progression-studios-dashboard-slider">
@@ -160,153 +166,31 @@
                 </li>
             </ul>
         </div><!-- close .progression-studios-slider - See /js/script.js file for options -->
-
-        <ul class="dashboard-genres-pro">
-            <li>
-                <img src="{{asset('assets/front/images/genres/drama.png')}}" alt="Drama">
-                <h6>Drama</h6>
-            </li>
-            <li class="active">
-                <img src="{{asset('assets/front/images/genres/comedy.png')}}" alt="Comedy">
-                <h6>Comedy</h6>
-            </li>
-            <li>
-                <img src="{{asset('assets/front/images/genres/action.png')}}" alt="Action">
-                <h6>Action</h6>
-            </li>
-            <li>
-                <img src="{{asset('assets/front/images/genres/romance.png')}}" alt="Romance">
-                <h6>Romance</h6>
-            </li>
-            <li>
-                <img src="{{asset('assets/front/images/genres/horror.png')}}" alt="Horror">
-                <h6>Horror</h6>
-            </li>
-            <li>
-                <img src="{{asset('assets/front/images/genres/fantasy.png')}}" alt="Fantasy">
-                <h6>Fantasy</h6>
-            </li>
-            <li>
-                <img src="{{asset('assets/front/images/genres/sci-fi.png')}}" alt="Sci-Fi">
-                <h6>Sci-Fi</h6>
-            </li>
-            <li>
-                <img src="{{asset('assets/front/images/genres/thriller.png')}}" alt="Thriller">
-                <h6>Thriller</h6>
-            </li>
-            <li>
-                <img src="{{asset('assets/front/images/genres/western.png')}}" alt="Western">
-                <h6>Western</h6>
-            </li>
-            <li>
-                <img src="{{asset('assets/front/images/genres/adventure.png')}}" alt="Adventure">
-                <h6>Adventure</h6>
-            </li>
-            <li>
-                <img src="{{asset('assets/front/images/genres/animation.png')}}" alt="Animation">
-                <h6>Animation</h6>
-            </li>
-            <li>
-                <img src="{{asset('assets/front/images/genres/documentary.png')}}" alt="Documentary">
-                <h6>Documentary</h6>
-            </li>
-        </ul>
+        <!-- Swiper -->
+        <div id="liste-secteurs" class="swiper-container dashboard-secteur-pro">
+            <div class="swiper-wrapper">
+                {% for secteur in secteurs %}
+                    <div class="swiper-slide {{ loop.first ? 'active' : '' }}" data-id="{{ secteur.id }}" data-path="{{path('professionnel_secteur_liste')}}">
+                        <img src="{{asset('assets/secteurs/' ~ secteur.image )}}" alt="{{ secteur.libelle |raw |e }}">
+                        <h6>{{ secteur.libelle |raw |e }}</h6>
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
 
         <div class="clearfix"></div>
 
         <div class="dashboard-container">
-            <div class="row">
-                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-                    <div class="item-playlist-container-skrn">
-                        <a href="{{path('professionnel_detail', {slug: 'dkdjfff'})}}"><img src="{{asset('assets/front/images/demo/playlist-1.jpg')}}" alt="Listing"></a>
-                        <div class="item-playlist-text-skrn">
-                            <img src="{{asset('assets/front/images/demo/user-6.jpg')}}" alt="User Profile">
-                            <h5><a href="{{path('professionnel_detail', {slug: 'dkdjfff'})}}">By: Richard Castellano</a></h5>
-                            <h6>8 Movies, 18 hrs 24 mins</h6>
-                        </div><!-- close .item-listing-text-skrn -->
-                    </div><!-- close .item-playlist-container-skrn -->
-                </div><!-- close .col -->
-                
-                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-                    <div class="item-playlist-container-skrn">
-                        <a href="{{path('professionnel_detail', {slug: 'dkdjfff'})}}"><img src="{{asset('assets/front/images/demo/playlist-2.jpg')}}" alt="Listing"></a>
-                        <div class="item-playlist-text-skrn">
-                            <img src="{{asset('assets/front/images/demo/user-7.jpg')}}" alt="User Profile">
-                            <h5><a href="{{path('professionnel_detail', {slug: 'dkdjfff'})}}">By: Dan Vissner</a></h5>
-                            <h6>8 Movies, 18 hrs 24 mins</h6>
-                        </div><!-- close .item-listing-text-skrn -->
-                    </div><!-- close .item-playlist-container-skrn -->
-                </div><!-- close .col -->
-                
-                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-                    <div class="item-playlist-container-skrn">
-                        <a href="{{path('professionnel_detail', {slug: 'dkdjfff'})}}"><img src="{{asset('assets/front/images/demo/playlist-3.jpg')}}" alt="Listing"></a>
-                        <div class="item-playlist-text-skrn">
-                            <img src="{{asset('assets/front/images/demo/user-8.jpg')}}" alt="User Profile">
-                            <h5><a href="{{path('professionnel_detail', {slug: 'dkdjfff'})}}">By: Abbie Matsumoto</a></h5>
-                            <h6>8 Movies, 18 hrs 24 mins</h6>
-                        </div><!-- close .item-listing-text-skrn -->
-                    </div><!-- close .item-playlist-container-skrn -->
-                </div><!-- close .col -->
-                
-                
-                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-                    <div class="item-playlist-container-skrn">
-                        <a href="{{path('professionnel_detail', {slug: 'dkdjfff'})}}"><img src="{{asset('assets/front/images/demo/playlist-4.jpg')}}" alt="Listing"></a>
-                        <div class="item-playlist-text-skrn">
-                            <img src="{{asset('assets/front/images/demo/user-9.jpg')}}" alt="User Profile">
-                            <h5><a href="{{path('professionnel_detail', {slug: 'dkdjfff'})}}">By: Jad Limcaco</a></h5>
-                            <h6>8 Movies, 18 hrs 24 mins</h6>
-                        </div><!-- close .item-listing-text-skrn -->
-                    </div><!-- close .item-playlist-container-skrn -->
-                </div><!-- close .col -->
-                
-                
-                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-                    <div class="item-playlist-container-skrn">
-                        <a href="{{path('professionnel_detail', {slug: 'dkdjfff'})}}"><img src="{{asset('assets/front/images/demo/playlist-5.jpg')}}" alt="Listing"></a>
-                        <div class="item-playlist-text-skrn">
-                            <img src="{{asset('assets/front/images/demo/user-7.jpg')}}" alt="User Profile">
-                            <h5><a href="{{path('professionnel_detail', {slug: 'dkdjfff'})}}">By: Namie Amuro</a></h5>
-                            <h6>8 Movies, 18 hrs 24 mins</h6>
-                        </div><!-- close .item-listing-text-skrn -->
-                    </div><!-- close .item-playlist-container-skrn -->
-                </div><!-- close .col -->
-                
-                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-                    <div class="item-playlist-container-skrn">
-                        <a href="{{path('professionnel_detail', {slug: 'dkdjfff'})}}"><img src="{{asset('assets/front/images/demo/playlist-6.jpg')}}" alt="Listing"></a>
-                        <div class="item-playlist-text-skrn">
-                            <img src="{{asset('assets/front/images/demo/user-8.jpg')}}" alt="User Profile">
-                            <h5><a href="{{path('professionnel_detail', {slug: 'dkdjfff'})}}">By: Daniel Stewart</a></h5>
-                            <h6>8 Movies, 18 hrs 24 mins</h6>
-                        </div><!-- close .item-listing-text-skrn -->
-                    </div><!-- close .item-playlist-container-skrn -->
-                </div><!-- close .col -->
-                
-                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-                    <div class="item-playlist-container-skrn">
-                        <a href="{{path('professionnel_detail', {slug: 'dkdjfff'})}}"><img src="{{asset('assets/front/images/demo/playlist-7.jpg')}}" alt="Listing"></a>
-                        <div class="item-playlist-text-skrn">
-                            <img src="{{asset('assets/front/images/demo/user-9.jpg')}}" alt="User Profile">
-                            <h5><a href="{{path('professionnel_detail', {slug: 'dkdjfff'})}}">By: Richard Chastain</a></h5>
-                            <h6>8 Movies, 18 hrs 24 mins</h6>
-                        </div><!-- close .item-listing-text-skrn -->
-                    </div><!-- close .item-playlist-container-skrn -->
-                </div><!-- close .col -->
-                
-                
-                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
-                    <div class="item-playlist-container-skrn">
-                        <a href="{{path('professionnel_detail', {slug: 'dkdjfff'})}}"><img src="{{asset('assets/front/images/demo/playlist-8.jpg')}}" alt="Listing"></a>
-                        <div class="item-playlist-text-skrn">
-                            <img src="{{asset('assets/front/images/demo/user-10.jpg')}}" alt="User Profile">
-                            <h5><a href="{{path('professionnel_detail', {slug: 'dkdjfff'})}}">By: Daniel Stewart</a></h5>
-                            <h6>8 Movies, 18 hrs 24 mins</h6>
-                        </div><!-- close .item-listing-text-skrn -->
-                    </div><!-- close .item-playlist-container-skrn -->
-                </div><!-- close .col -->
-                
+            <div id="liste-professionnels" class="row">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-12 text-center on-loading-liste">
+                    <h5 class="text-muted text-center text-waiting spinner-waiting">Chargement...</h5>
+                    <img src="{{asset('assets/front/images/spinner.svg')}}" class="img-fluid text-center spinner-waiting" alt="Patientez svp...">
+                </div>
             </div><!-- close .row -->
         </div>
     </main>
@@ -317,4 +201,7 @@
     <script src="{{asset('assets/front/js/jquery-asRange.min.js')}}" defer></script><!-- Range Slider JS Plugin -->
     <script src="{{asset('assets/front/js/circle-progress.min.js')}}" defer></script><!-- Circle Progress JS Plugin -->
     <script src="{{asset('assets/front/js/script-dashboard.js')}}" defer></script><!-- Custom Document Ready for Dashboard Only JS -->
+    <script src="{{asset('assets/plugins/swiper-4.5.0/dist/js/swiper.min.js')}}" defer></script><!-- Swiper JS Plugin -->
+
+    <script src="{{asset('assets/front/pages/entreprise/dashboard/script.js')}}" defer></script>
 {% endblock %}

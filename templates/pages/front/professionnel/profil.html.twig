@@ -6,23 +6,24 @@
 {% block stylesheets %}
     {{parent()}}
     <link href="{{asset('assets/plugins/Tags-Input/dist/jquery.tagsinput-revisited.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('assets/plugins/swiper-4.5.0/dist/css/swiper.min.css')}}" rel="stylesheet" type="text/css">
 
-    <!--DateTime Picker-->
-    <link href="{{asset('assets/plugins/datetimepicker/jquery.datetimepicker.css')}}"  rel="stylesheet" type="text/css"/>
-    <link href="{{asset('assets/front/pages/profil/style.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('assets/front/pages/professionnel/profil/style.css')}}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block main %}
 	<div id="content-sidebar-pro">
         
         <div id="content-sidebar-image">
-            <img src="{{asset('assets/front/images/demo/movie-detail-poster.jpg')}}" alt="Movie Poster">
+            <img src="{{asset('assets/front/images/users/' ~ imagePorfil)}}" alt="{{ fullName |capitalize }}">
         </div>
         
         <div class="content-sidebar-section">
             <h2 class="content-sidebar-sub-header">{{fullName |capitalize }} <a href="{{path('user_parametres')}}" class="link-edit float-right" title="Modifier votre profil"><em class="fas fa-pencil-alt"></em></a></h2>
             <ul class="progression-studios-slider-rating">
-                <li>PG-13</li><li>HD</li>
+                {% for userSecteur in app.user.userSecteurs %}
+                    <li>{{ userSecteur.secteur.libelle |upper }}</li>
+                {% endfor %}
             </ul>
         </div><!-- close .content-sidebar-section -->
 
@@ -38,23 +39,45 @@
         </div><!-- close .content-sidebar-section -->
         
         <div class="content-sidebar-section">
-            <h4 class="content-sidebar-sub-header">E-mail</h4>
+            <h4 class="content-sidebar-sub-header"><em class="fa fa-envelope" aria-hidden="true"></em> E-mail</h4>
             <div class="content-sidebar-short-description">{{app.user.email ? app.user.email : '? ? ?'}}</div>
         </div><!-- close .content-sidebar-section -->
         
         <div class="content-sidebar-section">
-            <h4 class="content-sidebar-sub-header">Téléphone</h4>
+            <h4 class="content-sidebar-sub-header"><em class="fa fa-phone" aria-hidden="true"></em> Téléphone</h4>
             <div class="content-sidebar-short-description">{{app.user.tel ? app.user.tel : '? ? ?'}}</div>
         </div><!-- close .content-sidebar-section -->
 
         <div class="content-sidebar-section">
-            <h4 class="content-sidebar-sub-header">Date de naissance</h4>
-            <div class="content-sidebar-short-description">{{ app.user.birthday ? app.user.birthday |date('d') ~ app.user.birthday |date('m') |string_month ~ app.user.birthday |date('Y') : '? ? ?' }}</div>
+            <h4 class="content-sidebar-sub-header"><em class="fa fa-address-card" aria-hidden="true"></em> Adresse</h4>
+            <div class="content-sidebar-short-description">{{app.user.adresse ? app.user.adresse : '? ? ?'}}</div>
         </div><!-- close .content-sidebar-section -->
 
         <div class="content-sidebar-section">
-            <h4 class="content-sidebar-sub-header">Adresse</h4>
-            <div class="content-sidebar-short-description">{{ app.user.adresse ? app.user.adresse : '? ? ?' }}</div>
+            <h4 class="content-sidebar-sub-header"><em class="fa fa-birthday-cake" aria-hidden="true"></em> Date de naissance</h4>
+            <div class="content-sidebar-short-description">{{ app.user.birthday ? app.user.birthday : '? ? ?' }}</div>
+        </div><!-- close .content-sidebar-section -->
+
+        <div class="content-sidebar-section">
+            <h4 class="content-sidebar-sub-header"><em class="fa fa-male" aria-hidden="true"></em> <em class="fa fa-female" aria-hidden="true"></em> Sexe</h4>
+            <div class="content-sidebar-short-description">
+                {% if app.user.sexe %}
+                    {{ app.user.sexe == 'Homme' ? 'Homme'  : 'Femme' }}
+                {% else %}
+                    ? ? ?
+                {% endif %}
+                
+            </div>
+        </div><!-- close .content-sidebar-section -->
+
+        <div class="content-sidebar-section">
+            <h4 class="content-sidebar-sub-header"><em class="fas fa-map-pin"></em> Code postal</h4>
+            <div class="content-sidebar-short-description">{{ app.user.codePostal ? app.user.codePostal : '? ? ?' }}</div>
+        </div><!-- close .content-sidebar-section -->
+
+        <div class="content-sidebar-section">
+            <h4 class="content-sidebar-sub-header"><em class="fa fa-flag"></em> Pays/Ville</h4>
+            <div class="content-sidebar-short-description">{{ app.user.pays ? app.user.pays : '? ? ?' }} / {{ app.user.ville ? app.user.ville : '? ? ?' }}</div>
         </div><!-- close .content-sidebar-section -->
 
     </div><!-- close #content-sidebar-pro -->
@@ -78,7 +101,23 @@
 
             <div id="movie-detail-gradient-pro"></div>
         </div><!-- close #movie-detail-header-pro -->
-        
+        <div class="dashboard-container mt-5">
+            <div class="movie-details-section">
+				<div class="row">
+                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+						{% for label, messages in app.flashes %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ label }} alert-dismissible fade show">
+                                    <button type="button" class="close" style="color: red; font-size: x-large; opacity: 0.5;" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    </div><!-- close .col -->
+                </div><!-- close .row -->
+            </div><!-- close .movie-details-section -->
+        </div>
+
         <div class="dashboard-container mt-5">
             <div class="movie-details-section">
 				<div class="row">
@@ -103,7 +142,7 @@
 										<h2 class="titre-rubrique">Expérience</h2>
                                     </div>
 									<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-2">
-										<button type="button" class="link-edit btn btn-modal-popover float-sm-left float-md-right" data-target="#modalAjoutExperience" data-content="<em class='fas fa-info-circle'></em> Cliquez ici pour ajouter une experience.">
+										<button type="button" class="link-edit btn btn-modal-popover float-sm-left float-md-right" data-target="#modalAjoutExperience" data-content="<em class='fas fa-info-circle'></em> Ajouter une expérience.">
                                             <i class="fa fa-plus" aria-hidden="true"></i>
                                         </button>
                                     </div>
@@ -111,25 +150,27 @@
 								<div class="row">
                                     <div class="col-md-12 pr-5">
                                         <ul class="timeline">
-                                            <li>
-                                                <span class="float-right"><i class="fas fa-pencil-alt"></i></span>
-                                                <h4 class="intitule-exp">Web Design, <span class="entreprise-exp">Sonatel</span></h4>
-                                                <h4 class="date-exp">Janvier 2014 - Mars 2019</h4>
-                                                <h4 class="lieu-exp">Dakar, Sénégal</h4>
-                                                <p class="description-exp">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula....</p>
-                                            </li>
-                                            <li>
-                                                <h4 class="intitule-exp">Technical Consulting, <span class="entreprise-exp">KOCC DIGITAL</span></h4>
-                                                <h4 class="date-exp">Janvier 2014 - Mars 2019</h4>
-                                                <h4 class="lieu-exp">Dakar, Sénégal</h4>
-                                                <p class="description-exp">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula....</p>
-                                            </li>
-                                            <li>
-                                                <h4 class="intitule-exp">Web Design à la <span class="entreprise-exp">Sonatel</span></h4>
-                                                <h4 class="date-exp">Janvier 2014 - Mars 2019</h4>
-                                                <h4 class="lieu-exp">Dakar, Sénégal</h4>
-                                                <p class="description-exp">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula....</p>
-                                            </li>
+                                            {% for experience in experiences %}
+                                                <li>
+                                                    <span class="float-right cursor-pointer edit-profil" data-toggle="modal" data-target="#modalEdit" data-path="{{path('edit_profil')}}" data-id="{{experience.id}}" data-model="experience" data-nameform="formExperience" data-namepage="experienceType"><i class="fas fa-pencil-alt"></i></span>
+                                                    <h4 class="intitule-exp">{{ experience.intitulePoste |raw |e }}, <span class="entreprise-exp">{{ experience.entreprise |raw |e }}</span></h4>
+                                                    <h4 class="date-exp">
+                                                        {{ experience.moisDeDebut|string_month |raw |e }} {{ experience.anneeDeDebut |raw |e}} - {% if experience.isCurrent %} Aujourd'hui {% else %} {{ experience.moisDeFin|string_month |raw |e }} {{ experience.anneeDeFin |raw |e}} {% endif %}
+                                                    </h4>
+                                                    <h4 style="display: {{experience.lieu ? 'block' : 'none' }}" class="lieu-exp">{{ experience.lieu |raw |e }}</h4>
+                                                    <p style="display: {{experience.description ? 'block' : 'none' }}" class="description-exp">
+                                                        {{ experience.description |raw |e }}
+                                                    </p>
+                                                    {% set cmptnces = experience.competences | split(";") %}
+                                                    {% for cmptnce in cmptnces %}
+                                                        <span class="badge-competence">{{ cmptnce |raw |e }}</span>
+                                                    {% endfor %}
+                                                </li>
+                                            {% else %}
+                                                <p class="form-text text-muted">
+                                                    <i class="fa fa-question-circle" aria-hidden="true"></i> Vous n'avez pas encore ajouter une expérience.
+                                                </p>
+                                            {% endfor %}
                                         </ul>
                                     </div>
                                 </div>
@@ -140,19 +181,75 @@
             </div><!-- close .movie-details-section -->
 
 			<div class="movie-details-section">
-                <h2 class="titre-rubrique">Formations et certifications</h2>
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12 col-xl-12">
-                        
+						<div class="card bg-bordered">
+							<div class="card-body">
+								<div class="row">
+                                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+										<h2 class="titre-rubrique">Formations et certifications</h2>
+                                    </div>
+									<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-2">
+										<button type="button" class="link-edit btn btn-modal-popover float-sm-left float-md-right" data-target="#modalAjoutFormation" data-content="<em class='fas fa-info-circle'></em> Ajouter une formation ou certification.">
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+								</div>
+								<div class="row">
+                                    {% for formation in formations %}
+                                        <div class="col-md-12 pr-5">
+                                            <span class="float-right cursor-pointer edit-profil" data-toggle="modal" data-target="#modalEdit" data-path="{{path('edit_profil')}}" data-id="{{formation.id}}" data-model="formation" data-nameform="formFormation" data-namepage="formationType"><i class="fas fa-pencil-alt"></i></span>
+                                            <h4 class="intitule-exp">{{ formation.ecole |raw |e }}, <span style="display: {{formation.diplome ? 'block' : 'none' }}" class="entreprise-exp">{{ formation.diplome |raw |e }}</span></h4>
+                                            <h4 style="display: {{formation.moisDeDebut or formation.moisDeFin ? 'block' : 'none' }}" class="date-exp">{{ formation.moisDeDebut|string_month |raw |e }} {{ formation.anneeDeDebut |raw |e}} - {{ formation.moisDeFin|string_month |raw |e }} {{ formation.anneeDeFin |raw |e}}</h4>
+                                            <h4 style="display: {{formation.domaineEtude ? 'block' : 'none' }}" class="lieu-exp">{{ formation.domaineEtude |raw |e }}</h4>
+                                            <p style="display: {{formation.description ? 'block' : 'none' }}" class="description-exp">{{ formation.description |raw |e }}</p>
+                                        </div>
+                                    {% else %}
+                                        <div class="col-md-12 pr-5">
+                                            <p class="form-text text-muted">
+                                                <i class="fa fa-question-circle" aria-hidden="true"></i> Vous n'avez pas encore ajouter une formation ou certification.
+                                            </p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+							</div>
+						</div>
                     </div><!-- close .col -->
                 </div><!-- close .row -->
             </div><!-- close .movie-details-section -->
 
 			<div class="movie-details-section">
-                <h2 class="titre-rubrique">Langues</h2>
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12 col-xl-12">
-                        
+						<div class="card bg-bordered">
+							<div class="card-body">
+								<div class="row">
+                                    <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+										<h2 class="titre-rubrique">Langues</h2>
+                                    </div>
+									<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-2">
+										<button type="button" class="link-edit btn btn-modal-popover float-sm-left float-md-right" data-target="#modalAjoutLangue" data-content="<em class='fas fa-info-circle'></em> Ajouter une langue.">
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+								</div>
+								<div class="row">
+                                    {% for langue in langues %}
+                                        <div class="col-md-12 pr-5">
+                                            <span class="float-right cursor-pointer edit-profil" data-toggle="modal" data-target="#modalEdit" data-path="{{path('edit_profil')}}" data-id="{{langue.id}}" data-model="langue" data-nameform="formLangue" data-namepage="langueType"><i class="fas fa-pencil-alt"></i></span>
+                                            <h4 class="intitule-exp">{{ langue.libelle |raw |e }}</h4>
+                                            <h4 style="display: {{langue.niveau ? 'block' : 'none' }}"  class="date-exp">{{ langue.niveau |raw |e }}</h4>
+                                        </div>
+                                    {% else %}
+                                        <div class="col-md-12 pr-5">
+                                            <p class="form-text text-muted">
+                                                <i class="fa fa-question-circle" aria-hidden="true"></i> Vous n'avez pas encore ajouter une langue.
+                                            </p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+							</div>
+						</div>
                     </div><!-- close .col -->
                 </div><!-- close .row -->
             </div><!-- close .movie-details-section -->
@@ -168,19 +265,44 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalAjoutFormation" tabindex="-1" role="dialog" aria-labelledby="modalAjoutFormationTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                {% include "pages/front/professionnel/forms/_formationType.html.twig" %}
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalAjoutLangue" tabindex="-1" role="dialog" aria-labelledby="modalAjoutLangueTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                {% include "pages/front/professionnel/forms/_langueType.html.twig" %}
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalEditTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <img src="{{asset('assets/front/images/spinner.svg')}}" class="img-fluid text-center spinner-waiting" alt="Patientez svp...">
+                <small class="text-muted text-center text-waiting spinner-waiting">Patientez svp...</small>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
     {{parent()}}
-    <script src="{{asset('assets/plugins/Tags-Input/dist/jquery.tagsinput-revisited.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/Tags-Input/dist/jquery.tagsinput-revisited.min.js')}}" defer></script>
     <script src="{{asset('assets/front/js/jquery-asRange.min.js')}}" defer></script><!-- Range Slider JS Plugin -->
     <script src="{{asset('assets/front/js/circle-progress.min.js')}}" defer></script><!-- Circle Progress JS Plugin -->
     <script src="{{asset('assets/front/js/script-dashboard.js')}}" defer></script><!-- Custom Document Ready for Dashboard Only JS -->
 
-    <!--DateTime Picker-->
-    <script src="{{asset('assets/plugins/datetimepicker/php-date-formatter/js/php-date-formatter.min.js')}}"></script>
-    <script src="{{asset('assets/plugins/datetimepicker/jquery-mousewheel/jquery.mousewheel.js')}}"></script>
-    <script src="{{asset('assets/plugins/datetimepicker/jquery.datetimepicker.js')}}"></script>
+    <!-- jQuery Validate -->
+    <script type="text/javascript" src="{{asset('assets/plugins/jquery-validation/dist/jquery.validate.js')}}" defer></script>
+    <!-- jQuery Swiper -->
+    <script type="text/javascript" src="{{asset('assets/plugins/swiper-4.5.0/dist/js/swiper.min.js')}}" defer></script>
 
-    <script src="{{asset('assets/front/pages/profil/script.js')}}" defer></script>
+    <script src="{{asset('assets/front/pages/professionnel/profil/script.js')}}" defer></script>
 {% endblock %}

@@ -7,6 +7,7 @@ use Twig\Extension\AbstractExtension;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Intl\Locales;
 use Twig\TwigFunction;
+use App\Entity\Usersecteur;
 
 class AppExtension extends AbstractExtension
 {
@@ -27,6 +28,7 @@ class AppExtension extends AbstractExtension
         return [
             new TwigFilter('format_string', [$this, 'formatString']),
             new TwigFilter('string_month', [$this, 'stringMonth']),
+            new TwigFilter('in_secteur', [$this, 'verifUserSecteur']),
         ];
     }
 
@@ -59,6 +61,12 @@ class AppExtension extends AbstractExtension
         }
 
         return $stringMonth;
+    }
+
+    public function verifUserSecteur($arg, $idUser)
+    {
+        $userSecteur = $this->entityManager->getRepository(Usersecteur::class)->findOneBy(['secteur' => $arg, 'user' => $idUser]);
+        return $userSecteur ? 1 : 0;
     }
 
     /**

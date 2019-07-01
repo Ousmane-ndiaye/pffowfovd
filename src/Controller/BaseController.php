@@ -20,6 +20,7 @@ class BaseController extends AbstractController
     const INFO = 'info';
     const SUCCESS = 'success';
     const EMAIL = 'email';
+    const USER = 'user';
 
 
     //Les variables globales

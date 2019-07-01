@@ -1,0 +1,163 @@
+.btn.link-edit {
+	margin: 10px;
+	padding: 0 10px;
+}
+.titre-rubrique {
+	text-transform: capitalize;
+}
+.content-sidebar-section {
+	margin-bottom: 20px;
+}
+h4.content-sidebar-sub-header {
+	margin-bottom: 0;
+}
+.date-encours {
+	position: relative;
+	top: 3em;
+}
+.badge-competence {
+	color: #ffffff;
+	background: #556270;
+	display: inline-block;
+	padding: 0.50em .8em;
+	font-size: .8rem;
+	font-weight: 700;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25rem;
+	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out,
+		box-shadow .15s ease-in-out;
+}
+
+.text-waiting {
+	position: relative;
+	bottom: 1.5rem;
+	font-size: 1rem !important;
+}
+/* ====================== MODAL ====================== */
+.modal-dialog .modal-content {
+	border: 1px solid rgba(241, 133, 33, 0.32);
+	box-shadow: 0 26px 30px rgba(241, 133, 33, 0.32);
+}
+/* ====================== POPOVER ====================== */
+.popover {
+	border: 1px solid rgba(58, 84, 165, 0.45);
+}
+.bs-popover-auto[x-placement^=left] > .arrow::before,
+.bs-popover-left > .arrow::before {
+	border-left-color: rgba(58, 84, 165, 0.45);
+}
+.bs-popover-auto[x-placement^=left] > .arrow::after,
+.bs-popover-left > .arrow::after {
+	border-left-color: rgba(58, 84, 165, 0.45);
+}
+.popover-body {
+	padding: .5rem 1rem .5rem .3rem;
+	/* width: 300px; */
+	white-space: nowrap;
+}
+
+.popover-body em.fa-info-circle {
+	font-size: 18px;
+	position: relative;
+	top: 2px;
+	color: #3a54a5;
+}
+
+/* ====================== TIMELINE ====================== */
+ul.timeline {
+	list-style-type: none;
+	position: relative;
+}
+ul.timeline:before {
+	content: ' ';
+	background: #d4d9df;
+	display: inline-block;
+	position: absolute;
+	left: 29px;
+	width: 2px;
+	height: 100%;
+	z-index: 400;
+}
+ul.timeline > li {
+	margin: 20px 0;
+	padding-left: 20px;
+}
+ul.timeline > li:before {
+	content: ' ';
+	background: white;
+	display: inline-block;
+	position: absolute;
+	border-radius: 50%;
+	border: 3px solid #f18521;
+	left: 20px;
+	width: 20px;
+	height: 20px;
+	z-index: 400;
+}
+
+/* ====================== CARD  ====================== */
+
+.entreprise-exp {
+	font-weight: 700;
+	color: #f18521;
+	text-transform: uppercase;
+}
+
+.intitule-exp {
+	font-size: 0.9rem;
+	color: rgba(0, 0, 0, 1);
+	font-weight: 900;
+}
+
+.date-exp {
+	font-size: 0.8rem;
+}
+
+.lieu-exp {
+	font-size: 0.8rem;
+}
+
+.date-exp,
+.lieu-exp {
+	font-weight: 600;
+	color: rgba(0, 0, 0, .6);
+}
+
+.description-exp {
+	color: #000000;
+}
+
+.help__popover__title {
+	font-size: 24px;
+	line-height: 36px;
+	text-decoration: none;
+	color: #3a54a5;
+	cursor: pointer;
+	text-align: center;
+	padding: 15px 0;
+}
+
+#help-overlay {
+	position: fixed;
+	display: none;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 2;
+	cursor: pointer;
+}
+
+#help-overlay-text {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+}

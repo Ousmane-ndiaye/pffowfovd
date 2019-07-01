@@ -1,0 +1,41 @@
+div.user-secteur-choice div {
+	transition-duration: 250ms;
+	transition-property: all;
+	transition-timing-function: ease-in-out;
+
+	padding: 10px;
+	border: 2px solid transparent;
+	border-radius: 4px;
+	position: relative;
+	cursor: pointer;
+}
+
+div.user-secteur-choice div.active,
+div.user-secteur-choice div:hover {
+	border-color: #f18521;
+}
+
+div.user-secteur-choice div i {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	opacity: 0;
+	font-size: 12px;
+}
+
+div.user-secteur-choice div.active i {
+	opacity: 1;
+}
+
+div.user-secteur-choice div img {
+	margin-bottom: 8px;
+	width: 60px;
+}
+
+div.user-secteur-choice div h6 {
+	font-size: 13px;
+	text-align: center;
+	color: #3a54a5;
+	font-weight: 400;
+	margin-bottom: 0;
+}

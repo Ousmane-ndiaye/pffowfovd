@@ -1,0 +1,105 @@
+{{ form_start(formFormation, {'attr': {'class': 'account-settings-form', 'action': path( edit is defined and edit == true ? "edit_profil" : "professionnel_profil")}}) }}
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Ajouter une formation ou certification</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        {% if edit is defined and edit == true %}
+            <input type="hidden" name="id" value="{{ entity.id }}">
+            <input type="hidden" name="entity" value="formation">
+            <input type="hidden" name="nameForm" value="formFormation">
+            <input type="hidden" name="namePage" value="formationType">
+        {% endif %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="ecole" class="col-form-label required">École </label>
+                    {{ form_widget(formFormation.ecole, {'attr': {'class': 'form-control required', 'placeholder': 'Ex: Université Alioune Diop de Bambey'}}) }}
+                    <div class="form-field-errors">
+                        {{ form_errors(formFormation.ecole) }}
+                    </div>
+                </div>
+            </div><!-- close .col -->
+        </div><!-- close .row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="diplome" class="col-form-label">Diplôme </label>
+                    {{ form_widget(formFormation.diplome, {'attr': {'class': 'form-control', 'placeholder': 'Ex: Licence'}}) }}
+                    <div class="form-field-errors">
+                        {{ form_errors(formFormation.diplome) }}
+                    </div>
+                </div>
+            </div><!-- close .col -->
+        </div><!-- close .row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="domaineEtude" class="col-form-label">Domaine d’études </label>
+                    {{ form_widget(formFormation.domaineEtude, {'attr': {'class': 'form-control', 'placeholder': 'Ex : Économie'}}) }}
+                    <div class="form-field-errors">
+                        {{ form_errors(formFormation.domaineEtude) }}
+                    </div>
+                </div>
+            </div><!-- close .col -->
+        </div><!-- close .row -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="dateDeDebut" class="col-form-label">Date de début </label>
+                    <div class="row">
+                        <div class="col-md-12 mb-1">
+                            {{ form_widget(formFormation.moisDeDebut, {'attr': {'class': 'form-control'}}) }}
+                            <div class="form-field-errors">
+                                {{ form_errors(formFormation.moisDeDebut) }}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            {{ form_widget(formFormation.anneeDeDebut, {'attr': {'class': 'form-control'}}) }}
+                            <div class="form-field-errors">
+                                {{ form_errors(formFormation.anneeDeDebut) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- close .col -->
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="dateDeFin" class="col-form-label">Date de fin (ou prévision) </label>
+                    <div class="row">
+                        <div class="col-md-12 mb-1">
+                            {{ form_widget(formFormation.moisDeFin, {'attr': {'class': 'form-control'}}) }}
+                            <div class="form-field-errors">
+                                {{ form_errors(formFormation.moisDeFin) }}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            {{ form_widget(formFormation.anneeDeFin, {'attr': {'class': 'form-control'}}) }}
+                            <div class="form-field-errors">
+                                {{ form_errors(formFormation.anneeDeFin) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- close .col -->
+        </div><!-- close .row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="description" class="col-form-label">Description </label>
+                    {{ form_widget(formFormation.description, {'attr': {'class': 'form-control'}}) }}
+                    <div class="form-field-errors">
+                        {{ form_errors(formFormation.description) }}
+                    </div>
+                </div>
+            </div><!-- close .col -->
+        </div><!-- close .row -->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        <button type="submit" class="btn btn-green-pro">Enregistrer</button>
+    </div>
+{{ form_end(formFormation) }}

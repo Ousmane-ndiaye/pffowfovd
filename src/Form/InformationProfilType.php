@@ -21,7 +21,7 @@ class InformationProfilType extends AbstractType
                     'En poste' => 'En poste',
                 ],
             ])
-            ->add('comptences')
+            ->add('competences')
             ->add('description')
             ->add('website')
             ->add('twitter')
