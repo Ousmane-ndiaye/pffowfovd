@@ -18,6 +18,7 @@ use App\Entity\Langue;
 use App\Entity\User;
 use App\Service\Professionnel;
 use App\Entity\Usersecteur;
+use App\Entity\Vue;
 
 /**
  * @Route("/professionnel")
@@ -80,12 +81,14 @@ class ProfessionnelController extends BaseController
      * @Route("/{slug}/detail", name="professionnel_detail")
      * @Security("is_granted('ROLE_PROFESSIONNEL') or is_granted('ROLE_ENTREPRISE')")
      */
-    public function detail($slug, Request $request)
+    public function detail($slug, Request $request, Professionnel $professionnel)
     {
         $user = $this->entityManager->getRepository(User::class)->findOneBy([self::EMAIL => $slug]);
         if (!$user) {
             return $this->redirectToRoute('entreprise_profil');
         }
+
+        $professionnel->addNewVue($user);
         return $this->render('pages/front/professionnel/detail.html.twig', [
             self::USER => $user,
             'experiences' => $this->entityManager->getRepository(Experience::class)->findBy([self::USER => $user]),

@@ -17,34 +17,25 @@
 		</div>
 		
 		<div class="content-sidebar-section">
-			<h3 class="content-sidebar-sub-header">Vues</h3>
+			<h3 class="content-sidebar-sub-header">mon profil</h3>
 			<ul id="profile-watched-stats">
-				<li><span>0</span> Recruteurs</li>
-				<li><span>28</span> Entreprises</li>
-				<li><span>07</span> Autres</li>
+				<li><span>{{ app.user.infoProfil ? app.user.infoProfil.vues |length : 0 }}</span> Vues</li>
+				<li><span>0</span> Recherchés</li>
+				<li><span>{{ app.user.infoProfil ? app.user.infoProfil.vues |length : 0 }}</span> Total</li>
 			</ul>
 		</div><!-- close .content-sidebar-section -->
 		
 		<div class="content-sidebar-section">
 			<h3 class="content-sidebar-sub-header">Domaines</h3>
-			<ul id="profile-favorite-genres">
-				<li>
-					<img src="{{asset('assets/front/images/genres/comedy.png')}}" alt="Comedy">
-				</li>
-				<li>
-					<img src="{{asset('assets/front/images/genres/action.png')}}" alt="Action">
-				</li>
-				<li>
-					<img src="{{asset('assets/front/images/genres/romance.png')}}" alt="Romance">
-				</li>
-				<li>
-					<img src="{{asset('assets/front/images/genres/fantasy.png')}}" alt="Fantasy">
-				</li>
-			</ul>
+			<ul class="progression-studios-slider-rating">
+                {% for userSecteur in app.user.userSecteurs |slice(0, 4) %}
+                    <li>{{ userSecteur.secteur.libelle |upper }}</li>
+                {% endfor %}
+            </ul>
 			<div class="clearfix"></div>
 		</div><!-- close .content-sidebar-section -->
 		
-		<div class="content-sidebar-section">
+		{# <div class="content-sidebar-section">
 			<h3 class="content-sidebar-sub-header">Friends: 87</h3>
 			<ul id="friends-activity-profiles">
 				<li><a href="javascript:void(0);"><img src="{{asset('assets/front/images/demo/user-8.jpg')}}" alt="Friend"></a></li>
@@ -54,15 +45,17 @@
 				<li class="friends-activity-profiles-more"><a href="javascript:void(0);">+83</a></li>
 			</ul>
 			<div class="clearfix"></div>
-		</div><!-- close .content-sidebar-section -->
+		</div><!-- close .content-sidebar-section --> #}
 		
 		<div class="content-sidebar-section">
-			<h3 class="content-sidebar-sub-header">Friends Activity</h3>
+			<h3 class="content-sidebar-sub-header">Derniers visites</h3>
 			<ul id="friends-activity-feed">
-				<li><img src="{{asset('assets/front/images/demo/user-15.jpg')}}" alt="Friend">Added <a href="javascript:void(0);">Interstellar</a> to her Favorite Playlist</li>
-				<li><img src="{{asset('assets/front/images/demo/user-8.jpg')}}" alt="Friend">Wants to Watch <a href="javascript:void(0);">The Imitation Game</a></li>
-				<li><img src="{{asset('assets/front/images/demo/user-9.jpg')}}" alt="Friend">Added <a href="javascript:void(0);">Moonlight</a> to his <a href="javascript:void(0);">Playlist Best Dramas</a></li>
-				<li><img src="{{asset('assets/front/images/demo/user-4.jpg')}}" alt="Friend">Watched <a href="javascript:void(0);">Transformers: The Last Knight</a></li>
+				{% for vue in app.user.infoProfil.vues |slice(0, 4) %}
+					{% set imagePorfil = vue.visiteur.image ? vue.visiteur.image : 'default.png' %}
+					<li><img src="{{asset('assets/front/images/users/' ~ imagePorfil )}}" alt=""><a href="javascript:void(0);">{{vue.visiteur.prenom and vue.visiteur.nom ? vue.visiteur.prenom ~ ' ' ~ vue.visiteur.nom : vue.visiteur.email }}</a> a vue votre profil le <a href="javascript:void(0);">{{ vue.dateVue |date('d-m-Y') }}</a> vers <a href="javascript:void(0);">{{ vue.dateVue |date('H') ~ 'h' ~ vue.dateVue |date('i') }}</a></li>
+				{% else %}
+					<li>Pas encore de visite !</li>
+				{% endfor %}
 			</ul>
 			<div class="clearfix"></div>
 		</div><!-- close .content-sidebar-section -->

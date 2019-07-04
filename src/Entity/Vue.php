@@ -22,7 +22,7 @@ class Vue
     private $dateVue;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $note;
 
@@ -32,7 +32,7 @@ class Vue
     private $infoProfil;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="visiteds", cascade={"persist", "remove"})
      */
     private $visiteur;
 

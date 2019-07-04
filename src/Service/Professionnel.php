@@ -13,7 +13,7 @@ use App\Form\FormationType;
 use App\Entity\Formation;
 use App\Form\LangueType;
 use App\Entity\Langue;
-
+use App\Entity\Vue;
 
 class Professionnel
 {
@@ -95,5 +95,17 @@ class Professionnel
         $this->entityManager->persist($this->currentUser);
         $this->currentUser->updateSecteurs($newSecteurs);
         $this->entityManager->flush();
+    }
+
+    public function addNewVue($user)
+    {
+        $vueRepo = $this->entityManager->getRepository(Vue::class)->ifIsVisitedToday($user->getInfoProfil(), $this->currentUser);
+
+        if (!$vueRepo) {
+            $vue = new Vue();
+            $vue->setDateVue(new \Datetime('now'))->setVisiteur($this->currentUser)->setInfoProfil($user->getInfoProfil());
+            $this->entityManager->persist($vue);
+            $this->entityManager->flush();
+        }
     }
 }

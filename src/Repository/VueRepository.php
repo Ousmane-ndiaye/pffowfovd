@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Vue;
+use App\Entity\User;
+use App\Entity\Infoprofil;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -36,15 +38,35 @@ class VueRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Vue
+
+    public function ifIsVisitedToday(Infoprofil $infoProfil, User $visiteur): ?Vue
     {
+        $today = new \DateTime('now');
+        $today->sub(new \DateInterval('PT8H'));
         return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('v.dateVue > :date')
+            ->andWhere('v.infoProfil = :infoProfil')
+            ->andWhere('v.visiteur = :visiteur')
+            ->setParameter('date', $today)
+            ->setParameter('infoProfil', $infoProfil)
+            ->setParameter('visiteur', $visiteur)
+            ->setMaxResults(1)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
+
+    /* public function getByDate(\Datetime $date)
+    {
+        $from = new \DateTime($date->format("now") . " 00:00:00");
+        $to   = new \DateTime($date->format("Y-m-d") . " 23:59:59");
+
+        $qb = $this->createQueryBuilder("e");
+        $qb
+            ->andWhere('e.date BETWEEN :from AND :to')
+            ->setParameter('from', $from)
+            ->setParameter('to', $to);
+        $result = $qb->getQuery()->getResult();
+
+        return $result;
+    } */
 }

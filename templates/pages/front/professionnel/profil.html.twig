@@ -162,7 +162,7 @@
                                                         {{ experience.description |raw |e }}
                                                     </p>
                                                     {% set cmptnces = experience.competences | split(";") %}
-                                                    {% for cmptnce in cmptnces %}
+                                                    {% for cmptnce in cmptnces if cmptnce != '' %}
                                                         <span class="badge-competence">{{ cmptnce |raw |e }}</span>
                                                     {% endfor %}
                                                 </li>

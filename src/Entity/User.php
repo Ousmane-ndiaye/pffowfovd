@@ -87,6 +87,11 @@ class User extends BaseUser implements UserInterface
      */
     private $image;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Vue", mappedBy="visiteur")
+     */
+    private $visiteds;
+
     public function __construct()
     {
         parent::__construct();
@@ -95,6 +100,7 @@ class User extends BaseUser implements UserInterface
         $this->experiences = new ArrayCollection();
         $this->langues = new ArrayCollection();
         $this->userSecteurs = new ArrayCollection();
+        $this->visiteds = new ArrayCollection();
     }
 
     public function getAdresse(): ?string
@@ -135,7 +141,7 @@ class User extends BaseUser implements UserInterface
 
     public function getBirthday()
     {
-        if ($this->birthday != '') {
+        if (is_a($this->birthday, 'DateTime')) {
             return $this->birthday->format('d/m/Y');
         }
         return $this->birthday;
@@ -388,5 +394,36 @@ class User extends BaseUser implements UserInterface
             $userSecteur->setSecteur($newSecteur);
             $this->addUserSecteur($userSecteur);
         }
+    }
+
+    /**
+     * @return Collection|Vue[]
+     */
+    public function getVisiteds(): Collection
+    {
+        return $this->visiteds;
+    }
+
+    public function addVisited(Vue $visited): self
+    {
+        if (!$this->visiteds->contains($visited)) {
+            $this->visiteds[] = $visited;
+            $visited->setVisiteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVisited(Vue $visited): self
+    {
+        if ($this->visiteds->contains($visited)) {
+            $this->visiteds->removeElement($visited);
+            // set the owning side to null (unless already changed)
+            if ($visited->getVisiteur() === $this) {
+                $visited->setVisiteur(null);
+            }
+        }
+
+        return $this;
     }
 }
