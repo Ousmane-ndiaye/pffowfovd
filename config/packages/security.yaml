@@ -21,8 +21,8 @@ security:
             anonymous: true
             guard:
                 authenticators:
-                    - App\Security\LoginFormAuthenticator
                     - App\Security\GoogleAuthenticator
+                    - App\Security\LoginFormAuthenticator
                 entry_point: App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout

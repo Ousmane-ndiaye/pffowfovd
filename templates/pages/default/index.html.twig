@@ -7,7 +7,7 @@
         <header id="masthead-pro">
             <div class="container">
                 
-                <h1><a href="{{path('app_home')}}"><img src="{{asset('assets/front/images/logo.png')}}" alt="Logo"></a></h1>
+                <h1><a href="{{path('app_home')}}"><img src="{{asset('assets/front/images/logo-cvideo.png')}}" alt="Logo"></a></h1>
                 
                 <nav id="site-navigation-pro">
                     <ul class="sf-menu">
@@ -27,7 +27,7 @@
                 </nav>
 
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <a href="{{ path('app_logout') }}" class="btn btn-header-pro btn-green-pro noselect">Se deconnecter</a>
+                    <a href="{{ path('app_logout') }}" class="btn btn-header-pro btn-danger noselect">Se deconnecter</a>
                 {% else %}
                     <a href="{{ path('app_login') }}" class="btn btn-header-pro btn-default btn-custom waves-effect">Se connecter</a>
                     <a href="{{ path('choisir_profil') }}" class="btn btn-header-pro btn-green-pro noselect mr-md-1 mr-lg-1">Devenez membre !</a>
@@ -56,7 +56,7 @@
                 <div class="clearfix"></div>
                 
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <a href="{{ path('app_logout') }}" class="btn btn-header-pro btn-green-pro noselect">Se deconnecter</a>
+                    <a href="{{ path('app_logout') }}" class="btn btn-header-pro btn-danger noselect">Se deconnecter</a>
                 {% else %}
                     <a href="{{ path('app_login') }}" class="btn btn-header-pro btn-default btn-custom waves-effect">Se connecter</a>
                     <a href="{{ path('choisir_profil') }}" class="btn btn-header-pro btn-green-pro noselect">Devenez membre !</a>

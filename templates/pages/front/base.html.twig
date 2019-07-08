@@ -19,7 +19,7 @@
             <div id="sidebar-bg">
                 {% block header %}
                     <header id="videohead-pro" class="sticky-header">
-                        <div id="video-logo-background"><a href="javascript:void(0);"><img src="{{asset('assets/front/images/logo-cvideo.png')}}" alt="Logo"></a></div>
+                        <div id="video-logo-background"><a href="{{path('app_home')}}"><img src="{{asset('assets/front/images/logo-cvideo.png')}}" alt="Logo"></a></div>
 
                         <div id="video-search-header">
                             <div id="search-icon-more"></div>
@@ -138,7 +138,7 @@
                             <div id="header-user-profile-menu">
                                 <ul>
                                     <li><a href="{{path('user_parametres')}}"><span class="icon-Gears"></span>Paramètres</a></li>
-                                    <li><a href="javascript:void(0);"><span class="icon-Life-Safer"></span>Help/Support</a></li>
+                                    <li><a href="javascript:void(0);"><span class="icon-Life-Safer"></span>Aide/Support</a></li>
                                     <li><a href="{{path('app_logout')}}"><span class="icon-Power-3"></span>Déconnexion</a></li>
                                 </ul>
                             </div><!-- close #header-user-profile-menu -->
