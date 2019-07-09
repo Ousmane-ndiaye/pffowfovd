@@ -304,6 +304,20 @@
             </div><!-- close .container -->
         </footer>
     {% endblock %}
+
+    <div class="modal fade" id="modal-get-ticket" tabindex="-1" role="dialog" aria-labelledby="modal-get-ticketTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"></span> Fermer
+                </button>
+                <a href="https://www.eventbrite.fr/e/billets-pitch-my-skills-finale-concours-sunu-cv-video-62073469418" target="_blank" class="btn btn-green-pro noselect">
+                    <img src="{{asset('assets/front/images/invitation.jpeg')}}" style="width: 100%" alt="Obtenez un ticket" />
+                    <a href="https://www.eventbrite.fr/e/billets-pitch-my-skills-finale-concours-sunu-cv-video-62073469418" target="_blank" class="btn btn-green-pro noselect" style="color: #fff;border-color: #3A54A5;background: #3A54A5;">Obtenez un ticket</a>
+                </a>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}

@@ -1,19 +1,6 @@
 $(function(){
-    //Initialize Swiper
-	var swiper = new Swiper('.swiper-container', {
-		hashNavigation: {
-			watchState: true
-		},
-		slidesPerView: 10,
-		spaceBetween: 0,
-		freeMode: true,
-		pagination: {
-			el: '.swiper-pagination',
-			clickable: true
-		},
-		navigation: {
-			nextEl: '.swiper-button-next',
-			prevEl: '.swiper-button-prev'
-		}
-	});
-})
+    $('#modal-get-ticket').modal('show');
+    setTimeout(function() {
+        $('#modal-get-ticket').modal('hide');
+    }, 10000);
+});
