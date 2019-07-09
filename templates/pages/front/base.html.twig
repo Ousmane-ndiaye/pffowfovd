@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <title>{% block title %}Bienvenue!{% endblock %}</title>
+        
+        <meta name="keywords" content="sunu cv vidéo, sunu, cvideo, cv, video, étude, entreprise, recherche, emploi, étudiant, jeune diplomé, entretient, stage, cdi, cdd" />
+        <meta name="description" content="Une description de la page..." />
+        <meta name="robots" content="follow" />
+        <meta name="author" content="Innov Digital, Manu créateur" />
+        <meta name="copyright" content="Innov Digital" />
+        <link rel="shortcut icon" href="{{asset('assets/front/images/icon.png')}}">
         {% block stylesheets %}
             <link rel="stylesheet" href="{{asset('assets/front/css/bootstrap.min.css')}}">
             <link rel="stylesheet" href="{{asset('assets/front/style.css')}}">
@@ -12,6 +19,12 @@
             <link rel="stylesheet" href="{{asset('assets/front/icons/fontawesome/css/fontawesome-all.min.css')}}"><!-- FontAwesome Icons -->
             <link rel="stylesheet" href="{{asset('assets/front/icons/Iconsmind__Ultimate_Pack/Line_icons/styles.min.css')}}"><!-- iconsmind.com Icons -->
             <!-- Orange: #F18521, Bleu: #3A54A5 -->
+            <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+            <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+            <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+            <![endif]-->
         {% endblock %}
     </head>
     <body>
@@ -19,7 +32,7 @@
             <div id="sidebar-bg">
                 {% block header %}
                     <header id="videohead-pro" class="sticky-header">
-                        <div id="video-logo-background"><a href="{{path('app_home')}}"><img src="{{asset('assets/front/images/logo-cvideo.png')}}" alt="Logo"></a></div>
+                        <div id="video-logo-background"><a href="{{path('app_home')}}"><img src="{{asset('assets/front/images/logo.png')}}" alt="Logo"></a></div>
 
                         <div id="video-search-header">
                             <div id="search-icon-more"></div>

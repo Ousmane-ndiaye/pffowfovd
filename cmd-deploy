@@ -1,0 +1,15 @@
+git pull origin master
+
+composer install
+
+sudo sunucvideo.conf /etc/apache2/sites-available/
+
+sudo a2ensite sunucvideo.conf
+
+sudo a2dissite 000-default.conf
+
+sudo a2enmod rewrite
+
+sudo systemctl restart apache2
+
+sudo custom-php-conf.ini /usr/local/etc/php/conf.d/
