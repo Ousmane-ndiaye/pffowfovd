@@ -6,8 +6,8 @@
 <div class="modal-dialog modal-dialog-centered modal-md" role="document">
     <div class="modal-content">
         <div class="modal-header-pro">
-            <h2>Welcome Back</h2>
-            <h6>Sign in to your account to continue using SKRN</h6>
+            <a href="{{path('app_home')}}"><img src="{{asset('assets/front/images/logo-video-layout.png')}}" alt="Logo"></a>
+            <h6 class="mt-2">Connctez vous à votre compte pour continuer</h6>
         </div>
         <div class="modal-body-pro social-login-modal-body-pro">
             <div class="registration-social-login-container">
@@ -27,28 +27,26 @@
                     </div>
                     <div class="container-fluid">
                         <div class="row no-gutters">
-                            <div class="col checkbox-remember-pro"><input type="checkbox" name="_remember_me" id="checkbox-remember"><label for="checkbox-remember" class="col-form-label">Remember me</label></div>
+                            <div class="col checkbox-remember-pro"><input type="checkbox" name="_remember_me" id="checkbox-remember"><label for="checkbox-remember" class="col-form-label">Se souvenir de moi</label></div>
                             <div class="col forgot-your-password"><a href="">Mot de passe oublié?</a></div>
                         </div>
                     </div><!-- close .container-fluid -->
         
                 </form>
 
-                <div class="registration-social-login-or">or</div>
+                <div class="registration-social-login-or">ou</div>
 
             </div><!-- close .registration-social-login-container -->
 
             <div class="registration-social-login-options">
                 {% set url_google = path('connect_google') %}
-                <h6>Sign in with your social account</h6>
+                <h6>Connectez-vous avec</h6>
                 <div class="social-icon-login facebook-color"><em class="fab fa-facebook-f"></em> Facebook</div>
                 <div class="social-icon-login twitter-color"><em class="fab fa-twitter"></em> Twitter</div>
                 <div class="social-icon-login google-color" onclick="window.location.href = '{{url_google}}'"><em class="fab fa-google-plus-g"></em> Google</div>
             </div><!-- close .registration-social-login-options -->
 
             <div class="clearfix"></div>
-            
-            <a href="{{path('app_home')}}" class="text-dark"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Retour à la page d'accueil</a>
 
         </div><!-- close .modal-body -->
 
