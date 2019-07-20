@@ -6,3 +6,7 @@ homepage:
     defaults:
         template: pages/default/index.html.twig
         _locale: '%locale%'
+
+mgilet_notification:
+    resource: "@MgiletNotificationBundle/Controller/"
+    prefix: /notifications

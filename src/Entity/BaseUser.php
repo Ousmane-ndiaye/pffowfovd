@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -13,6 +14,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 abstract class BaseUser
 {
     const ROLE_USER = 'ROLE_USER';
+    use TimestampableEntity;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -36,11 +39,6 @@ abstract class BaseUser
      * @ORM\Column(type="json")
      */
     protected $roles = [];
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    protected $created_at;
 
     /**
      * @ORM\Column(type="boolean")
@@ -94,7 +92,7 @@ abstract class BaseUser
 
     public function getUsername(): string
     {
-        return (string)$this->email;
+        return (string) $this->email;
     }
 
     public function getRoles(): array
@@ -129,18 +127,6 @@ abstract class BaseUser
                 $this->roles = [self::ROLE_USER];
                 break;
         }
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $created_at): self
-    {
-        $this->created_at = $created_at;
 
         return $this;
     }
@@ -188,7 +174,7 @@ abstract class BaseUser
 
     public function __toString(): string
     {
-        return (string)$this->email;
+        return (string) $this->email;
     }
 
     public function getIsActive(): ?bool

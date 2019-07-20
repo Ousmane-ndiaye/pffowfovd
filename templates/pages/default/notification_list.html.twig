@@ -1,0 +1,41 @@
+<style>
+    .ele-notif {
+        position: relative;
+    }
+    .ele-notif .markAsRead {
+        padding: 5px;
+        font-size: 10px;
+        font-weight: bold;
+        color: #ff0000;
+        position: absolute;
+        top: 15px;
+        right: 5px;
+    }
+    .ele-notif .markAsRead:hover {
+        border-color: #ff0000;
+        background: #ff0000;
+        color: #ffffff;
+    }
+</style>
+
+<ul id="header-user-notification-list">
+    {% for item in notificationList %}
+        <li class="ele-notif">
+            {% if item.notification.subject == "vu" %}
+                {% set data = item.notification.message |json_decode %}
+                <a href="{{ data.user }}">
+                    <img src="{{asset('assets/front/images/users/' ~ data.image)}}"alt="Profile">
+                    <b>{{ data.fullname |capitalize }}</b> a vu votre profil.
+                    <div class="header-user-notify-time">{{ item.notification.date | date('d/m/Y à H:m') }}</div>
+                </a>
+            {% else %}
+                <a target="_blank" href="{{ item.notification.link }}">
+                    <img src="{{asset('assets/front/images/demo/user-profile-2.jpg')}}"alt="Profile">
+                    {{ item.notification.message }}
+                    <div class="header-user-notify-time">{{ item.notification.date | date('d/m/Y à H:m') }}</div>
+                </a>
+            {% endif %}
+            <button type="button" class="btn markAsRead" id="markAsRead{{loop.index}}" data-path="{{ mgilet_notification_generate_path('notification_mark_as_seen', item.notifiableEntity, item.notification) }}">X</button>
+        </li>
+    {% endfor %}
+</ul>

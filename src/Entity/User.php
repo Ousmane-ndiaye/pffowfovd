@@ -6,11 +6,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Mgilet\NotificationBundle\Annotation\Notifiable;
+use Mgilet\NotificationBundle\NotifiableInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity("email", message="Un compte avec cette même adresse email existe déjà.")
+ * @Notifiable(name="user")
  */
-class User extends BaseUser implements UserInterface
+class User extends BaseUser implements UserInterface, NotifiableInterface
 {
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -92,6 +97,11 @@ class User extends BaseUser implements UserInterface
      */
     private $visiteds;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Personnes", mappedBy="user")
+     */
+    private $personnes;
+
     public function __construct()
     {
         parent::__construct();
@@ -101,6 +111,7 @@ class User extends BaseUser implements UserInterface
         $this->langues = new ArrayCollection();
         $this->userSecteurs = new ArrayCollection();
         $this->visiteds = new ArrayCollection();
+        $this->personnes = new ArrayCollection();
     }
 
     public function getAdresse(): ?string
@@ -421,6 +432,37 @@ class User extends BaseUser implements UserInterface
             // set the owning side to null (unless already changed)
             if ($visited->getVisiteur() === $this) {
                 $visited->setVisiteur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Personnes[]
+     */
+    public function getPersonnes(): Collection
+    {
+        return $this->personnes;
+    }
+
+    public function addPersonne(Personnes $personne): self
+    {
+        if (!$this->personnes->contains($personne)) {
+            $this->personnes[] = $personne;
+            $personne->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePersonne(Personnes $personne): self
+    {
+        if ($this->personnes->contains($personne)) {
+            $this->personnes->removeElement($personne);
+            // set the owning side to null (unless already changed)
+            if ($personne->getUser() === $this) {
+                $personne->setUser(null);
             }
         }
 

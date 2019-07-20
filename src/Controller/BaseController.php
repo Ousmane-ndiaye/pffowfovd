@@ -4,16 +4,18 @@ namespace App\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\GestionDeslogs;
 use App\Entity\User;
+use Mgilet\NotificationBundle\Manager\NotificationManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Utils\SendMailHelper;
 
 class BaseController extends AbstractController
 {
     //Les constantes globales
     const HOME_PAGE = 'app_home';
+    const SLUG = 'slug';
     const PROFIL = 'profil';
     const FORM = 'form';
     const DANGER = 'danger';
@@ -21,6 +23,7 @@ class BaseController extends AbstractController
     const SUCCESS = 'success';
     const EMAIL = 'email';
     const USER = 'user';
+    const APP_EMAIL = 'sunucvideo221@gmail.com';
 
 
     //Les variables globales
@@ -32,16 +35,19 @@ class BaseController extends AbstractController
 
     protected $passwordEncoder;
 
-    protected $swiftMailer;
+    protected $sendMailHelper;
+
+    protected $notifManager;
 
 
-    public function __construct(GestionDeslogs $logger, EntityManagerInterface $entityMngr, \Swift_Mailer $mailer, UserPasswordEncoderInterface $pwdEncoder)
+    public function __construct(GestionDeslogs $logger, EntityManagerInterface $entityMngr, SendMailHelper $mailer, UserPasswordEncoderInterface $pwdEncoder, NotificationManager $manager)
     {
         $this->userLogger = $logger;
         $this->entityManager = $entityMngr;
         $this->userRepository = $this->entityManager->getRepository(User::class);
         $this->passwordEncoder = $pwdEncoder;
-        $this->swiftMailer = $mailer;
+        $this->sendMailHelper = $mailer;
+        $this->notifManager = $manager;
     }
 
     //Les fonctions globlales
@@ -52,6 +58,6 @@ class BaseController extends AbstractController
 
     public static function slugify(string $string): string
     {
-        return preg_replace('/\s+/', '-', mb_strtolower(trim(strip_tags($string)), 'UTF-8'));
+        return preg_replace('/[^a-zA-Z0-9\']/', '-', mb_strtolower(trim(strip_tags($string)), 'UTF-8'));
     }
 }

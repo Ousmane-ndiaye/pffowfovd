@@ -5,74 +5,88 @@
 {% block currentstep %}
     <div id="pricing-plans-background-image">
         <div class="container">
-            <div class="registration-steps-page-container">
-                {{ form_start(form, {'attr': {'class': 'registration-steps-form'}}) }}
-                    <div class="registration-social-login-container">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col">
-                                    <label for="prenom" class="col-form-label">Prenom</label>
-                                    {{ form_widget(form.prenom, {'attr': {'class': 'form-control required'}}) }}
-                                    <div class="form-field-errors">
-                                        {{ form_errors(form.prenom) }}
+            {% if registred is defined and registred == 1 %}
+                <div class="text-center mt-5 ">
+                    <a href="{{path('app_login')}}" class="btn btn-green-pro">Se connecter</a>
+                </div>
+            {% else %}
+                <div class="registration-steps-page-container">
+                    <h4 class="text-center mt-5">Créez votre compte <hr></h4>
+                    {{ form_start(form, {'attr': {'class': 'registration-steps-form'}}) }}
+                        <div class="registration-social-login-container">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="prenom" class="col-form-label required">Prenom</label>
+                                        {{ form_widget(form.prenom, {'attr': {'class': 'form-control required'}}) }}
+                                        <div class="form-field-errors">
+                                            {{ form_errors(form.prenom) }}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col">
-                                    <label for="nom" class="col-form-label">Nom</label>
-                                    {{ form_widget(form.nom, {'attr': {'class': 'form-control required'}}) }}
-                                    <div class="form-field-errors">
-                                        {{ form_errors(form.nom) }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="col-form-label">Email</label>
-                            {{ form_widget(form.email, {'attr': {'class': 'form-control required'}}) }}
-                            <div class="form-field-errors">
-                                {{ form_errors(form.email) }}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col">
-                                    <label for="Mot de passe" class="col-form-label">Mot de passe</label>
-                                    {{ form_widget(form.password.first, {'attr': {'class': 'form-control required'}}) }}
-                                    <div class="form-field-errors">
-                                        {{ form_errors(form.password.first) }}
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label for="confirm-password" class="col-form-label">&nbsp;</label>
-                                    {{ form_widget(form.password.second, {'attr': {'class': 'form-control required', 'placeholder': 'Confirme le  mot de passe'}}) }}
-                                    <div class="form-field-errors">
-                                        {{ form_errors(form.password.second) }}
+                                    <div class="col">
+                                        <label for="nom" class="col-form-label required">Nom</label>
+                                        {{ form_widget(form.nom, {'attr': {'class': 'form-control required'}}) }}
+                                        <div class="form-field-errors">
+                                            {{ form_errors(form.nom) }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <label for="email" class="col-form-label required">Email</label>
+                                {{ form_widget(form.email, {'attr': {'class': 'form-control required'}}) }}
+                                <div class="form-field-errors">
+                                    {{ form_errors(form.email) }}
+                                </div>
+                            </div>
+                            {% if profil == 'entreprise' %}
+                                <div class="form-group">
+                                    <label for="email" class="col-form-label required">Poste</label>
+                                    <input type="text" class="form-control" name="poste" id="poste">
+                                    <small id="helpId" class="form-text text-muted">Votre poste actuel au sein de l'entreprise</small>
+                                </div>
+                            {% endif %}
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="Mot de passe" class="col-form-label required">Mot de passe</label>
+                                        {{ form_widget(form.password.first, {'attr': {'class': 'form-control required'}}) }}
+                                        <div class="form-field-errors">
+                                            {{ form_errors(form.password.first) }}
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label for="confirm-password" class="col-form-label">&nbsp;</label>
+                                        {{ form_widget(form.password.second, {'attr': {'class': 'form-control required', 'placeholder': 'Confirme le  mot de passe'}}) }}
+                                        <div class="form-field-errors">
+                                            {{ form_errors(form.password.second) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="registration-social-login-or">or</div>
+                        </div><!-- close .registration-social-login-container -->
                         
-                        <div class="registration-social-login-or">or</div>
-                    </div><!-- close .registration-social-login-container -->
-                    
-                    <div class="registration-social-login-options">
-                        <h6>Sign up with one of your social accounts</h6>
-                        <div class="social-icon-login facebook-color"><i class="fab fa-facebook-f"></i> Facebook</div>
-                        <div class="social-icon-login twitter-color"><i class="fab fa-twitter"></i> Twitter</div>
-                        <div class="social-icon-login google-color"><i class="fab fa-google-plus-g"></i> Google</div>
-                    </div><!-- close .registration-social-login-options -->
-                    
-                    <div class="clearfix"></div>
-                    <div class="form-group last-form-group-continue">
-                        <button type="submit" class="btn btn-green-pro">Continue</button>
-                        <span class="checkbox-remember-pro">
-                            <input type="checkbox" id="checkbox-terms"><label for="checkbox-terms" class="col-form-label">By clicking "Continue", you agree to our <a href="signup-step2.html#!">Terms of Use</a> and 
-                            <a href="{{ path('paiement_plan', {profil: profil}) }}">Privacy Policy</a> including the use of cookies.</label>
-                        </span>
+                        <div class="registration-social-login-options">
+                            <h6>Sign up with one of your social accounts</h6>
+                            <div class="social-icon-login facebook-color"><i class="fab fa-facebook-f"></i> Facebook</div>
+                            <div class="social-icon-login twitter-color"><i class="fab fa-twitter"></i> Twitter</div>
+                            <div class="social-icon-login google-color"><i class="fab fa-google-plus-g"></i> Google</div>
+                        </div><!-- close .registration-social-login-options -->
+                        
                         <div class="clearfix"></div>
-                    </div>
-                {{ form_end(form) }}
-            </div><!-- close .registration-steps-page-container -->
+                        <div class="form-group last-form-group-continue">
+                            <button type="submit" class="btn btn-green-pro">Continue</button>
+                            <span class="checkbox-remember-pro">
+                                <input type="checkbox" id="checkbox-terms"><label for="checkbox-terms" class="col-form-label">By clicking "Continue", you agree to our <a href="#!">Terms of Use</a> and 
+                                <a href="#!">Privacy Policy</a> including the use of cookies.</label>
+                            </span>
+                            <div class="clearfix"></div>
+                        </div>
+                    {{ form_end(form) }}
+                </div><!-- close .registration-steps-page-container -->
+            {% endif %}
         </div><!-- close .container -->
     </div><!-- close #pricing-plans-background-image -->
 {% endblock %}

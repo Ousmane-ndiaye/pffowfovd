@@ -10,6 +10,13 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\User;
 use App\Form\UserRegisterType;
+use App\Entity\Plan;
+use App\Entity\Entreprise;
+use App\Form\EntrepriseRegisterType;
+use App\Entity\Secteur;
+use App\Entity\Personnes;
+use App\Form\UsersecteurType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * @Route("/inscription")
@@ -18,7 +25,9 @@ class InscriptionController extends BaseController
 {
     const ACTIVE_ROUTE = 'activeRoute';
     const PAGE_FRONT = 'pages/front/inscription';
-    const VALIDE_PROFILS = ['professionnel', 'entreprise'];
+    const ENTREPRISE = 'entreprise';
+    const SECTEUR = 'secteur';
+    const VALIDE_PROFILS = ['professionnel', self::ENTREPRISE];
 
     /**
      * @Route("/choisir-profil", name="choisir_profil")
@@ -49,46 +58,97 @@ class InscriptionController extends BaseController
     public function choisirPlan(Request $request)
     {
         return $this->render(self::PAGE_FRONT . '/choisir-plan.html.twig', [
-            self::PROFIL => 'entreprise',
+            self::PROFIL => self::ENTREPRISE,
+            'plans' => $this->entityManager->getRepository(Plan::class)->findAll(),
             self::ACTIVE_ROUTE => 'plan'
         ]);
     }
 
     /**
-     * @Route("/creation-compte/{profil}", name="creation_compte")
+     * @Route("/creation-entreprise/{plan}", name="creation_entreprise")
      */
-    public function creationCompte($profil, Request $request, Inscription $inscription)
+    public function creationEntreprise($plan, Request $request)
+    {
+        $plan = $this->entityManager->getRepository(Plan::class)->findOneBy(['libelle' => $plan]);
+        if (!$plan) {
+            return $this->redirectToRoute('choisir_plan');
+        }
+        $entreprise = new Entreprise();
+        $form = $this->createForm(EntrepriseRegisterType::class, $entreprise);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entreprise->setPlan($plan)->setSlug($this->slugify($entreprise->getLibelle()));
+            $this->entityManager->persist($entreprise);
+            $this->entityManager->flush();
+            $this->addFlash(self::SUCCESS, 'Votre entreprise a été enregistrer avec succès!');
+            return $this->redirectToRoute('creation_compte', [self::PROFIL => self::VALIDE_PROFILS[1], self::SLUG => $entreprise->getSlug()]);
+        }
+
+        return $this->render(self::PAGE_FRONT . '/creation-entreprise.html.twig', [
+            self::PROFIL => self::VALIDE_PROFILS[1],
+            'plan' => $plan,
+            self::FORM => $form->createView(),
+            self::ACTIVE_ROUTE => self::ENTREPRISE
+        ]);
+    }
+
+    /**
+     * @Route("/creation-compte/{profil}/{registred}/{slug}", name="creation_compte")
+     */
+    public function creationCompte(Request $request, Inscription $inscription, $profil, $registred = 0, $slug = '')
     {
         $user = new User();
         $form = $this->createForm(UserRegisterType::class, $user);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid() && in_array($profil, self::VALIDE_PROFILS)) {
-            if (!$this->userRepository->findOneBy([self::EMAIL => $user->getEmail()])) {
+            $this->entityManager->getConnection()->beginTransaction();
+            try {
                 $inscription->setNewUser($user, $profil, $this->passwordEncoder);
+                $route = 'creation_compte';
+                $params = [self::PROFIL => $profil, 'registred' => 1];
                 $this->entityManager->persist($user);
+                if ($profil == self::VALIDE_PROFILS[1] && $slug != '' && $request->get('poste')) {
+                    $entreprise = $this->entityManager->getRepository(Entreprise::class)->findOneBy([self::SLUG => $slug]);
+                    $personne = new Personnes();
+                    $personne->setEntreprise($entreprise)->setUser($user)->setPoste($request->get('poste'));
+                    $this->entityManager->persist($personne);
+                    $route = 'signup_welcome';
+                    $params = [self::SLUG => $slug];
+                }
                 $this->entityManager->flush();
-                $this->addFlash(self::SUCCESS, 'Votre inscription a été pris en compte, un email de confirmation vous a été envoyer!');
-                return $this->redirectToRoute('paiement_plan', [self::PROFIL => $profil]);
+                $this->entityManager->getConnection()->commit();
+            } catch (Exception $e) {
+                $this->entityManager->getConnection()->rollBack();
+                throw $e;
             }
-            $this->addFlash(self::DANGER, 'Un compte avec cette adresse email existe déjà.');
+            //$this->sendMailHelper->sendEmail(self::APP_EMAIL, $user->getEmail(), 'Bienvenue sur SUNU CVIDEO', $body);
+            $this->addFlash(self::SUCCESS, 'Votre inscription a été pris en compte, un email de confirmation vous a été envoyer!');
+            return $this->redirectToRoute($route, $params);
         }
 
         return $this->render(self::PAGE_FRONT . '/creation-compte.html.twig', [
             self::PROFIL => $profil,
+            'registred' => $registred,
             self::ACTIVE_ROUTE => 'compte',
             self::FORM => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/paiement-plan/{profil}", name="paiement_plan")
+     * @Route("/signup-welcome/{slug}", name="signup_welcome")
      */
-    public function paiementPlan($profil, Request $request)
+    public function signupWelcome($slug)
     {
-        return $this->render(self::PAGE_FRONT . '/paiement-plan.html.twig', [
-            self::PROFIL => $profil,
-            self::ACTIVE_ROUTE => 'paiement'
+        $entreprise = $this->entityManager->getRepository(Entreprise::class)->findOneBy([self::SLUG => $slug]);
+        if (!$entreprise || count($entreprise->getPersonnes()) != 1) {
+            return $this->redirectToRoute(self::HOME_PAGE);
+        }
+
+        return $this->render(self::PAGE_FRONT . '/signup-welcome.html.twig', [
+            self::PROFIL => self::ENTREPRISE,
+            self::ACTIVE_ROUTE => 'welcome',
+            self::ENTREPRISE => $entreprise
         ]);
     }
 }

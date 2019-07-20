@@ -5,15 +5,12 @@ namespace App\Service;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Security\Core\Security;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Form\InformationProfilType;
-use App\Entity\Infoprofil;
-use App\Form\ExperienceType;
+use Mgilet\NotificationBundle\Manager\NotificationManager;
 use App\Entity\Experience;
-use App\Form\FormationType;
 use App\Entity\Formation;
-use App\Form\LangueType;
 use App\Entity\Langue;
 use App\Entity\Vue;
+use function GuzzleHttp\json_encode;
 
 class Professionnel
 {
@@ -24,10 +21,11 @@ class Professionnel
     private $formFactory;
     private $currentUser;
 
-    public function __construct(EntityManagerInterface $em, FormFactoryInterface $fFactory, Security $secur)
+    public function __construct(EntityManagerInterface $em, FormFactoryInterface $fFactory, Security $secur, NotificationManager $manager)
     {
         $this->entityManager = $em;
         $this->formFactory = $fFactory;
+        $this->notifManager = $manager;
         $this->currentUser = $secur->getToken()->getUser();
     }
 
@@ -106,6 +104,21 @@ class Professionnel
             $vue->setDateVue(new \Datetime('now'))->setVisiteur($this->currentUser)->setInfoProfil($user->getInfoProfil());
             $this->entityManager->persist($vue);
             $this->entityManager->flush();
+
+            $notif = $this->notifManager->createNotification('vu');
+            $data = [
+                'user' => $this->currentUser->getId(),
+                'image' => $this->currentUser->getImage() ? $this->currentUser->getImage() : 'default.png',
+                'fullname' => $this->currentUser->getPrenom() . ' ' . $this->currentUser->getNom()
+            ];
+            $notif->setMessage(json_encode($data));
+
+            if (in_array('ROLE_ENTREPRISE', $this->currentUser->getRoles(), true)) {
+                $notif->setLink('entreprise_profil');
+            } elseif (in_array('ROLE_PROFESSIONNEL', $this->currentUser->getRoles(), true)) {
+                $notif->setLink('professionnel_profil');
+            }
+            $this->notifManager->addNotification([$user], $notif, true);
         }
     }
 }

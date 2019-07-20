@@ -1,0 +1,15 @@
+TACHES:
+    1) Update workflow register
+        + Revoir le workflow d'inscription
+		+ Mettre a jour la base de donnee pour gerer le workflow d'inscription  (ok)
+		+ Envoie du mail d'inscription avec la validation du compte
+    2) Ajout page profil entreprise
+		+ creer l'entite entreprise et generer son formulaire de mis a jour de ces infos
+    3) Ajout formulaire de demande de rv de prise de video
+		+ Integrer le plugin pour l'affichage des jours disponible
+		+ Formulaire de demande de rv de prise de video
+    4) Ajout template administration
+    5) Gestion des demandes de rv de prise de video
+		+ Voir la liste des rv de prise de video encours
+		+ Voir les archives de rv de prise de video
+		+ Modifier / supprimer une rv de prise de video

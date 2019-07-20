@@ -38,9 +38,15 @@ class Secteur
      */
     private $userSecteurs;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Entreprisesecteur", mappedBy="secteur")
+     */
+    private $entrepriseSecteurs;
+
     public function __construct()
     {
         $this->userSecteurs = new ArrayCollection();
+        $this->entrepriseSecteurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,6 +115,37 @@ class Secteur
             // set the owning side to null (unless already changed)
             if ($userSecteur->getDomaine() === $this) {
                 $userSecteur->setDomaine(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Entreprisesecteur[]
+     */
+    public function getEntrepriseSecteurs(): Collection
+    {
+        return $this->entrepriseSecteurs;
+    }
+
+    public function addEntrepriseSecteur(Entreprisesecteur $entrepriseSecteur): self
+    {
+        if (!$this->entrepriseSecteurs->contains($entrepriseSecteur)) {
+            $this->entrepriseSecteurs[] = $entrepriseSecteur;
+            $entrepriseSecteur->setSecteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEntrepriseSecteur(Entreprisesecteur $entrepriseSecteur): self
+    {
+        if ($this->entrepriseSecteurs->contains($entrepriseSecteur)) {
+            $this->entrepriseSecteurs->removeElement($entrepriseSecteur);
+            // set the owning side to null (unless already changed)
+            if ($entrepriseSecteur->getSecteur() === $this) {
+                $entrepriseSecteur->setSecteur(null);
             }
         }
 

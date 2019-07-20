@@ -1,21 +1,18 @@
 $(function() {
-	//Initialize Swiper
-	var swiper = new Swiper('.swiper-container', {
-		hashNavigation: {
-			watchState: true
-		},
-		slidesPerView: 10,
-		spaceBetween: 0,
-		freeMode: true,
-		pagination: {
-			el: '.swiper-pagination',
-			clickable: true
-		},
-		navigation: {
-			nextEl: '.swiper-button-next',
-			prevEl: '.swiper-button-prev'
-		}
-	});
+	function swipeFilter(nbreFilter) {
+		var swiper = new Swiper('.swiper-container', {
+			hashNavigation: {
+				watchState: true
+			},
+			slidesPerView: nbreFilter,
+			spaceBetween: 0,
+			freeMode: true,
+			navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev'
+			}
+		});
+	}
 
 	function loadProfessionnel() {
 		var currentSecteur = $('#liste-secteurs').find('.swiper-slide.active');
@@ -27,7 +24,17 @@ $(function() {
 			$('#liste-professionnels').append(JSON.parse(data));
 		});
 	}
+
 	loadProfessionnel();
+
+	//Initialize Swiper
+	swipeFilter(parseInt(window.innerWidth / 130));
+
+	$(window).on('resize', function() {
+		var win = $(this);
+		var nbreFilter = parseInt(win.width() / 130);
+		swipeFilter(nbreFilter);
+	});
 
 	$('#liste-secteurs .swiper-slide').each(function() {
 		$(this).click(function() {

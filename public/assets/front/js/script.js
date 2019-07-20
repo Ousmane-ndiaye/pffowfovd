@@ -146,4 +146,13 @@ jQuery(document).ready(function($) {
 */
 
 	$('[data-toggle="popover"]').popover();
+
+	$('#header-user-notification-list li').on('click', '.markAsRead', function() {
+		var btnDelete = $(this);
+		$.post(btnDelete.data('path'), function() {
+			var count = parseInt($('.user-notification-count').eq(0).text()) - 1;
+			$('.user-notification-count').eq(0).text(count);
+			btnDelete.closest('li').remove();
+		});
+	});
 });

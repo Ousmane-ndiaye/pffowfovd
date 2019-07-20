@@ -1,0 +1,43 @@
+{% extends 'pages/front/inscription/base-step.html.twig' %}
+
+{% block title %}Choisir secteur d'activité{% endblock %}
+
+{% block currentstep %}
+    <div id="pricing-plans-background-image">
+        <div class="container">
+            <div class="registration-steps-page-container">
+                
+
+                <div class="registration-step-final-padding welcome-page-styles">
+
+                    <div class="centered-headings-pro pricing-plans-headings">
+                        <h6>Inscription términer!</h6>
+                        <h1>Bienvenue sur SUNU CV VIDEO!</h1>
+                    </div>
+
+                    <h3 class="welcome-plan-title"><span style="color: #3A54A5;">{{ entreprise.libelle |capitalize }}</span></h3>
+                    
+                    <h6 class="welcome-style-summary">Vous pouvez commencer à regarder des cv vidéo et rencontrer des jeunes talents.</h6>
+                    <h6 class="welcome-style-summary">N'oubliez pas de valider l'email de confirmation qui vous a été envoyer sur <b>{{entreprise.personnes[0].user.email}}</b>.</h6>
+                    
+                    <h3 class="welcome-plan-title">Votre Plan: <span style="color: #3A54A5;">{{ entreprise.plan.libelle |capitalize }}</span></h3>
+                    
+                    <ul class="welcome-features">
+                        {% for offre in entreprise.plan.offres %}
+                            <li>{{ offre }}</li>
+                        {% endfor %}
+                    </ul>
+                    <div class="clearfix"></div>
+                    
+                    <div class="registration-step-final-footer">
+                        <a href="{{path('app_login')}}" class="btn btn-green-pro">Commencer </a>
+                    </div>
+                    
+                </div><!-- close .registration-step-final-padding -->
+                
+                
+            </div><!-- close .registration-steps-page-container -->
+        
+        </div><!-- close .container -->
+    </div><!-- close #pricing-plans-background-image -->
+{% endblock %}

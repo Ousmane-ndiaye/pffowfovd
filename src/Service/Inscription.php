@@ -32,6 +32,6 @@ class Inscription
 
     public function setNewUser(&$user, $profil, $encoder)
     {
-        $user->setRoles($profil)->setCreatedAt(new \DateTime(date('Y-m-d H:i:s')))->setPassword($encoder->encodePassword($user, $user->getPassword()));
+        $user->setRoles($profil)->setIsActive(0)->setCreatedAt(new \DateTime(date('Y-m-d H:i:s')))->setPassword($encoder->encodePassword($user, $user->getPassword()));
     }
 }

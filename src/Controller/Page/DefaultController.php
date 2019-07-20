@@ -4,6 +4,7 @@ namespace App\Controller\Page;
 
 use App\Controller\BaseController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Plan;
 
 class DefaultController extends BaseController
 {
@@ -12,6 +13,8 @@ class DefaultController extends BaseController
      */
     public function index()
     {
-        return $this->render('pages/default/index.html.twig', []);
+        return $this->render('pages/default/index.html.twig', [
+            'plans' => $this->entityManager->getRepository(Plan::class)->findAll()
+        ]);
     }
 }

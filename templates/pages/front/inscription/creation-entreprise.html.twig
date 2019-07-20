@@ -1,0 +1,68 @@
+{% extends 'pages/front/inscription/base-step.html.twig' %}
+
+{% block title %}Enregistrement de l'entreprise{% endblock %}
+
+{% block currentstep %}
+    <div id="pricing-plans-background-image">
+        <div class="container">
+            <div class="registration-steps-page-container">
+                <div class="registration-billing-form">
+                    <h4 class="text-center">Enregistrez votre entreprise <hr></h4>
+                    <div class="row">
+                        <div class="billing-form-pro">
+                            {{ form_start(form, {'attr': {'class': 'registration-steps-form'}}) }}
+                                <div class="form-group">
+                                    <label for="libelle" class="col-form-label required">Nom de l'entreprise:</label>
+                                    {{ form_widget(form.libelle, {'attr': {'class': 'form-control required'}}) }}
+                                    <div class="form-field-errors">
+                                        {{ form_errors(form.libelle) }}
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="type" class="col-form-label required">Type:</label>
+                                    {{ form_widget(form.type, {'attr': {'class': 'form-control required'}}) }}
+                                    <div class="form-field-errors">
+                                        {{ form_errors(form.type) }}
+                                    </div>
+                                </div>
+                                
+                                <div class="row adjust-margin-top adjust-margin-bottom">
+                                    <div class="col-sm">
+                                        <div class="form-group">
+                                            <label for="siegeSocial" class="col-form-label">Siège Social:</label>
+                                            {{ form_widget(form.siegeSocial, {'attr': {'class': 'form-control required'}}) }}
+                                            <div class="form-field-errors">
+                                                {{ form_errors(form.siegeSocial) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm">
+                                        <div class="form-group">
+                                            <label for="tel" class="col-form-label required">Téléphone:</label>
+                                            {{ form_widget(form.tel, {'attr': {'class': 'form-control required'}}) }}
+                                            <div class="form-field-errors">
+                                                {{ form_errors(form.tel) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- close .row -->
+                                
+                                <div class="form-group">
+                                    
+                                    <div class="billing-plan-container">
+                                    <h5>Votre Plan: <a href="{{ path('choisir_plan') }}">Changer de plan</a></h5>
+                                    <h3>{{ plan.libelle |raw |e |upper }}: <span class="total">{{ plan.prix ~ ' fcfa' }}</span><span class="duration">/{{ plan.duree |raw |e }}</span></h3>
+                                    </div><!-- close .billing-plan-container -->
+                                    
+                                    <button type="submit" class="btn btn-green-pro">Enregistrez et Continuez</button>
+                                    <div class="clearfix"></div>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div><!-- close .row -->
+                </div><!-- close .registration-billing-form -->
+            </div><!-- close .registration-steps-page-container -->
+        </div><!-- close .container -->
+    </div><!-- close #pricing-plans-background-image -->
+{% endblock %}

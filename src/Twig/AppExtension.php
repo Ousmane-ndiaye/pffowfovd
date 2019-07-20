@@ -27,6 +27,7 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFilter('format_string', [$this, 'formatString']),
+            new TwigFilter('json_decode', [$this, 'jsonDecode']),
             new TwigFilter('string_month', [$this, 'stringMonth']),
             new TwigFilter('in_secteur', [$this, 'verifUserSecteur']),
         ];
@@ -49,6 +50,11 @@ class AppExtension extends AbstractExtension
         }
 
         return strftime($format, $date);
+    }
+
+    public function jsonDecode($data)
+    {
+        return json_decode($data);
     }
 
     public function stringMonth($numMois)

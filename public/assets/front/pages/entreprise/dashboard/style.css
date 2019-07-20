@@ -39,3 +39,8 @@
 .swiper-pagination-fraction {
 	bottom: 5px;
 }
+
+.item-playlist-text-skrn {
+	height: 120px;
+	padding: 38px 10px 20px;
+}

@@ -1,0 +1,42 @@
+{% extends 'pages/front/inscription/base-step.html.twig' %}
+
+{% block title %}Choisir secteur d'activité{% endblock %}
+
+{% block currentstep %}
+    <div id="pricing-plans-background-image">
+        <div class="container">
+            <div class="registration-steps-page-container">
+                
+                <div class="registration-step-final-padding">
+                    <h2 class="registration-final-heading">Bonjour <span>John Doe!</span> Just a few more steps to complete your account</h2>
+                    
+                    <div class="registration-invite-friends">
+                        {{ form_start(formEntrepriseSecteur, {'attr': {'class': 'registration-invite-friends-form'}}) }}
+                            {{ form_widget(formEntrepriseSecteur.entreprise) }}
+                            <div class="registration-genres-step">
+                                <h5>Choisissez vos secteurs préférés:</h5>
+                                <ul class="registration-genres-choice">
+                                    {% for secteur in formEntrepriseSecteur.secteur.children %}
+                                        <li>
+                                            {% set params = secteur.vars.label |split("___") %}
+                                            {{ form_widget(secteur, {'attr': {'class': 'form-secteur hidden'}}) }}
+                                            <i class="fas fa-check-circle"></i>
+                                            <img src="{{asset('assets/secteurs/' ~ params[1])}}" alt="{{ params[0] |raw |e }}" alt="{{ params[0] |raw |e }}">
+                                            <h6>{{ params[0] |raw |e }}</h6>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div><!-- close .registration-genres-step -->
+                            
+                            <div class="registration-step-final-footer">
+                                <button type="submit" class="btn btn-green-pro">Enregistrer et Finir</button>
+                            </div>
+                        {{ form_end(formEntrepriseSecteur) }}
+                    </div>
+                </div>
+            </div><!-- close .registration-steps-page-container -->
+        
+        </div><!-- close .container -->
+    </div><!-- close #pricing-plans-background-image -->
+{% endblock %}
