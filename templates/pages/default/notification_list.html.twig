@@ -23,7 +23,7 @@
         <li class="ele-notif">
             {% if item.notification.subject == "vu" %}
                 {% set data = item.notification.message |json_decode %}
-                <a href="{{ data.user }}">
+                <a href="{{ item.notification.link }}">
                     <img src="{{asset('assets/front/images/users/' ~ data.image)}}"alt="Profile">
                     <b>{{ data.fullname |capitalize }}</b> a vu votre profil.
                     <div class="header-user-notify-time">{{ item.notification.date | date('d/m/Y à H:m') }}</div>

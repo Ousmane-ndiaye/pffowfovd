@@ -7,12 +7,14 @@
                 Tableau de bord
             </a>
         </li>
-        <li class="normal-item-pro">
-            <a href="{{path('entreprise_profil')}}">
-                <span class="icon-User"></span>
-                Mon profil
-            </a>
-        </li>
+        {% if app.user.entreprise is defined and app.user.entreprise is not null %}
+            <li class="normal-item-pro">
+                <a href="{{path('entreprise_profil', {slug: app.user.entreprise.slug, email: app.user.email})}}">
+                    <span class="icon-User"></span>
+                    Mon profil
+                </a>
+            </li>
+        {% endif %}
         <li class="normal-item-pro">
             <a href="#!">
                 <span class="icon-Movie"></span>

@@ -85,7 +85,7 @@ class ProfessionnelController extends BaseController
     {
         $user = $this->entityManager->getRepository(User::class)->findOneBy([self::EMAIL => $slug]);
         if (!$user) {
-            return $this->redirectToRoute('entreprise_profil');
+            return $this->redirectToRoute('entreprise_dashboard');
         }
 
         $professionnel->addNewVue($user);

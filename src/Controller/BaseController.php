@@ -23,6 +23,8 @@ class BaseController extends AbstractController
     const SUCCESS = 'success';
     const EMAIL = 'email';
     const USER = 'user';
+    const ENTREPRISE = 'entreprise';
+    const SECTEUR = 'secteur';
     const APP_EMAIL = 'sunucvideo221@gmail.com';
 
 

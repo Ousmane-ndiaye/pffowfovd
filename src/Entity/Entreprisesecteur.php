@@ -22,7 +22,7 @@ class Entreprisesecteur
     private $secteur;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Entreprise", inversedBy="entreprisesecteurs")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Entreprise", inversedBy="entrepriseSecteurs")
      */
     private $entreprise;
 

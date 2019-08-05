@@ -13,10 +13,7 @@ use App\Form\UserRegisterType;
 use App\Entity\Plan;
 use App\Entity\Entreprise;
 use App\Form\EntrepriseRegisterType;
-use App\Entity\Secteur;
 use App\Entity\Personnes;
-use App\Form\UsersecteurType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * @Route("/inscription")
@@ -25,8 +22,6 @@ class InscriptionController extends BaseController
 {
     const ACTIVE_ROUTE = 'activeRoute';
     const PAGE_FRONT = 'pages/front/inscription';
-    const ENTREPRISE = 'entreprise';
-    const SECTEUR = 'secteur';
     const VALIDE_PROFILS = ['professionnel', self::ENTREPRISE];
 
     /**
@@ -110,8 +105,10 @@ class InscriptionController extends BaseController
                 $this->entityManager->persist($user);
                 if ($profil == self::VALIDE_PROFILS[1] && $slug != '' && $request->get('poste')) {
                     $entreprise = $this->entityManager->getRepository(Entreprise::class)->findOneBy([self::SLUG => $slug]);
+                    $user->setEntreprise($entreprise);
+                    $this->entityManager->persist($user);
                     $personne = new Personnes();
-                    $personne->setEntreprise($entreprise)->setUser($user)->setPoste($request->get('poste'));
+                    $personne->setEntreprise($entreprise)->setUser($user)->setRoles(["ROLE_ADMINISTRATEUR"])->setPoste($request->get('poste'));
                     $this->entityManager->persist($personne);
                     $route = 'signup_welcome';
                     $params = [self::SLUG => $slug];

@@ -102,7 +102,7 @@ class Entreprise
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Entreprisesecteur", mappedBy="entreprise")
      */
-    private $entreprisesecteurs;
+    private $entrepriseSecteurs;
 
     /**
      * @ORM\Column(type="text")
@@ -121,10 +121,20 @@ class Entreprise
      */
     private $libelle;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="entreprise", cascade={"persist", "remove"})
+     */
+    private $representant;
+
+    /**
+     * @ORM\Column(type="string", length=250, nullable=true)
+     */
+    private $slogan;
+
     public function __construct()
     {
         $this->personnes = new ArrayCollection();
-        $this->entreprisesecteurs = new ArrayCollection();
+        $this->entrepriseSecteurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -298,15 +308,15 @@ class Entreprise
     /**
      * @return Collection|Entreprisesecteur[]
      */
-    public function getEntreprisesecteurs(): Collection
+    public function getEntrepriseSecteurs(): Collection
     {
-        return $this->entreprisesecteurs;
+        return $this->entrepriseSecteurs;
     }
 
     public function addEntreprisesecteur(Entreprisesecteur $entreprisesecteur): self
     {
-        if (!$this->entreprisesecteurs->contains($entreprisesecteur)) {
-            $this->entreprisesecteurs[] = $entreprisesecteur;
+        if (!$this->entrepriseSecteurs->contains($entreprisesecteur)) {
+            $this->entrepriseSecteurs[] = $entreprisesecteur;
             $entreprisesecteur->setEntreprise($this);
         }
 
@@ -315,8 +325,8 @@ class Entreprise
 
     public function removeEntreprisesecteur(Entreprisesecteur $entreprisesecteur): self
     {
-        if ($this->entreprisesecteurs->contains($entreprisesecteur)) {
-            $this->entreprisesecteurs->removeElement($entreprisesecteur);
+        if ($this->entrepriseSecteurs->contains($entreprisesecteur)) {
+            $this->entrepriseSecteurs->removeElement($entreprisesecteur);
             // set the owning side to null (unless already changed)
             if ($entreprisesecteur->getEntreprise() === $this) {
                 $entreprisesecteur->setEntreprise(null);
@@ -346,6 +356,41 @@ class Entreprise
     public function setLibelle(string $libelle): self
     {
         $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    public function isAdministrateur($user)
+    {
+        return false;
+    }
+
+    public function getRepresentant(): ?User
+    {
+        return $this->representant;
+    }
+
+    public function setRepresentant(?User $representant): self
+    {
+        $this->representant = $representant;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newEntreprise = $representant === null ? null : $this;
+        if ($newEntreprise !== $representant->getEntreprise()) {
+            $representant->setEntreprise($newEntreprise);
+        }
+
+        return $this;
+    }
+
+    public function getSlogan(): ?string
+    {
+        return $this->slogan;
+    }
+
+    public function setSlogan(?string $slogan): self
+    {
+        $this->slogan = $slogan;
 
         return $this;
     }

@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Security;
 use Doctrine\ORM\EntityManagerInterface;
 use Mgilet\NotificationBundle\Manager\NotificationManager;
@@ -10,6 +11,7 @@ use App\Entity\Experience;
 use App\Entity\Formation;
 use App\Entity\Langue;
 use App\Entity\Vue;
+use App\Entity\User;
 use function GuzzleHttp\json_encode;
 
 class Professionnel
@@ -19,13 +21,18 @@ class Professionnel
 
     private $entityManager;
     private $formFactory;
+    /**
+     * @var  User $currentUser
+     */
     private $currentUser;
+    private $router;
 
-    public function __construct(EntityManagerInterface $em, FormFactoryInterface $fFactory, Security $secur, NotificationManager $manager)
+    public function __construct(EntityManagerInterface $em, FormFactoryInterface $fFactory, Security $secur, NotificationManager $manager, RouterInterface $rter)
     {
         $this->entityManager = $em;
         $this->formFactory = $fFactory;
         $this->notifManager = $manager;
+        $this->router = $rter;
         $this->currentUser = $secur->getToken()->getUser();
     }
 
@@ -95,7 +102,7 @@ class Professionnel
         $this->entityManager->flush();
     }
 
-    public function addNewVue($user)
+    public function addNewVue(User $user)
     {
         $vueRepo = $this->entityManager->getRepository(Vue::class)->ifIsVisitedToday($user->getInfoProfil(), $this->currentUser);
 
@@ -114,7 +121,8 @@ class Professionnel
             $notif->setMessage(json_encode($data));
 
             if (in_array('ROLE_ENTREPRISE', $this->currentUser->getRoles(), true)) {
-                $notif->setLink('entreprise_profil');
+                $link = $this->router->generate('entreprise_profil', ['slug' => $this->currentUser->getEntreprise()->getSlug(), 'email' => $user->getEmail()]);
+                $notif->setLink($link);
             } elseif (in_array('ROLE_PROFESSIONNEL', $this->currentUser->getRoles(), true)) {
                 $notif->setLink('professionnel_profil');
             }

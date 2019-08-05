@@ -5,6 +5,11 @@
 	border-color: #3a54a5;
 }
 
+header#masthead-pro {
+	position: sticky;
+	top: 0;
+}
+
 @media only screen and (max-width: 767px) {
 	.flexslider.progression-studios-slider,
 	.progression-studios-slider-image-background {

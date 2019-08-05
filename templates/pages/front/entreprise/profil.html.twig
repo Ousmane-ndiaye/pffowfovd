@@ -1,0 +1,105 @@
+{% extends 'pages/front/base.html.twig' %}
+{% block title %}Dashboard !{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+    <link href="{{asset('assets/front/pages/entreprise/profil/style.css')}}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block main %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% set fullName = app.user.prenom ~ " " ~ app.user.nom %}
+        {% set imagePorfil = app.user.image ? app.user.image : 'default.png' %}
+    {% else %}
+        <style>
+            main#col-main {
+                margin-left: 0;
+            }
+            #sidebar-bg:before {
+                width: 0;
+            }
+            #sidebar-bg:after, #sidebar-bg:before {
+                display: none;
+            }
+            header#masthead-pro {
+                position: sticky;
+                top: 0;
+            }
+            @media (max-width: 768px) {
+                #menu-profil-page {
+                    top: 90px !important;
+                }
+            }
+        </style>
+        {{ block("header", "pages/front/inscription/base-step.html.twig") }}
+    {% endif %}
+    <main id="col-main">
+
+        <div class="container">
+            <div class="card mb-3 Elevation-2dp card-header-entreprise">
+                <img class="card-img-top" src="{{asset('assets/front/images/slides/background.jpg')}}" alt="Card image cap" />
+                <div class="card-body" style="padding-top: .5rem;">
+                    <div class="card-title" style="position: relative;">
+                        <img src="{{asset('assets/front/images/users/default.png')}}" class="logo-entreprise" alt="">
+                    </div>
+                    <div class="row">
+                        <div class="offset-md-2 offset-4 col-md-6 col-8">
+                            <h1 class="org-top-card-summary__title t-15 t-black truncate"><span dir="ltr">{{ entreprise.libelle |raw |e |upper }}</span></h1>
+                            <p class="org-top-card-summary__info t-1 t-black--light">{{entreprise.slogan ? entreprise.slogan |raw |e : '[Slogan de l\'entreprise ici]' }}</p>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <button type="button"id="suivre-entreprise" class="btn btn-primary btn-md float-right">Suivre</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-12">
+                            <a href="#!" class="btn btn-primary btn-md voir-siteweb">Voir le site web <i class="fa fa-link" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="offset-md-4 col-md-4 col-12 text-right voir-employers">
+                            <a href="#!">Voir les 2 573 employés sur SUNU CVIDEO  <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="menu-profil-page" class="list-group Elevation-2dp sticky">
+                <a href="#!" class="list-group-item list-group-item-action text-center active"><span class="d-none d-md-block">À propos</span><i class="fa fa-list-alt d-block d-md-none" aria-hidden="true"></i></a>
+                <a href="#!" class="list-group-item list-group-item-action text-center"><span class="d-none d-md-block">Offres d'emploi</span><i class="fa fa-briefcase d-block d-md-none" aria-hidden="true"></i></a>
+                <a href="#!" class="list-group-item list-group-item-action text-center"><span class="d-none d-md-block">Personnes</span><i class="fa fa-users d-block d-md-none" aria-hidden="true"></i></a>
+                <a href="#!" class="list-group-item list-group-item-action text-center"><span class="d-none d-md-block">Publictés</span><i class="fa fa-newspaper d-block d-md-none" aria-hidden="true"></i></a>
+            </div>
+
+            <div id="data-profil-page" class="row">
+                {% for i in 1..5 %}
+                    <div class="offset-md-2 col-md-10">
+                        <div class="card Elevation-2dp mb-3">
+                            <div class="card-header">
+                                Header
+                            </div>
+                            <div class="card-body">
+                                <img class="card-img-top" src="{{asset('assets/front/images/genres/action.png')}}" style="height: 200px;" alt="">
+                                <h4 class="card-title">Title</h4>
+                                <p class="card-text">Text</p>
+                            </div>
+                            <div class="card-footer text-muted">
+                                Footer
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+        </div>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{asset('assets/plugins/Tags-Input/dist/jquery.tagsinput-revisited.min.js')}}" defer></script>
+    <script src="{{asset('assets/front/js/jquery-asRange.min.js')}}" defer></script><!-- Range Slider JS Plugin -->
+    <script src="{{asset('assets/front/js/circle-progress.min.js')}}" defer></script><!-- Circle Progress JS Plugin -->
+    <script src="{{asset('assets/front/js/script-dashboard.js')}}" defer></script><!-- Custom Document Ready for Dashboard Only JS -->
+
+    <script src="{{asset('assets/front/pages/entreprise/profil/script.js')}}" defer></script>
+{% endblock %}

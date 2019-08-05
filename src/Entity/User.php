@@ -102,6 +102,11 @@ class User extends BaseUser implements UserInterface, NotifiableInterface
      */
     private $personnes;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Entreprise", inversedBy="representant", cascade={"persist", "remove"})
+     */
+    private $entreprise;
+
     public function __construct()
     {
         parent::__construct();
@@ -465,6 +470,18 @@ class User extends BaseUser implements UserInterface, NotifiableInterface
                 $personne->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEntreprise(): ?Entreprise
+    {
+        return $this->entreprise;
+    }
+
+    public function setEntreprise(?Entreprise $entreprise): self
+    {
+        $this->entreprise = $entreprise;
 
         return $this;
     }
