@@ -195,7 +195,7 @@
                             Le relationnel, la créativité, valoriser ses compétences, avoir une attitude positive, tous ces éléments sont nécessaires lors de l’entretien final et travaillés en amont via la vidéo. 
                         </p>
                         <div style="height:15px;"></div>
-                        <p><a class="btn btn-green-pro" href="{{path('professionnel_dashboard')}}" role="button">Commencer votre essai gratuit</a></p>
+                        <p><a class="btn btn-green-pro" href="{{path('choisir_profil')}}" role="button">Commencer votre essai gratuit</a></p>
                     </div>
                 </div><!-- close .row -->
                 
@@ -240,7 +240,7 @@
                                                 <li>{{ offre |raw |e }}</li>
                                             {% endfor %}
                                         </ul>
-                                        <p><a class="btn {{ plan.parDefaut ? 'btn-green-pro' : '' }}" href="{{ path('creation_entreprise', {plan: plan.libelle}) }}" role="button">Choisir ce Plan</a></p>
+                                        <p><a class="btn {{ plan.parDefaut ? 'btn-green-pro' : '' }}" href="{{ path('choisir_profil') }}" role="button">Choisir ce Plan</a></p>
                                     </div><!-- close .pricing-table-col -->
                                 </div><!-- close .col-md-12 -->
                             {% endfor %}
