@@ -145,7 +145,7 @@
                             {% set fullName = app.user.prenom ~ " " ~ app.user.nom %}
                             {% set imagePorfil = app.user.image ? app.user.image : 'default.png' %}
                             <div id="header-user-profile-click" class="noselect">
-                                <img src="{{asset('assets/front/images/users/' ~ imagePorfil)}}" alt="{{ fullName |capitalize }}">
+                                <img src="{{asset('/uploads/profils/' ~ imagePorfil)}}" alt="{{ fullName |capitalize }}">
                                 <div id="header-username">{{ fullName |capitalize }}</div><i class="fas fa-angle-down"></i>
                             </div><!-- close #header-user-profile-click -->
                             <div id="header-user-profile-menu">

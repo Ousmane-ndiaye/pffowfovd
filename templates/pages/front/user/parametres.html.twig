@@ -22,19 +22,18 @@
             </ul><!-- close .dashboard-sub-menu -->
 
             <div class="container-fluid">
-                <div class="row">
-                    {% set fullName = app.user.prenom ~ " " ~ app.user.nom %}
-                    {% set imagePorfil = app.user.image ? app.user.image : 'default.png' %}
-                    <div class="col-12  col-lg-3">
-                        <div id="account-edit-photo">
-                            <div><img src="{{asset('assets/front/images/users/' ~ imagePorfil)}}" alt="{{ fullName |capitalize }}"></div>
-                            <p><a href="{{path('user_parametres')}}" class="btn btn-green-pro">Changer Photo de Profil</a></p>
-                            <p><a href="{{path('user_parametres')}}" class="btn btn-default">Supprimer Photo</a></p>
-                        </div>
-                    </div><!-- close .col -->
-                    <div class="col">
-
-                        {{ form_start(formgeneralUserInfo, {'attr': {'class': 'account-settings-form'}}) }}
+                {{ form_start(formgeneralUserInfo, {'attr': {'class': 'account-settings-form'}}) }}
+                    <div class="row">
+                        {% set fullName = app.user.prenom ~ " " ~ app.user.nom %}
+                        {% set imagePorfil = app.user.image ? app.user.image : 'default.png' %}
+                        <div class="col-12  col-lg-3">
+                            <div id="account-edit-photo">
+                                <div><img src="{{asset('/uploads/profils/' ~ imagePorfil)}}" alt="{{ fullName |capitalize }}"></div>
+                                 {{ form_widget(formgeneralUserInfo.image, {'attr': {'style': 'display: none;'}}) }}
+                                <p><a href="javascript:void(0);" onClick="document.querySelector('#general_user_info_image').click();" class="btn btn-green-pro">Changer de Photo de Profil</a></p>
+                            </div>
+                        </div><!-- close .col -->
+                        <div class="col">
                             <h5>Information General</h5>
                             <p class="small-paragraph-spacing">By letting us know your name, we can make our support
                                 experience much more personal.</p>
@@ -187,11 +186,10 @@
                             <hr>
                             <p><button type="submit" class="btn btn-green-pro">Enregistrer les changements</button></p>
                             <br>
-                        {{ form_end(formgeneralUserInfo) }}
+                        </div><!-- close .col -->
 
-                    </div><!-- close .col -->
-
-                </div><!-- close .row -->
+                    </div><!-- close .row -->
+                {{ form_end(formgeneralUserInfo) }}
             </div><!-- close .container-fluid -->
 
         </div><!-- close .dashboard-container -->
