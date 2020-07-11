@@ -4,7 +4,7 @@ security:
     encoders:
         # use your user class name here
         App\Entity\User:
-            algorithm: argon2i
+            algorithm: bcrypt
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:

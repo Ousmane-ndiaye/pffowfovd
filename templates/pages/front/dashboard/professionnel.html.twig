@@ -50,12 +50,14 @@
 		<div class="content-sidebar-section">
 			<h3 class="content-sidebar-sub-header">Derniers visites</h3>
 			<ul id="friends-activity-feed">
-				{% for vue in app.user.infoProfil.vues |slice(0, 4) %}
-					{% set imagePorfil = vue.visiteur.image ? vue.visiteur.image : 'default.png' %}
-					<li><img src="{{asset('assets/front/images/users/' ~ imagePorfil )}}" alt=""><a href="javascript:void(0);">{{vue.visiteur.prenom and vue.visiteur.nom ? vue.visiteur.prenom ~ ' ' ~ vue.visiteur.nom : vue.visiteur.email }}</a> a vue votre profil le <a href="javascript:void(0);">{{ vue.dateVue |date('d-m-Y') }}</a> vers <a href="javascript:void(0);">{{ vue.dateVue |date('H') ~ 'h' ~ vue.dateVue |date('i') }}</a></li>
+				{% if app.user.infoProfil and app.user.infoProfil.vues|length > 0 %}
+					{% for vue in app.user.infoProfil.vues |slice(0, 4) %}
+						{% set imagePorfil = vue.visiteur.image ? vue.visiteur.image : 'default.png' %}
+						<li><img src="{{asset('assets/front/images/users/' ~ imagePorfil )}}" alt=""><a href="javascript:void(0);">{{vue.visiteur.prenom and vue.visiteur.nom ? vue.visiteur.prenom ~ ' ' ~ vue.visiteur.nom : vue.visiteur.email }}</a> a vue votre profil le <a href="javascript:void(0);">{{ vue.dateVue |date('d-m-Y') }}</a> vers <a href="javascript:void(0);">{{ vue.dateVue |date('H') ~ 'h' ~ vue.dateVue |date('i') }}</a></li>
+					{% endfor %}
 				{% else %}
 					<li>Pas encore de visite !</li>
-				{% endfor %}
+				{% endif %}
 			</ul>
 			<div class="clearfix"></div>
 		</div><!-- close .content-sidebar-section -->

@@ -155,9 +155,22 @@ ul.timeline > li:before {
 }
 
 #help-overlay-text {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
+    position: absolute;
+    top: 25%;
+    left: 30%;
+    transform: translate(-25%, -25%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+#help-overlay-text .card-body .card-title {
+	font-size: 0.897em;
+}
+
+#help-overlay-text .card-body .card-text p {
+	font-size: 0.787em;
+	margin-bottom: 0.5rem;
+}
+
+.popover {
+	z-index: 1000;
 }
