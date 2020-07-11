@@ -68,49 +68,29 @@
 	<main id="col-main-with-sidebar">
 		<div class="dashboard-container">
 			
-			<ul class="dashboard-sub-menu">
-				<li class="current"><a href="javascript:void(0);">Recommended</a></li>
-				<li><a href="javascript:void(0);">Favorites</a></li>
-				<li><a href="javascript:void(0);">Playlists</a></li>
-				<li><a href="javascript:void(0);">Reviews</a></li>
-				<li><a href="javascript:void(0);">Friends</a></li>
+			<ul class="dashboard-sub-menu" id="dashboard-sub-menu">
+				<li class="current"><a href="javascript:void(0);" data-target="#recommandes">Recommandés</a></li>
+				<li><a href="javascript:void(0);" data-target="#candidatures">Candidatures</a></li>
+				<li><a href="javascript:void(0);" data-target="#convocations">Convocations</a></li>
 			</ul><!-- close .dashboard-sub-menu -->
 			
 			
-			<div class="row">
-				<div class="col-12 col-md-6 col-lg-6 col-xl-4">
-					<div class="item-listing-container-skrn">
-						<a href="javascript:void(0);"><img src="{{asset('assets/front/images/demo/listing-1.jpg')}}" alt="Listing"></a>
-						<div class="item-listing-text-skrn">
-							<div class="item-listing-text-skrn-vertical-align"><h6><a href="javascript:void(0);">The Wild Things Are</a></h6>
-								<div class="circle-rating-pro" data-value="0.86" data-animation-start-value="0.86" data-size="32" data-thickness="3" data-fill="{&quot;color&quot;: &quot;#42b740&quot;}" data-empty-fill="#def6de" data-reverse="true"><span style="color:#42b740;">8.6</span></div>
-							</div><!-- close .item-listing-text-skrn-vertical-align -->
-						</div><!-- close .item-listing-text-skrn -->
-					</div><!-- close .item-listing-container-skrn -->
-				</div><!-- close .col -->
-				
-				<div class="col-12 col-md-6 col-lg-6 col-xl-4">
-					<div class="item-listing-container-skrn">
-						<a href="javascript:void(0);"><img src="{{asset('assets/front/images/demo/listing-2.jpg')}}" alt="Listing"></a>
-						<div class="item-listing-text-skrn">
-							<div class="item-listing-text-skrn-vertical-align"><h6><a href="javascript:void(0);">Central Intelligence</a></h6>
-								<div class="circle-rating-pro" data-value="0.6" data-animation-start-value="0.6" data-size="32" data-thickness="3" data-fill="{&quot;color&quot;: &quot;#ff4141&quot;}" data-empty-fill="#ffe1e1" data-reverse="true"><span style="color:#ff4141;">6.0</span></div>
-							</div><!-- close .item-listing-text-skrn-vertical-align -->
-						</div><!-- close .item-listing-text-skrn -->
-					</div><!-- close .item-listing-container-skrn -->
-				</div><!-- close .col -->
-				
-				
-				<div class="col-12 col-md-6 col-lg-6 col-xl-4">
-					<div class="item-listing-container-skrn">
-						<a href="javascript:void(0);"><img src="{{asset('assets/front/images/demo/listing-3.jpg')}}" alt="Listing"></a>
-						<div class="item-listing-text-skrn">
-							<div class="item-listing-text-skrn-vertical-align"><h6><a href="javascript:void(0);">Zoolander No. 2</a></h6>
-								<div class="circle-rating-pro" data-value="0.86" data-animation-start-value="0.86" data-size="32" data-thickness="3" data-fill="{&quot;color&quot;: &quot;#42b740&quot;}" data-empty-fill="#def6de" data-reverse="true"><span style="color:#42b740;">8.6</span></div>
-							</div><!-- close .item-listing-text-skrn-vertical-align -->
-						</div><!-- close .item-listing-text-skrn -->
-					</div><!-- close .item-listing-container-skrn -->
-				</div><!-- close .col -->									
+			<div class="row ele-sub-menu" id="recommandes">
+				<div class="col-md-12">
+					<h6>Aucune offre ne vous est pas encore recommendé</h6>
+				</div>								
+			</div><!-- close .row -->
+
+			<div class="row ele-sub-menu" id="candidatures" style="display: none;">
+				<div class="col-md-12">
+					<h6>Vous n'avez pas encore à des offres</h6>
+				</div>							
+			</div><!-- close .row -->
+
+			<div class="row ele-sub-menu" id="convocations" style="display: none;">
+				<div class="col-md-12">
+					<h6>Vous n'avez pas encore été par une entreprise</h6>
+				</div>							
 			</div><!-- close .row -->
 		</div><!-- close .dashboard-container -->
 	</main>
@@ -121,4 +101,14 @@
     <script src="{{asset('assets/front/js/jquery-asRange.min.js')}}" defer></script><!-- Range Slider JS Plugin -->
     <script src="{{asset('assets/front/js/circle-progress.min.js')}}" defer></script><!-- Circle Progress JS Plugin -->
     <script src="{{asset('assets/front/js/script-dashboard.js')}}" defer></script><!-- Custom Document Ready for Dashboard Only JS -->
+	<script>
+		$(function() {
+			$('#dashboard-sub-menu').on( "click", "a", function() {
+				$('#dashboard-sub-menu li.current').removeClass('current');
+				$(this).closest('li').addClass('current');
+				$('.ele-sub-menu').hide();
+				$($(this).data('target')).show();
+			});
+		});
+	</script>
 {% endblock %}

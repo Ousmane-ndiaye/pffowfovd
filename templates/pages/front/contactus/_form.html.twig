@@ -1,0 +1,45 @@
+{{ form_start(form) }}
+    <h3>Laissez nous un message</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form_widget(form.fullname, {'attr': {'class': 'form-control', 'placeholder': 'Votre prénom et nom *'}}) }}
+                <div class="form-field-errors">
+                    {{ form_errors(form.fullname) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Votre email *'}}) }}
+                <div class="form-field-errors">
+                    {{ form_errors(form.email) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.phone, {'attr': {'class': 'form-control', 'placeholder': 'Votre numéro de téléphone'}}) }}
+                <div class="form-field-errors">
+                    {{ form_errors(form.phone) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.object, {'attr': {'class': 'form-control', 'placeholder': 'L\'objet de votre message *'}}) }}
+                <div class="form-field-errors">
+                    {{ form_errors(form.object) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form_widget(form.message, {'attr': {'class': 'form-control', 'placeholder': 'Votre message *', 'style': 'width: 100%; height: 195px;'}}) }}
+                <div class="form-field-errors">
+                    {{ form_errors(form.message) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <button class="btn btn-green-pro">{{ button_label|default('Envoyer') }}</button>
+            </div>
+        </div>
+    </div>
+
+{{ form_end(form) }}

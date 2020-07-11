@@ -98,6 +98,15 @@ class ProfessionnelController extends BaseController
     }
 
     /**
+     * @Route("/offres-emplois", name="professionnel_offre_liste")
+     * @Security("is_granted('ROLE_PROFESSIONNEL') or is_granted('ROLE_ENTREPRISE')")
+     */
+    public function offreEmploi(Request $request)
+    {
+        return $this->render('pages/front/professionnel/emplois.html.twig', []);
+    }
+
+    /**
      * @Route("/secteur/liste", name="professionnel_secteur_liste")
      * @Security("is_granted('ROLE_PROFESSIONNEL') or is_granted('ROLE_ENTREPRISE')")
      */

@@ -1,0 +1,52 @@
+{% extends 'pages/default/index.html.twig' %}
+
+{% block title %}Contactez-nous{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+    <style>
+        p {
+            text-align: justify;
+            color: #5f5f5f;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div id="page-title-pro">
+        <div class="container">
+            <div class="row">
+                <h1>Contactez-nous.</h1>
+                <h6>Pour plus d'infos appelez au (+221) 77 489 04 14 / 33 879 31 99  ou par email <a href="mailto:contact@sunucvideo.com">contact@sunucvideo.com</a></h6>
+            </div><!-- close .row -->
+        </div><!-- close .container -->
+    </div><!-- close #page-title-pro -->
+
+    <div id="content-pro">
+        
+        <div class="container">
+
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+                    {% for label, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ label }} alert-dismissible fade show">
+                                <button type="button" class="close" style="color: red; font-size: x-large; opacity: 0.5;" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div><!-- close .col -->
+            </div><!-- close .row -->
+            
+            <div class="row">
+                <div class="col-md-12">
+                    {{ include('pages/front/contactus/_form.html.twig') }}
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div><!-- close .container -->
+        
+    </div><!-- close #content-pro -->
+
+{% endblock %}

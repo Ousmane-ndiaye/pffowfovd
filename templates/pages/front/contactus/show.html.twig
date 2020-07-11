@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<title>Contactus</title>
+
+{% block body %}
+    <h1>Contactus</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ contactus.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ contactus.email }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ contactus.phone }}</td>
+            </tr>
+            <tr>
+                <th>Fullname</th>
+                <td>{{ contactus.fullname }}</td>
+            </tr>
+            <tr>
+                <th>Object</th>
+                <td>{{ contactus.object }}</td>
+            </tr>
+            <tr>
+                <th>Message</th>
+                <td>{{ contactus.message }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('contactus_index') }}">back to list</a>
+
+    <a href="{{ path('contactus_edit', {'id': contactus.id}) }}">edit</a>
+
+    {{ include('pages/front/contactus/_delete_form.html.twig') }}
+{% endblock %}

@@ -19,14 +19,14 @@
                         <li class="normal-item-pro">
                             <a href="{{path('app_home')}}">Accueil</a>
                         </li>
-                        <li class="normal-item-pro">
+                        {# <li class="normal-item-pro">
                             <a href="javascript:void(0);">A propos</a>
-                        </li>
+                        </li> #}
                         <li class="normal-item-pro">
                             <a href="{{ path('index_faqs') }}">FAQs</a>
                         </li>
                         <li class="normal-item-pro">
-                            <a href="javascript:void(0);">Contactez nous</a>
+                            <a href="{{path('contactus_new')}}">Contactez-nous</a>
                         </li>
                     </ul>
                 </nav>
@@ -48,14 +48,14 @@
                     <li>
                         <a href="{{path('app_home')}}">Accueil</a>
                     </li>
-                    <li>
+                    {# <li>
                         <a href="javascript:void(0);">A propos</a>
-                    </li>
+                    </li> #}
                     <li>
                         <a href="{{ path('index_faqs') }}">FAQs</a>
                     </li>
                     <li>
-                        <a href="javascript:void(0);">Contactez nous</a>
+                        <a href="{{path('contactus_new')}}">Contactez-nous</a>
                     </li>
                 </ul>
                 <div class="clearfix"></div>
@@ -240,7 +240,7 @@
                                                 <li>{{ offre |raw |e }}</li>
                                             {% endfor %}
                                         </ul>
-                                        <p><a class="btn {{ plan.parDefaut ? 'btn-green-pro' : '' }}" href="{{ path('choisir_profil') }}" role="button">Choisir ce Plan</a></p>
+                                        <p><a class="btn btn-green-pro" href="{{ path('choisir_profil') }}" role="button">Choisir ce Plan</a></p>
                                     </div><!-- close .pricing-table-col -->
                                 </div><!-- close .col-md-12 -->
                             {% endfor %}

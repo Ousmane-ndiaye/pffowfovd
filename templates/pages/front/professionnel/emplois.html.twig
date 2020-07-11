@@ -1,0 +1,49 @@
+{% extends 'pages/front/base.html.twig' %}
+
+{% block title %}Détail !{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+    <link href="{{asset('assets/plugins/Tags-Input/dist/jquery.tagsinput-revisited.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('assets/plugins/swiper-4.5.0/dist/css/swiper.min.css')}}" rel="stylesheet" type="text/css">
+
+    <link href="{{asset('assets/front/pages/professionnel/profil/style.css')}}" rel="stylesheet" type="text/css">
+    <style>
+        .label-value {
+            color: #000000;
+            font-size: 1.2rem;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <main id="col-main">
+        <div class="dashboard-container mt-5">
+            <div class="movie-details-section">
+				<div class="row">
+                    <div class="col-12 col-md-12 col-lg-12 col-xl-12">
+						{% for label, messages in app.flashes %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ label }} alert-dismissible fade show">
+                                    <button type="button" class="close" style="color: red; font-size: x-large; opacity: 0.5;" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    </div><!-- close .col -->
+                </div><!-- close .row -->
+            </div><!-- close .movie-details-section -->
+        </div>
+        
+        <div class="dashboard-container mt-5 text-center">
+            <h4>Aucune offre n'est disponible pour le moment !</h4>
+        </div><!-- close .dashboard-container -->
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{asset('assets/front/js/jquery-asRange.min.js')}}" defer></script><!-- Range Slider JS Plugin -->
+    <script src="{{asset('assets/front/js/circle-progress.min.js')}}" defer></script><!-- Circle Progress JS Plugin -->
+    <script src="{{asset('assets/front/js/script-dashboard.js')}}" defer></script><!-- Custom Document Ready for Dashboard Only JS -->
+{% endblock %}

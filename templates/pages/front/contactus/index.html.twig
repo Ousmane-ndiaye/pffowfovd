@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<title>Contactus index</title>
+
+{% block body %}
+    <h1>Contactus index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Fullname</th>
+                <th>Object</th>
+                <th>Message</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contactus in contactuses %}
+            <tr>
+                <td>{{ contactus.id }}</td>
+                <td>{{ contactus.email }}</td>
+                <td>{{ contactus.phone }}</td>
+                <td>{{ contactus.fullname }}</td>
+                <td>{{ contactus.object }}</td>
+                <td>{{ contactus.message }}</td>
+                <td>
+                    <a href="{{ path('contactus_show', {'id': contactus.id}) }}">show</a>
+                    <a href="{{ path('contactus_edit', {'id': contactus.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('contactus_new') }}">Create new</a>
+{% endblock %}
